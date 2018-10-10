@@ -1,0 +1,24 @@
+#video {
+  border: 5px solid white;
+  display: block;
+  margin-left: 37%;
+}
+
+#canvas {
+  display: block;
+  width: 160px;
+  height: auto;
+}
+
+#snap {
+  margin-left: 46.4%;
+  margin-top: 20px;
+}
+
+h1 {
+  text-align: center;
+}
+
+body {
+  background-color: lightblue;
+}

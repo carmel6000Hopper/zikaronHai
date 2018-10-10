@@ -1,8 +1,16 @@
 {
+<<<<<<< HEAD
   "name": "live_memory",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+=======
+  "name": "up_images",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "firebase": "^5.5.3",
+>>>>>>> 69999d798f0911c7b38e81c84824fb9025a4165d
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-scripts": "2.0.4"
