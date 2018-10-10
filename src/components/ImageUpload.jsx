@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 import {storage, dBRefImages} from '../firebase';
+import carmelLogo from '../images/carmel6000logo.jfif'
+// WARNING - not thread safe
+var imageCounter = 0 ;
 
 class ImageUpload extends Component {
   constructor(props) {
@@ -26,6 +29,7 @@ class ImageUpload extends Component {
       console.log(image);
       var key = uploadImagesToDb(image.name, this.state.gps_location);
       const uploadTask = storage.ref(`images/${key}`).put(image);
+      imageCounter ++;
       uploadTask.on('state_changed', 
       (snapshot) => {
         // progrss function ....
@@ -47,21 +51,37 @@ class ImageUpload extends Component {
   }
   render() {
     const style = {
-      height: '100vh',
+      height: '80vh',
       display: 'flex',
+      marginBottom: 1,
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center'
     };
+    const styleCount = {
+      fontSize: '10px' ,
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center'
+
+    }
     return (
-      <div style={style}>
+      <div style={style} >
+      מתעדים את שלטי המורשת
+      <br/><br/>
       <progress value={this.state.progress} max="100"/>
       <br/>
         <input type="file" onChange={this.handleChange}/>
         <button onClick={this.handleUpload}>Upload</button>
         <br/>
         <img src={this.state.url || 'http://via.placeholder.com/400x300'} alt="Uploaded images" height="300" width="400"/>
+        <div style={styleCount} className = "counter" >עד כה צולמו {imageCounter}  שלטים</div>
+        <br/>
+
+        <img src= {carmelLogo} height="60" />
       </div>
+      
     )
   }
 }
