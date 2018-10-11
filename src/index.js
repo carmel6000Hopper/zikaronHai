@@ -5,6 +5,6 @@ import registerServiceWorker from './registerServiceWorker';
 import ImageUpload from './components/ImageUpload';
 import {Camera} from './takePicture/Camera.js';
 
-ReactDOM.render([<ImageUpload/>, <Camera/>], document.getElementById('root'));
+ReactDOM.render([<Camera/>, <ImageUpload/>], document.getElementById('root'));
 
 registerServiceWorker();

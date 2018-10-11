@@ -79,7 +79,7 @@ class ImageUpload extends Component {
         <div style={styleCount} className = "counter" >עד כה צולמו {imageCounter}  שלטים</div>
         <br/>
 
-        <img src= {carmelLogo} height="60" />
+        <img src= {carmelLogo} height="60" alt="carmel 6000 logo"/>
       </div>
       
     )
