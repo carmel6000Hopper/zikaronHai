@@ -1,25 +1,36 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import ImageUpload from './components/ImageUpload';
+import {Camera} from './takePicture/Camera.js';
 
 class App extends Component {
+  constructor(props){
+    super(props)
+    this.state = ({
+      finishTakingPictures: false,
+      locationUserConfirmation: false,
+      imageUrlArray: []
+    });
+    this.finishTakingPicturesFunc = this.finishTakingPicturesFunc.bind(this);
+  }
+  
+  finishTakingPicturesFunc(dataUrl){
+    this.setState({ finishTakingPictures: true}, () => {
+      console.log("this.state.finishTakingPictures", this.state.finishTakingPictures)
+      console.log("dataUrl: ", dataUrl);
+      var newArray = this.state.imageUrlArray.slice();    
+      newArray.push(dataUrl);   
+      this.setState({ imageUrlArray: newArray}, () => {
+        console.log("this.state.imageUrlArray: ", this.state.imageUrlArray); 
+      })
+    })
+  }
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <Camera finishTakingPicturesFunc = {this.finishTakingPicturesFunc} saveCanvasURL = {()=>this.saveCanvasURL}/>
+        <ImageUpload />
       </div>
     );
   }
