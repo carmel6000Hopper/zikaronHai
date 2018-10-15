@@ -29,7 +29,6 @@ export class Camera extends Component {
     var context = canvas.getContext('2d');
     var video = document.getElementById('video');
 
-
     navigator.mediaDevices.getUserMedia({ video: true }).then(function (stream) {
       video.src = window.URL.createObjectURL(stream);
       video.play();
@@ -58,6 +57,11 @@ export class Camera extends Component {
     })
   }
 
+  onFinish = ()=> {
+    var canvas = document.getElementById('canvas');
+    var dataURL = canvas.toDataURL();
+    this.props.finishTakingPicturesFunc(dataURL);
+  }
 
   render() {
 
@@ -72,10 +76,8 @@ export class Camera extends Component {
         {/* need to figure out how to return the param canvasURL 
         ew have a problem with the render and didmount*/}
         {/* <button id="finishButton" onClick={this.saveURL} >Finish</button> */}
-        <button id="finishButton" onClick={()=>
-          this.props.finishTakingPicturesFunc} 
-        >Finish</button>
-        <label id="resultURL"></label>>
+        <button id="finishButton" onClick={this.onFinish}>Finish</button>
+        <label id="resultURL"></label>
 
         {/* // Not adding `{ audio: true }` since we only want video now */}
       </div>
