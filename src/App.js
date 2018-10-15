@@ -12,18 +12,26 @@ class App extends Component {
       imageUrlArray: []
     });
     this.finishTakingPicturesFunc = this.finishTakingPicturesFunc.bind(this);
+    this.saveCanvasURL = this.saveCanvasURL.bind(this);
   }
-  finishTakingPicturesFunc(canvasURL){
-    console.log(canvasURL);
+  finishTakingPicturesFunc(){
     this.setState({ finishTakingPictures: true}, () => {
       console.log("this.state.finishTakingPictures", this.state.finishTakingPictures)
     })
   }
-
+  saveCanvasURL(canvasURL){
+    console.log(canvasURL);
+    // check if slice is necessary
+    var newArray = this.state.imageUrlArray.slice();    
+    newArray.push(canvasURL);   
+    this.setState({ imageUrlArray: newArray}, () => {
+      
+    })
+  }
   render() {
     return (
       <div className="App">
-        <Camera finishTakingPicturesFunc = {this.finishTakingPicturesFunc}/>
+        <Camera finishTakingPicturesFunc = {this.finishTakingPicturesFunc} saveCanvasURL = {()=>this.saveCanvasURL}/>
         <ImageUpload />
       </div>
     );
