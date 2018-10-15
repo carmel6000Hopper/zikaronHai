@@ -15,15 +15,6 @@ export class Camera extends Component {
     });
   }
 
-
-  // saveURL(){
-  //   document.getElementById("finishButton").addEventListener("click", function () {
-  //     console.log("HERE");
-  
-  //   this.state.saveCanvasURL("aaaaaaa");
-  //   });
-  // }
-
   componentDidMount() {
     var canvas = document.getElementById('canvas');
     var context = canvas.getContext('2d');
@@ -48,12 +39,6 @@ export class Camera extends Component {
         }
 
       });
-      document.getElementById("finishButton").addEventListener("click", function () {
-        // TODO add this part when press finish
-        var dataURL = canvas.toDataURL();
-        console.log(" max this is the data URL" + dataURL);
-        document.getElementById("resultURL").innerHTML=dataURL;
-      });
     })
   }
 
@@ -73,9 +58,6 @@ export class Camera extends Component {
         </div>
         <button id="snap">Snap Photo</button>
         <canvas id="canvas" width="400" height="120"></canvas>
-        {/* need to figure out how to return the param canvasURL 
-        ew have a problem with the render and didmount*/}
-        {/* <button id="finishButton" onClick={this.saveURL} >Finish</button> */}
         <button id="finishButton" onClick={this.onFinish}>Finish</button>
         <label id="resultURL"></label>
 
