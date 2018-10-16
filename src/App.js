@@ -12,7 +12,6 @@ class App extends Component {
       imageUrlArray: []
     });
     this.finishTakingPicturesFunc = this.finishTakingPicturesFunc.bind(this);
-    // this.saveCanvasURL = this.saveCanvasURL.bind(this);
   }
   finishTakingPicturesFunc(dataUrl){
     this.setState({ finishTakingPictures: true}, () => {
