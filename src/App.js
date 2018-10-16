@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import ImageUpload from './components/ImageUpload';
-import {Camera} from './takePicture/Camera.js';
+import {Camera} from './components/Camera.js';
 
 class App extends Component {
   constructor(props){
@@ -13,7 +13,6 @@ class App extends Component {
     });
     this.finishTakingPicturesFunc = this.finishTakingPicturesFunc.bind(this);
   }
-  
   finishTakingPicturesFunc(dataUrl){
     this.setState({ finishTakingPictures: true}, () => {
       console.log("this.state.finishTakingPictures", this.state.finishTakingPictures)
@@ -25,7 +24,15 @@ class App extends Component {
       })
     })
   }
-
+  // saveCanvasURL(canvasURL){
+  //   console.log(canvasURL);
+  //   // check if slice is necessary
+  //   var newArray = this.state.imageUrlArray.slice();    
+  //   newArray.push(canvasURL);   
+  //   this.setState({ imageUrlArray: newArray}, () => {
+      
+  //   })
+  // }
   render() {
     return (
       <div className="App">
