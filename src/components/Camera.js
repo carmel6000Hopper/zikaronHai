@@ -3,7 +3,7 @@ import "./Camera.css";
 
 var num_images_taken = 0;
 const MAX_IMAGES_TAKEN = 5;
-const W = 80, H = 60;
+const CANVAS_WIDTH = 160, CANVAS_HEIGHT = 120;
 
 
 export class Camera extends Component {
@@ -12,13 +12,11 @@ export class Camera extends Component {
     console.log("props" + props);
     console.log(this.props.saveCanvasURL)
     this.state = ({
-      theURL: ""
+      theURL: []
     });
   }
 
   componentDidMount() {
-    // var canvas = document.getElementById('canvas');
-    // var context = canvas.getContext('2d');
     var video = document.getElementById('video');
 
     navigator.mediaDevices.getUserMedia({ video: true }).then(function (stream) {
@@ -26,30 +24,18 @@ export class Camera extends Component {
       video.play();
 
       document.getElementById("snap").addEventListener("click", function () {
-        // //context.drawImage(video, 0, 80 , 80, 60);
-
-        // if (num_images_taken < MAX_IMAGES_TAKEN) {
-        //   console.log(num_images_taken * 80);
-
-        //   context.drawImage(video, num_images_taken * 80, 0, 80, 60);
-        //   //context.drawImage(video, 0, 80 , 80, 60);
-        //   num_images_taken++;
-        // }
-        // else {
-        //   alert("too many pictures taken");
-        // }
-
         if (num_images_taken < MAX_IMAGES_TAKEN) {
           var canv = document.createElement("canvas");
-          canv.setAttribute('width', W*MAX_IMAGES_TAKEN);
-          canv.setAttribute('height', H);
+          canv.setAttribute('width', CANVAS_WIDTH);
+          canv.setAttribute('height', CANVAS_HEIGHT);
           canv.setAttribute('id', 'canv' + num_images_taken);
           document.body.appendChild(canv);
-          var C = document.getElementById(canv.getAttribute('id'));
+          var canvasElement = document.getElementById(canv.getAttribute('id'));
           console.log("canv.getAttribute('id'): ", canv.getAttribute('id'));
-          console.log("C: ", C);
-          makePlot(C, video);
-          num_images_taken++;
+          console.log("canvasElement: ", canvasElement);
+          if (canvasElement.getContext) {
+            makePlot(canvasElement, video);
+          }
         }
         else {
           alert("too many pictures taken");
@@ -57,17 +43,24 @@ export class Camera extends Component {
 
       });
     })
-    function makePlot(C, video) {
-      var ctx = C.getContext("2d");
-      ctx.drawImage(video, num_images_taken * W, 0, W, H);
+    function makePlot(canvasElement, video) {
+      var ctx = canvasElement.getContext("2d");
+      ctx.drawImage(video, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
       console.log("printed canvas");
+      num_images_taken++;
     }
   }
 
   onFinish = () => {
-    var canvas = document.getElementById('canvas');
-    var dataURL = canvas.toDataURL();
-    this.props.finishTakingPicturesFunc(dataURL);
+    var URLArray = [];
+    for (var i = 0; i< num_images_taken ; i++){
+      var currCanvas  = 'canv'+ i;
+      var canvas = document.getElementById(currCanvas);
+      var dataURL = canvas.toDataURL();
+    
+      URLArray.push(dataURL);  
+    }
+    this.props.finishTakingPicturesFunc(URLArray);
   }
 
   render() {

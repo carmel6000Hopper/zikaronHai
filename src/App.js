@@ -13,13 +13,11 @@ class App extends Component {
     });
     this.finishTakingPicturesFunc = this.finishTakingPicturesFunc.bind(this);
   }
-  finishTakingPicturesFunc(dataUrl){
+  finishTakingPicturesFunc(URLArray){
     this.setState({ finishTakingPictures: true}, () => {
       console.log("this.state.finishTakingPictures", this.state.finishTakingPictures)
-      console.log("dataUrl: ", dataUrl);
-      var newArray = this.state.imageUrlArray.slice();    
-      newArray.push(dataUrl);   
-      this.setState({ imageUrlArray: newArray}, () => {
+      console.log("dataUrl: ", URLArray);
+      this.setState({ imageUrlArray: URLArray}, () => {
         console.log("this.state.imageUrlArray: ", this.state.imageUrlArray); 
       })
     })
