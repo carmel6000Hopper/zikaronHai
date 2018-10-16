@@ -26,8 +26,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Camera finishTakingPicturesFunc = {this.finishTakingPicturesFunc} saveCanvasURL = {()=>this.saveCanvasURL}/>
-        <ImageUpload />
+        <Camera finishTakingPicturesFunc = {this.finishTakingPicturesFunc}/>
+        <ImageUpload imageUrlArr= {this.state.imageUrlArray}/>
       </div>
     );
   }

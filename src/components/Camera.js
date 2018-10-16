@@ -7,15 +7,6 @@ const CANVAS_WIDTH = 160, CANVAS_HEIGHT = 120;
 
 
 export class Camera extends Component {
-  // constructor(props) {
-  //   super(props)
-  //   console.log("props" + props);
-  //   console.log(this.props.saveCanvasURL)
-  //   this.state = ({
-  //     theURL: []
-  //   });
-  // }
-
   componentDidMount() {
     var video = document.getElementById('video');
 

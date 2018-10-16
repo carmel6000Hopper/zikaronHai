@@ -4,49 +4,41 @@ import carmelLogo from '../images/carmel6000logo.jfif'
 // WARNING - not thread safe
 var imageCounter = 0 ;
 
+function dataURItoBlob(dataURI) {
+  // convert base64 to raw binary data held in a string
+  // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
+  var byteString = atob(dataURI.split(',')[1]);
+
+  // separate out the mime component
+  var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+  // write the bytes of the string to an ArrayBuffer
+  var ab = new ArrayBuffer(byteString.length);
+  var ia = new Uint8Array(ab);
+  for (var i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
+  }
+  return new Blob([ab], {type: mimeString});
+}
+
 class ImageUpload extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      image: null,
-      url: '',
-      progress: 0,
-      gps_location : 0
-    }
-    this.handleChange = this
-      .handleChange
-      .bind(this);
-      this.handleUpload = this.handleUpload.bind(this);
+    this.handleUpload = this.handleUpload.bind(this);
   }
-  handleChange = e => {
-    if (e.target.files[0]) {
-      const image = e.target.files[0];
-      this.setState(() => ({image}));
-    }
-  }
-  handleUpload = () => {
-      const {image} = this.state;
-      console.log(image);
-      var key = uploadImagesToDb(image.name, this.state.gps_location);
-      const uploadTask = storage.ref(`images/${key}`).put(image);
-      imageCounter ++;
-      uploadTask.on('state_changed', 
-      (snapshot) => {
-        // progrss function ....
-        const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-        this.setState({progress});
-      }, 
-      (error) => {
-           // error function ....
-        console.log(error);
-      }, 
-    () => {
-        // complete function ....
-        storage.ref('images').child(key).getDownloadURL().then(url => {
-            console.log(url);
-            this.setState({url});
-        })
-    });
+  handleUpload () {
+    const urlArr = this.props.imageUrlArr;
+    console.log("url is " + urlArr);
+    for (var i = 0; i < urlArr.length; i++) {
+      var blob = dataURItoBlob(urlArr[i]);
+      console.log("blob " + blob);
+      var key = uploadImagesToDb(urlArr[i], 0);
+      console.log("key is " +key);
+      storage.ref(`images/${key}`).put(blob).then(function(snapshot) {
+        console.log('Uploaded an array!');
+        imageCounter ++;
+      });    
+      }
     
   }
   render() {
@@ -70,12 +62,9 @@ class ImageUpload extends Component {
       <div style={style} >
       מתעדים את שלטי המורשת
       <br/><br/>
-      <progress value={this.state.progress} max="100"/>
       <br/>
-        <input type="file" onChange={this.handleChange}/>
-        <button onClick={this.handleUpload}>Upload</button>
+        <button onClick={this.handleUpload}>OK</button>
         <br/>
-        <img src={this.state.url || 'http://via.placeholder.com/400x300'} alt="Uploaded images" height="300" width="400"/>
         <div style={styleCount} className = "counter" >עד כה צולמו {imageCounter}  שלטים</div>
         <br/>
 
@@ -86,13 +75,16 @@ class ImageUpload extends Component {
   }
 }
 
-function uploadImagesToDb(imageName, gps){
+function uploadImagesToDb(imageUrl, gps){
+  console.log("uploadImagesToDb");
+  console.log("image Url is ");
+  console.log(imageUrl);
   var imageInfos= {};
   // TO DO : ADD AUTH
   //imageInfos['userId'] = isUserSignedIn() ? firebase.auth().currentUser.uid : "no-uid";
   imageInfos['userId'] = "no-uid";
   imageInfos['gps'] = gps;
-  imageInfos['name'] = imageName;
+  imageInfos['name'] = 'name';
   const uploadToDb = dBRefImages.push(
   imageInfos, function onComplete(err) {
     if (err) {
@@ -102,6 +94,7 @@ function uploadImagesToDb(imageName, gps){
     }
   });
   var dbKey = uploadToDb.key;
+  console.log("dbKey is "+ dbKey);
   return dbKey;
 
 }
