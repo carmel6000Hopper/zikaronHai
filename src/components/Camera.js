@@ -1,32 +1,87 @@
 import React, { Component } from 'react';
 import "./Camera.css";
 
-var num_images_taken = 0;
+var numImagesTaken = 0;
 const MAX_IMAGES_TAKEN = 5;
-const CANVAS_WIDTH = 160, CANVAS_HEIGHT = 120;
 
 
 export class Camera extends Component {
+
+  static CANVAS_WIDTH = 160;
+  static CANVAS_HEIGHT = 120;
+
+  constructor(props) {
+    super(props);
+    this.state = { canList: [], snapShotsCounter: 0 };
+    this.canvasRef = React.createRef();
+
+  }
   componentDidMount() {
+
+    let canList = [];
+
     var video = document.getElementById('video');
 
-    navigator.mediaDevices.getUserMedia({ video: true }).then(function (stream) {
+    navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
       video.src = window.URL.createObjectURL(stream);
       video.play();
 
-      document.getElementById("snap").addEventListener("click", function () {
-        if (num_images_taken < MAX_IMAGES_TAKEN) {
+
+      document.getElementById("snap").addEventListener("click", () => {
+
+
+        if (numImagesTaken < MAX_IMAGES_TAKEN) {
+
+
+          /*
           var canv = document.createElement("canvas");
           canv.setAttribute('width', CANVAS_WIDTH);
           canv.setAttribute('height', CANVAS_HEIGHT);
-          canv.setAttribute('id', 'canv' + num_images_taken);
-          document.body.appendChild(canv);
+          canv.setAttribute('id', 'canv' + numImagesTaken);
+          */
+
+
+          //let canvasRef=React.createRef();
+
+
+          let canvasObj = {};
+          canvasObj.ref = React.createRef();
+          canvasObj.elem = <canvas width={Camera.CANVAS_WIDTH} height={Camera.CANVAS_HEIGHT}
+            ref={this.canvasRef}
+            key={this.state.snapShotsCounter + 1}>
+            Canvas Item
+          </canvas>
+
+          //console.log("canvas ref ctx",this.canvasRef.current.getContext("2d"));          
+          //var ctx = canvasElement.getContext("2d");
+          //ctx.drawImage(video, 0, 0, Camera.CANVAS_WIDTH, Camera.CANVAS_HEIGHT);
+          console.log("printed canvas");
+          numImagesTaken++;
+
+          // this.setState({ snapShotsCounter: this.state.snapShotsCounter + 1 }, () => {
+
+          // });
+
+          canList.push(canvasObj);
+
+          this.setState({ canList , snapShotsCounter: this.state.snapShotsCounter + 1}, () => {
+            //console.log("canvas ref ctx", this.canvasRef.current.getContext('2d'));
+            let ctx=canvasObj.elem.ref.current.getContext('2d');
+            //let ctx = this.canvasRef.current.getContext('2d');
+            ctx.drawImage(video, 0, 0, Camera.CANVAS_WIDTH, Camera.CANVAS_HEIGHT);
+          });
+          console.log("canvases list", canList);
+
+          //document.body.appendChild(canv);
+          /*
+          
           var canvasElement = document.getElementById(canv.getAttribute('id'));
           console.log("canv.getAttribute('id'): ", canv.getAttribute('id'));
           console.log("canvasElement: ", canvasElement);
           if (canvasElement.getContext) {
-            makePlot(canvasElement, video);
-          }
+            drawVideoOnCanvas(canvasElement, video);
+          } 
+          */
         }
         else {
           alert("too many pictures taken");
@@ -34,27 +89,35 @@ export class Camera extends Component {
 
       });
     })
-    function makePlot(canvasElement, video) {
+    function drawVideoOnCanvas(canvasElement, video) {
       var ctx = canvasElement.getContext("2d");
-      ctx.drawImage(video, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+      ctx.drawImage(video, 0, 0, Camera.CANVAS_WIDTH, Camera.CANVAS_HEIGHT);
       console.log("printed canvas");
-      num_images_taken++;
+      numImagesTaken++;
     }
   }
 
   onFinish = () => {
     var URLArray = [];
-    for (var i = 0; i< num_images_taken ; i++){
-      var currCanvas  = 'canv'+ i;
-      var canvas = document.getElementById(currCanvas);
-      var dataURL = canvas.toDataURL();
-    
-      URLArray.push(dataURL);  
+    for (var i = 0; i < this.state.canList.length; i++) {
+      console.log("this.state.canList[i]" + this.state.canList[i].elem.ref.current)
+      var dataURL = this.state.canList[i].elem.ref.current.toDataURL();
+      console.log("dataURL" + dataURL);
+      URLArray.push(dataURL);
     }
+    // for (var i = 0; i < numImagesTaken; i++) {
+    //   var currCanvas = 'canv' + i;
+    //   var canvas = document.getElementById(currCanvas);
+    //   var dataURL = canvas.toDataURL();
+
+    //   URLArray.push(dataURL);
+    // }
     this.props.finishTakingPicturesFunc(URLArray);
   }
 
   render() {
+
+    const canList = this.state.canList;
 
     // if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
     return (
@@ -69,6 +132,11 @@ export class Camera extends Component {
         <label id="resultURL"></label>
 
         {/* // Not adding `{ audio: true }` since we only want video now */}
+
+        <div className="snapshots-container">
+          {canList.map((canvas) => canvas.elem)}
+        </div>
+
       </div>
     );
   }
