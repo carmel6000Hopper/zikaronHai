@@ -60,9 +60,10 @@ export class Camera extends Component {
     return (
       <div id="cam-container">
         <div id="video-border">
-          <div><video id="video" width="320" height="240" autoPlay></video></div>
+          <video id="video" width="320" height="240" autoPlay></video>
+          <div className="container"></div>
+          <button id="snap"></button>
         </div>
-        <button id="snap">Snap Photo</button>
         {/* <canvas id="canvas" width="400" height="120"></canvas> */}
         <button id="finishButton" onClick={this.onFinish}>Finish</button>
         <label id="resultURL"></label>
