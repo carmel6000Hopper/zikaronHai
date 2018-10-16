@@ -22,15 +22,7 @@ class App extends Component {
       })
     })
   }
-  // saveCanvasURL(canvasURL){
-  //   console.log(canvasURL);
-  //   // check if slice is necessary
-  //   var newArray = this.state.imageUrlArray.slice();    
-  //   newArray.push(canvasURL);   
-  //   this.setState({ imageUrlArray: newArray}, () => {
-      
-  //   })
-  // }
+
   render() {
     return (
       <div className="App">
