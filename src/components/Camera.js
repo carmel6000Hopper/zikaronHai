@@ -89,12 +89,12 @@ export class Camera extends Component {
 
       });
     })
-    function drawVideoOnCanvas(canvasElement, video) {
-      var ctx = canvasElement.getContext("2d");
-      ctx.drawImage(video, 0, 0, Camera.CANVAS_WIDTH, Camera.CANVAS_HEIGHT);
-      console.log("printed canvas");
-      numImagesTaken++;
-    }
+    // function drawVideoOnCanvas(canvasElement, video) {
+    //   var ctx = canvasElement.getContext("2d");
+    //   ctx.drawImage(video, 0, 0, Camera.CANVAS_WIDTH, Camera.CANVAS_HEIGHT);
+    //   console.log("printed canvas");
+    //   numImagesTaken++;
+    // }
   }
 
   onFinish = () => {

@@ -1,104 +1,86 @@
-import React, {Component} from 'react';
-import {storage, dBRefImages} from '../firebase';
+import React, { Component } from 'react';
+import { storage, dBRefImages } from '../firebase';
 import carmelLogo from '../images/carmel6000logo.jfif'
+import dataURItoBlob from '../helpFunction'
+import {GPS} from './GPS'
+import {style, styleCount} from './ImageStyle'
 // WARNING - not thread safe
-var imageCounter = 0 ;
-
-function dataURItoBlob(dataURI) {
-  // convert base64 to raw binary data held in a string
-  // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
-  var byteString = atob(dataURI.split(',')[1]);
-
-  // separate out the mime component
-  var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
-
-  // write the bytes of the string to an ArrayBuffer
-  var ab = new ArrayBuffer(byteString.length);
-  var ia = new Uint8Array(ab);
-  for (var i = 0; i < byteString.length; i++) {
-      ia[i] = byteString.charCodeAt(i);
-  }
-  return new Blob([ab], {type: mimeString});
-}
+var imageCounter = 0;
 
 class ImageUpload extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      longitude: 0,
+      latitude: 0
+    }
     this.handleUpload = this.handleUpload.bind(this);
+    this.updateLocation = this.updateLocation.bind(this);
+    this.uploadImagesToDb = this.uploadImagesToDb.bind(this);
+
   }
-  handleUpload () {
+  updateLocation(latitude, longitude){
+    this.setState({ latitude: latitude, longitude: longitude })
+  }
+  uploadImagesToDb(imageUrl, gps) {
+    console.log("uploadImagesToDb");
+    console.log("image Url is " +imageUrl);
+    var imageInfos = {};
+    // TODO : ADD AUTH
+    //imageInfos['userId'] = isUserSignedIn() ? firebase.auth().currentUser.uid : "no-uid";
+    imageInfos['userId'] = "no-uid";
+    imageInfos['gps_longitude'] = this.state.longitude;
+    imageInfos['gps_latitude'] =  this.state.latitude;
+    imageInfos['name'] = 'name';
+    const uploadToDb = dBRefImages.push(
+      imageInfos, function onComplete(err) {
+        if (err) {
+          alert("uploadImageInfosToDB: push failed with " + err);
+        } else {
+          console.log("uploadImageInfosToDB: done");
+        }
+      });
+    var dbKey = uploadToDb.key;
+    console.log("dbKey is " + dbKey);
+    return dbKey;
+
+  }
+
+  handleUpload() {
     const urlArr = this.props.imageUrlArr;
     console.log("url is " + urlArr);
     for (var i = 0; i < urlArr.length; i++) {
       var blob = dataURItoBlob(urlArr[i]);
       console.log("blob " + blob);
-      var key = uploadImagesToDb(urlArr[i], 0);
-      console.log("key is " +key);
-      storage.ref(`images/${key}`).put(blob).then(function(snapshot) {
+      var key = this.uploadImagesToDb(urlArr[i], 0);
+      console.log("key is " + key);
+      storage.ref(`images/${key}`).put(blob).then(function (snapshot) {
         console.log('Uploaded an array!');
-        imageCounter ++;
-      });    
-      }
-    
+        imageCounter++;
+      });
+    }
+
   }
   render() {
-    const style = {
-      height: '80vh',
-      display: 'flex',
-      marginBottom: 1,
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center'
-    };
-    const styleCount = {
-      fontSize: '10px' ,
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center'
-
-    }
+   
     return (
       <div style={style} >
-      מתעדים את שלטי המורשת
-      <br/><br/>
-      <br/>
+        מתעדים את שלטי המורשת
+      <br /><br />
+        <br />
         <button onClick={this.handleUpload}>upload</button>
-        <br/>
-        <div style={styleCount} className = "counter" ><h2>עד כה צולמו {imageCounter}  שלטים</h2></div>
-        <br/>
-
-        <img src= {carmelLogo} height="60" alt="carmel 6000 logo"/>
+        <br />
+        <div style={styleCount} className="counter" ><h2>עד כה צולמו {imageCounter}  שלטים</h2></div>
+        <br />
+        <h3><GPS updateLocation = {this.updateLocation} /></h3>
+        <img src={carmelLogo} height="60" alt="carmel 6000 logo" />
         <button onClick={() => { this.props.history.push('/') }} >back</button>
       </div>
-      
     )
   }
 }
 
-function uploadImagesToDb(imageUrl, gps){
-  console.log("uploadImagesToDb");
-  console.log("image Url is ");
-  console.log(imageUrl);
-  var imageInfos= {};
-  // TO DO : ADD AUTH
-  //imageInfos['userId'] = isUserSignedIn() ? firebase.auth().currentUser.uid : "no-uid";
-  imageInfos['userId'] = "no-uid";
-  imageInfos['gps'] = gps;
-  imageInfos['name'] = 'name';
-  const uploadToDb = dBRefImages.push(
-  imageInfos, function onComplete(err) {
-    if (err) {
-        alert("uploadImageInfosToDB: push failed with " + err);
-    } else {
-        console.log("uploadImageInfosToDB: done");
-    }
-  });
-  var dbKey = uploadToDb.key;
-  console.log("dbKey is "+ dbKey);
-  return dbKey;
 
-}
-
- 
 export default ImageUpload;
+
+
