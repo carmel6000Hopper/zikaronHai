@@ -52,6 +52,7 @@ export class Camera extends Component {
       URLArray.push(dataURL);  
     }
     this.props.finishTakingPicturesFunc(URLArray);
+    this.props.history.push('/upload');
   }
 
   render() {
@@ -65,7 +66,9 @@ export class Camera extends Component {
           <button id="snap"></button>
         </div>
         {/* <canvas id="canvas" width="400" height="120"></canvas> */}
-        <button id="finishButton" onClick={this.onFinish}>Finish</button>
+        <button id="finishButton" onClick={this.onFinish} >Finish</button>
+        <br/><br/>
+        <button onClick={()=>{this.props.history.push('/')}} >back</button>
         <label id="resultURL"></label>
 
         {/* // Not adding `{ audio: true }` since we only want video now */}

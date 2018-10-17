@@ -63,12 +63,13 @@ class ImageUpload extends Component {
       מתעדים את שלטי המורשת
       <br/><br/>
       <br/>
-        <button onClick={this.handleUpload}>OK</button>
+        <button onClick={this.handleUpload}>upload</button>
         <br/>
-        <div style={styleCount} className = "counter" >עד כה צולמו {imageCounter}  שלטים</div>
+        <div style={styleCount} className = "counter" ><h2>עד כה צולמו {imageCounter}  שלטים</h2></div>
         <br/>
 
         <img src= {carmelLogo} height="60" alt="carmel 6000 logo"/>
+        <button onClick={() => { this.props.history.push('/') }} >back</button>
       </div>
       
     )

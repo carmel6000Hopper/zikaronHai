@@ -1,5 +1,16 @@
-// import React, { Component } from 'react';
- // export class LocationGPS extends Component {
+import React, { Component } from 'react';
+
+export class LocationGPS extends Component {
+    render() {
+        return (
+            <div>
+                <h1>GPS</h1>
+                <button onClick={() => { this.props.history.push('/') }} >back</button>
+            </div>
+        );
+    }
+}
+export default LocationGPS;
  //     constructor() {
 //         super();
 //         this.state({
@@ -19,7 +30,7 @@
 //             });
 //             return;
 //         }
-        
+
 //         // -----------------------------------------------------------------------------------------------------//
 //         // still inside the "geolocation" function -> the latitude\longitude use the var we put in the function // 
 //         //------------------------------------------------------------------------------------------------------//
