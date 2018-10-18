@@ -4,7 +4,7 @@ import ImageUpload from './components/ImageUpload';
 import { Camera } from './components/Camera.js';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import { PicPage } from './Router';
-import { LocationGPS } from './components/Location.js';
+import { MyMapComponent } from './components/Location.js';
 export class Main extends Component {
   constructor(props) {
     super(props)
@@ -45,11 +45,12 @@ export class Main extends Component {
                 <ImageUpload {...props}
                   imageUrlArr={this.state.imageUrlArray} />} />
 
-            <Route exact path="/gps" component={LocationGPS} />
+            <Route exact path="/gps" component={MyMapComponent} />
 
 
           </Switch>
         </BrowserRouter>
+
       </div>
     );
   }
