@@ -17,6 +17,5 @@ export class Canvas extends Component {
                 <button id="deleteCanvas">DEL</button>
             </div>
         )
-
     }
 }

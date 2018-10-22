@@ -15,9 +15,9 @@ var config = {
 firebase.initializeApp(config);
 
 const storage = firebase.storage();
-var fbData = firebase.database();
+const fbData = firebase.database();
 const dBRefImages = fbData.ref().child('images');
 
 export {
-    storage, dBRefImages, firebase 
+    storage, dBRefImages, fbData,firebase
 }

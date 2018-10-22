@@ -4,16 +4,26 @@ import ImageUpload from './components/ImageUpload';
 import { Camera } from './components/Camera.js';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import { PicPage } from './Router';
-import { MyMapComponent } from './components/Location.js';
+import { DisplayMapOnScreen } from './components/Location.js';
+//import { Menu } from './components/Menu';
+import { GPS } from './components/GPS';
+
 export class Main extends Component {
   constructor(props) {
     super(props)
     this.state = ({
       finishTakingPictures: false,
       locationUserConfirmation: false,
+      longitude: 0,
+      latitude: 0,
       imageUrlArray: []
     });
     this.finishTakingPicturesFunc = this.finishTakingPicturesFunc.bind(this);
+    this.updateLocation = this.updateLocation.bind(this);
+  }
+
+  updateLocation(latitude, longitude) {
+    this.setState({ latitude: latitude, longitude: longitude })
   }
   finishTakingPicturesFunc(URLArray) {
     this.setState({ finishTakingPictures: true }, () => {
@@ -30,7 +40,7 @@ export class Main extends Component {
       <div className="App">
         {/* <Camera finishTakingPicturesFunc = {this.finishTakingPicturesFunc}/> */}
         {/* <ImageUpload imageUrlArr={this.state.imageUrlArray} /> */}
-
+        {/* <Menu /> */}
         <BrowserRouter>
           <Switch>
             <Route exact path="/" component={PicPage} />
@@ -43,14 +53,15 @@ export class Main extends Component {
             <Route exact path="/upload"
               render={(props) =>
                 <ImageUpload {...props}
-                  imageUrlArr={this.state.imageUrlArray} />} />
+                  imageUrlArr={this.state.imageUrlArray} longitude = {this.state.longitude} latitude = {this.state.latitude} />} />
 
-            <Route exact path="/gps" component={MyMapComponent} />
+            <Route exact path="/gps"   render={(props) =>  <DisplayMapOnScreen {...props}
+                longitude = {this.state.longitude} latitude = {this.state.latitude} />} />
 
 
           </Switch>
         </BrowserRouter>
-
+        <GPS updateLocation={this.updateLocation} />       
       </div>
     );
   }
