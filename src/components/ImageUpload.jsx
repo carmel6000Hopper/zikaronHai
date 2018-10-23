@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { storage, dBRefImages , fbData, firebase} from '../firebase';
-import carmelLogo from '../images/carmel6000logo.jfif'
 import dataURItoBlob from '../helpFunction'
 
 import { style, styleCount } from './ImageStyle'
-import { GeoFireQuery } from './GeoFireQuery';
+// import { GeoFireQuery } from './GeoFireQuery';
 // WARNING - not thread safe
 var imageCounter = 0;
 //const dBRefImages = fbData.ref().child('images');
-const firebaseRef = fbData.ref().push();
+const firebaseRef = fbData.ref().child('geoFire').push();
 // Create a new GeoFire instance at the random Firebase location
 var GeoFire = require('geofire');
 //const firebaseRef = dBRefImages.push('imagesGeoFire');
@@ -23,7 +22,6 @@ class ImageUpload extends Component {
     this.handleUpload = this.handleUpload.bind(this);
     this.uploadImagesToDb = this.uploadImagesToDb.bind(this);
   }
- 
   uploadImagesToDb(imageUrl, gps) {
     console.log("uploadImagesToDb");
     console.log("image Url is " + imageUrl);
@@ -84,16 +82,14 @@ class ImageUpload extends Component {
         <br />
         <div style={styleCount} className="counter" ><h2>עד כה צולמו {imageCounter}  שלטים</h2></div>
         <br />
-        <img src={carmelLogo} height="60" alt="carmel 6000 logo" />
+        {/* <img src={carmelLogo} height="60" alt="carmel 6000 logo" /> */}
         <button onClick={() => { this.props.history.push('/') }} >back</button>
-        <GeoFireQuery longitude={this.props.longitude} latitude={this.props.latitude} geoFire = {this.state.geoFire}/>
+       
       </div>
     )
   }
 }
-// export {
-//   firebaseRef, geoFire
-// }
+
 
 export default ImageUpload;
 

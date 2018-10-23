@@ -4,31 +4,30 @@ import React, { Component } from 'react';
 // import { firebaseRef, geoFire } from './ImageUpload'
 
 export class GeoFireQuery extends Component {
-    
+    constructor(props){
+        super(props);
+        this.state = {
+            key: '',
+            location: ''
+        }
+    }
     render() {
         var GeoFire = require('geofire');
-        // Create a GeoQuery centered at fish2
+        // Create a GeoQuery
         var geoQuery = this.props.geoFire.query({
             center: [this.props.longitude, this.props.latitude],
-            radius: 1000
+            radius: 100
         });
         var onKeyEnteredRegistration = geoQuery.on("key_entered", function (key, location) {
-            console.log("hi")
+            console.log("location is " + location)
             console.log(key + " entered the query. Hi " + key + "!");
+            this.setState({key: key, location:location});
         });
-        console.log("latitude is ", this.props.latitude);
-        console.log("longitude is ", this.props.longitude);
-        console.log("geoQuery is ", geoQuery);
-        console.log("this.props.geoFire is ", this.props.geoFire);
+        // Cancel all of the query's callbacks
+        onKeyEnteredRegistration.cancel();
         return (
-            <h1>HI geoQuery</h1>
+            <p>key is {this.state.key} and the location is {this.state.location}</p>
         );
-      
-        // // Cancel the "key_moved" callback when the corresponding button is clicked
-        // document.getElementById("cancelKeyMovedCallbackButton").addEventListener("click", function () {
-        //     log("*** 'key_moved' callback cancelled ***");
-        //     onKeyMovedRegistration.cancel();
-        // });
     }
 }
 

@@ -5,7 +5,8 @@ import { Camera } from './components/Camera.js';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import { PicPage } from './Router';
 import { DisplayMapOnScreen } from './components/Location.js';
-//import { Menu } from './components/Menu';
+import { Menu } from './components/Menu';
+import carmelLogo from './images/carmel6000logo.jfif'
 import { GPS } from './components/GPS';
 
 export class Main extends Component {
@@ -43,7 +44,7 @@ export class Main extends Component {
         {/* <Menu /> */}
         <BrowserRouter>
           <Switch>
-            <Route exact path="/" component={PicPage} />
+            <Route exact path="/" component={Menu} />
 
             <Route exact path="/camera"
               render={(props) =>
@@ -61,7 +62,10 @@ export class Main extends Component {
 
           </Switch>
         </BrowserRouter>
-        <GPS updateLocation={this.updateLocation} />       
+        <GPS updateLocation={this.updateLocation} /> 
+        <br/> <br/>    
+        <img src={carmelLogo} height="60" alt="carmel 6000 logo" />
+  
       </div>
     );
   }
