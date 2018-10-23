@@ -20,7 +20,6 @@ export const DisplayMapOnScreen =  compose(
   <GoogleMap
     defaultZoom={18}
     defaultCenter={{ lat: {...props}.latitude , lng: {...props}.longitude}} >
-
     <Marker
       position={{ lat:{...props}.latitude , lng: {...props}.longitude }}
     />

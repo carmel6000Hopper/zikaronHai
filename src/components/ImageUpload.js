@@ -3,22 +3,12 @@ import { storage, dBRefImages , fbData, firebase} from '../firebase';
 import dataURItoBlob from '../helpFunction'
 
 import { style, styleCount } from './ImageStyle'
-// import { GeoFireQuery } from './GeoFireQuery';
 // WARNING - not thread safe
 var imageCounter = 0;
-//const dBRefImages = fbData.ref().child('images');
-const firebaseRef = fbData.ref().child('geoFire').push();
-// Create a new GeoFire instance at the random Firebase location
-var GeoFire = require('geofire');
-//const firebaseRef = dBRefImages.push('imagesGeoFire');
-const geoFire = new GeoFire(firebaseRef);
-class ImageUpload extends Component {
+
+export class ImageUpload extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      firebaseRef : firebaseRef , 
-      geoFire : geoFire
-    }
     this.handleUpload = this.handleUpload.bind(this);
     this.uploadImagesToDb = this.uploadImagesToDb.bind(this);
   }
@@ -43,7 +33,7 @@ class ImageUpload extends Component {
     var dbKey = uploadToDb.key;
     console.log("dbKey is " + dbKey);
     //upload to geofire - such that we will be able to retrieve data from specific radius
-    geoFire.set("geoFire_images" + dbKey, [this.props.longitude, this.props.latitude]).then(function() {
+    this.props.geoFire.set("geoFire_images" + dbKey, [this.props.longitude, this.props.latitude]).then(function() {
       console.log("Provided key has been added to GeoFire");
     }, function(error) {
       console.log("Error: " + error);
@@ -55,7 +45,7 @@ class ImageUpload extends Component {
 
   handleUpload() {
     console.log("HERE - HANDLE UPLOAD");
-    const urlArr = this.props.imageUrlArr;
+    const urlArr = this.props.imageUrlArray;
     console.log("url is " + urlArr);
     console.log("url length is " + urlArr.length);
     for (var i = 0; i < urlArr.length; i++) {
@@ -78,11 +68,11 @@ class ImageUpload extends Component {
         מתעדים את שלטי המורשת
       <br /><br />
         <br />
+
         <button onClick={this.handleUpload}>upload</button>
         <br />
-        <div style={styleCount} className="counter" ><h2>עד כה צולמו {imageCounter}  שלטים</h2></div>
+        <div style={styleCount} className="counter" ><h2>עד כה צולמו {imageCounter} שלטים</h2></div>
         <br />
-        {/* <img src={carmelLogo} height="60" alt="carmel 6000 logo" /> */}
         <button onClick={() => { this.props.history.push('/') }} >back</button>
        
       </div>

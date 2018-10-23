@@ -14,7 +14,6 @@ export class Camera extends Component {
     super(props);
     this.state = { canList: [], snapShotsCounter: 0 };
     this.canvasRef = React.createRef();
-
   }
   componentDidMount() {
 
@@ -112,8 +111,9 @@ export class Camera extends Component {
 
     //   URLArray.push(dataURL);
     // }
+    console.log("on finish this.props" + this.props);
     this.props.finishTakingPicturesFunc(URLArray);
-    this.props.history.push('/upload');
+    this.props.history.push('/uploadHandler');
   }
 
   render() {

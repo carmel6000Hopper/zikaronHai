@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { GeoFireQuery } from './GeoFireQuery';
 import { storage, dBRefImages, fbData, firebase } from '../firebase';
 
@@ -8,20 +8,34 @@ var GeoFire = require('geofire');
 export class CheckForImageInDb extends Component {
     constructor() {
         super();
-        newFunction().state = {
-            longitude: 0,
-            latitude: 0,
-            firebaseRef: firebaseRef,
-            geoFire: geoFire
+        this.state = {
+            findCloseLocationImage: false,
+            keyClosestImage: ''
         }
-        this.updateLocation = this.updateLocation.bind(this);
+        this.setFindCloseLocationImage = this.setFindCloseLocationImage.bind(this);
+        this.setKeyClosestImage = this.setKeyClosestImage.bind(this);
     }
-    updateLocation(latitude, longitude) {
-        this.setState({ latitude: latitude, longitude: longitude })
+
+    setFindCloseLocationImage() {
+        console.log("setFindCloseLocationImage")
+        this.setState({ findCloseLocationImage: true });
+       
+    }
+    setKeyClosestImage(key) {
+        this.setState({ keyClosestImage: key });
     }
     render() {
-        return <GeoFireQuery longitude={this.props.longitude} latitude={this.props.latitude} geoFire = {this.state.geoFire}/>
+        return (
+            <div>
+                <p>In check for image in Db</p>
+                <GeoFireQuery longitude={this.props.longitude}
+                    latitude={this.props.latitude}
+                    geoFire={this.props.geoFire}
+                    setFindCloseLocationImage={this.setFindCloseLocationImage}
+                    setKeyClosestImage={this.setKeyClosestImage} />
 
+            </div>
+        );
     }
 }
 
