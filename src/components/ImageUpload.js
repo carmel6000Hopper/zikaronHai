@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { storage, dBRefImages , fbData, firebase} from '../firebase';
+import { storage, dBRefImages, fbData, firebase } from '../firebase';
 import dataURItoBlob from '../helpFunction'
 
 import { style, styleCount } from './ImageStyle'
@@ -33,9 +33,9 @@ export class ImageUpload extends Component {
     var dbKey = uploadToDb.key;
     console.log("dbKey is " + dbKey);
     //upload to geofire - such that we will be able to retrieve data from specific radius
-    this.props.geoFire.set("geoFire_images" + dbKey, [this.props.longitude, this.props.latitude]).then(function() {
+    this.props.geoFire.set("geoFire_images" + dbKey, [this.props.longitude, this.props.latitude]).then(function () {
       console.log("Provided key has been added to GeoFire");
-    }, function(error) {
+    }, function (error) {
       console.log("Error: " + error);
     });
     // TODO check if not necessary to write 
@@ -68,13 +68,12 @@ export class ImageUpload extends Component {
         מתעדים את שלטי המורשת
       <br /><br />
         <br />
-
         <button onClick={this.handleUpload}>upload</button>
         <br />
         <div style={styleCount} className="counter" ><h2>עד כה צולמו {imageCounter} שלטים</h2></div>
         <br />
         <button onClick={() => { this.props.history.push('/') }} >back</button>
-       
+
       </div>
     )
   }

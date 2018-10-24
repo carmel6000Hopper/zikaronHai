@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import { ImageUpload } from './ImageUpload';
-import { CheckForImageInDb } from './CheckForImageInDb';
+//import { CheckForImageInDb } from './ImageDetector';
 import { storage, dBRefImages, fbData, firebase } from '../firebase';
 
 const firebaseRef = fbData.ref().child('geoFire').push();
@@ -25,7 +25,7 @@ export class UploadHandler extends Component {
         const hasToUpload = this.state.hasToUpload;
         return (
             <div>
-                <CheckForImageInDb setHasToUpload={this.setHasToUpload}
+                {/* <CheckForImageInDb setHasToUpload={this.setHasToUpload}
                     longitude={this.props.longitude}
                     latitude={this.props.latitude}
                     geoFire={geoFire} />
@@ -36,7 +36,7 @@ export class UploadHandler extends Component {
                         geoFire={geoFire} />
                 ) : (
                         <p>כבר קיים שלט במקום הצויין</p>
-                    )}
+                    )} */}
             </div>
         );
     }
