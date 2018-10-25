@@ -1,50 +1,42 @@
-import { storage, dBRefImages } from '../firebase';
-import React, { Component } from 'react';
+// import { storage, dBRefImages } from '../firebase';
+// import React, { Component } from 'react';
 
-// import { firebaseRef, geoFire } from './ImageUpload'
+// // import { firebaseRef, geoFire } from './ImageUpload'
 
-export class GeoFireQuery extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            key: '',
-            location: ''
-        }
-    }
+// export class GeoFireQuery extends Component {
+//     constructor(props){
+//         super(props);
+//         this.state = {
+//             key: '',
+//             location: ''
+//         }
+//     }
 
-    componentDidMount(){
+//     componentDidMount(){
 
-        console.log("componentDidMount is launched");
-        var geoQuery = this.props.geoFire.query({
-            center: [this.props.longitude, this.props.latitude],
-            // radius in kilometer
-            radius: 0.05
-        });
+//         console.log("componentDidMount is launched");
+//         var geoQuery = this.props.geoFire.query({
+//             center: [this.props.longitude, this.props.latitude],
+//             // radius in kilometer
+//             radius: 0.05
+//         });
         
-        var onKeyEnteredRegistration = geoQuery.on("key_entered", (key, location) => {
-            console.log("location is " + location)
-            console.log(key + " entered the query. Hi " + key + "!");
-            //this.setState({key, location});
-            this.props.setKeyClosestImage(key);
-            this.props.setFindCloseLocationImage();
-            geoQuery.cancel();
-        });
+//         var onKeyEnteredRegistration = geoQuery.on("key_entered", (key, location) => {
+//             console.log("location is " + location)
+//             console.log(key + " entered the query. Hi " + key + "!");
+//             //this.setState({key, location});
+//             this.props.setKeyClosestImage(key);
+//             this.props.setFindCloseLocationImage();
+//             geoQuery.cancel();
+//         });
 
 
-    }
+//     }
 
-    render() {
-        
-        //geoQuery.on("ready", function(){
-          //  console.log("on ready - geo query");
-        //});
-        
-        return (<div/>);
-        // // Cancel all of the query's callbacks
-        // onKeyEnteredRegistration.cancel();
-        // return (
-        //     <p>key is {this.state.key} and the location is {this.state.location}</p>
-        // );
-    }
-}
-export default GeoFireQuery;
+//     render() {
+
+//         return (<div/>);
+ 
+//     }
+// }
+// export default GeoFireQuery;

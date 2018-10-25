@@ -23,10 +23,12 @@ export class Main extends Component {
       imageUrlArray: [],
       navBarIsOpened: false
     });
-    this.finishTakingPicturesFunc = this.finishTakingPicturesFunc.bind(this);
     this.updateLocation = this.updateLocation.bind(this);
+    this.gps = new GPS(this.updateLocation);
+    this.finishTakingPicturesFunc = this.finishTakingPicturesFunc.bind(this);
     this.setNavBarIsOpened = this.setNavBarIsOpened.bind(this);
     this.setNavBarIsClosed = this.setNavBarIsClosed.bind(this);
+    console.log ("Main componenet constructor updatelocation ", this.updateLocation)
   }
   setNavBarIsOpened() {
     this.setState({ navBarIsOpened: true });
@@ -37,7 +39,8 @@ export class Main extends Component {
     document.getElementById("carmelLogo").style.marginRight = "0";
   }
   updateLocation(latitude, longitude) {
-    this.setState({ latitude: latitude, longitude: longitude })
+    console.log("update location "+latitude+ " " + longitude)
+    this.setState({ latitude, longitude })
   }
   finishTakingPicturesFunc(imageUrlArray) {
     this.setState({ finishTakingPictures: true }, () => {
@@ -48,9 +51,11 @@ export class Main extends Component {
       })
     })
   }
-
+  componentDidMount(){
+    // gps start
+    this.gps.startWatchingPosition();
+  }
   render() {
-
     return (
       <div className="App">
 
@@ -129,7 +134,6 @@ export class Main extends Component {
             {/* <Route exact path="/signin" component={SignIn}/> */}
           </Switch>
         </BrowserRouter>
-        <GPS updateLocation={this.updateLocation} />
         <br /> <br />
 
         <br /><br />
@@ -138,6 +142,5 @@ export class Main extends Component {
     );
   }
 }
-
 
 export default Main;

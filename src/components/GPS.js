@@ -1,25 +1,29 @@
-import { Component } from 'react';
-
-export class GPS extends Component {
-    constructor() {
-        super();
+export class GPS {
+    constructor(onSuccessFunction) {
+        this.latitude =  0;
+        this.longitude =  0 ;
+        this.interval = 10000;
+        this.onSuccessFunction = onSuccessFunction ;
         this.onSuccessLocation = this.onSuccessLocation.bind(this);
         this.onErrorLocation = this.onErrorLocation.bind(this);
-
+        this.startWatchingPosition = this.startWatchingPosition.bind(this);
     }
     // onSuccess Geolocation
     onSuccessLocation(position) {
-        this.props.updateLocation(position.coords.latitude, position.coords.longitude);
-
+        this.latitude = position.coords.latitude ;
+        this.longitude = position.coords.longitude ;
+        this.onSuccessFunction(this.latitude,this.longitude) ;
+        console.log("in onSuccessLocation function");
     }
     // onError Callback receives a PositionError object
     onErrorLocation(error) {
         alert('code: ' + error.code + '\n' +
             'message: ' + error.message + '\n');
     }
-    render() {
+   
+    startWatchingPosition(){
         navigator.geolocation.getCurrentPosition(this.onSuccessLocation, this.onErrorLocation);
-        return null;
+        setInterval(navigator.geolocation.watchPosition(this.onSuccessLocation, this.onErrorLocation), this.interval);
     }
-
+ 
 }
