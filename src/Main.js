@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import {CanvasArr} from './components/CanvasArr';
 // import ImageUpload from './components/ImageUpload';
 import { UploadHandler } from './components/UploadHandler'
 import { Camera } from './components/Camera.js';
@@ -21,7 +22,8 @@ export class Main extends Component {
       longitude: 0,
       latitude: 0,
       imageUrlArray: [],
-      navBarIsOpened: false
+      navBarIsOpened: false,
+      marginRight : "0px"
     });
     this.updateLocation = this.updateLocation.bind(this);
     this.gps = new GPS(this.updateLocation);
@@ -31,12 +33,14 @@ export class Main extends Component {
     console.log ("Main componenet constructor updatelocation ", this.updateLocation)
   }
   setNavBarIsOpened() {
-    this.setState({ navBarIsOpened: true });
-    document.getElementById("carmelLogo").style.marginRight = "250px";
+    console.log("setNavBarIsOpened");
+    this.setState({ navBarIsOpened: true,  marginRight : "250px" });
+    document.getElementById("carmelLogo").style.marginRight = this.state.marginRight;
   }
   setNavBarIsClosed() {
-    this.setState({ navBarIsOpened: false });
-    document.getElementById("carmelLogo").style.marginRight = "0";
+    console.log("setNavBarIsClosed");
+    this.setState({ navBarIsOpened: false, marginRight : "0px" });
+    document.getElementById("carmelLogo").style.marginRight = this.state.marginRight;
   }
   updateLocation(latitude, longitude) {
     console.log("update location "+latitude+ " " + longitude)
@@ -87,7 +91,9 @@ export class Main extends Component {
                     setNavBarIsOpened={this.setNavBarIsOpened}
                     setNavBarIsClosed={this.setNavBarIsClosed} />
                   <Camera {...props}
-                    finishTakingPicturesFunc={this.finishTakingPicturesFunc} />
+                    finishTakingPicturesFunc={this.finishTakingPicturesFunc} 
+                    marginRight = {this.state.marginRight}
+                    navBarIsOpened={this.state.navBarIsOpened} />
                 </div>)} />
 
             <Route exact path="/uploadHandler"
@@ -135,7 +141,7 @@ export class Main extends Component {
           </Switch>
         </BrowserRouter>
         <br /> <br />
-
+     
         <br /><br />
         <img id="carmelLogo" src={carmelLogo} height="60" alt="carmel 6000 logo" />
       </div>

@@ -13,7 +13,7 @@ export class GPS {
         this.latitude = position.coords.latitude ;
         this.longitude = position.coords.longitude ;
         this.onSuccessFunction(this.latitude,this.longitude) ;
-        console.log("in onSuccessLocation function");
+        //console.log("in onSuccessLocation function");
     }
     // onError Callback receives a PositionError object
     onErrorLocation(error) {

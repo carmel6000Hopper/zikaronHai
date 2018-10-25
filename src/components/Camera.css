@@ -1,5 +1,4 @@
-
-#video-border{
+#video-border {
     display: flex;
     flex-flow: row;
 }
@@ -8,50 +7,46 @@
     position: absolute;
     border: none;
     border-radius: 100%;
-     z-index: 2;
-     margin: 17.4% 46.5%;;
+    z-index: 2;
+    /* margin: 17.4% 46.5%; */
+    ;
     /* margin-right: 145px;
      margin-top: 190px;*/
-     width: 35px;
-     height: 35px;
-     background-color: white;
+    width: 35px;
+    height: 35px;
+    background-color: white;
 }
 
-#snap:hover {
+#snap-close:hover {
     position: absolute;
     border: 0.5px solid grey;
     border-radius: 100%;
-     z-index: 2;
-     margin: 17.4% 46.5%;;
+    z-index: 2;
+    /* margin: 17.4% 46.5%; */
+    ;
     /* margin-right: 145px;
      margin-top: 190px;*/
-     width: 35px;
-     height: 35px;
-     background-color: rgba(255, 255, 255, 0.877);
-
+    width: 35px;
+    height: 35px;
+    background-color: rgba(255, 255, 255, 0.877);
 }
 
-    .container {
-        position: relative;
-        border: 1.5px dashed lightgray;
-        border-radius: 10px;
-         z-index: 2;
-         margin: 6% 40%;
-         /*display: inline-block;*/
-         width: 200px;
-         height: 180px;
-    }
+.container {
+    position: relative;
+    border: 1.5px dashed lightgray;
+    border-radius: 10px;
+    z-index: 2;
+    /* margin: 6% 40%; */
+    /*display: inline-block;*/
+    width: 200px;
+    height: 180px;
+}
 
-    #video {
-        display: inline-block;
-        position: absolute;
-        z-index: 1;
-        border-radius: 2px;
-        margin: 1.8% 35.5%;; 
-        
-        
-    }
-
-
-   
-
+#video {
+    display: inline-block;
+    position: absolute;
+    z-index: 1;
+    border-radius: 2px;
+    /* margin: 1.8% 35.5%; */
+    ;
+}
