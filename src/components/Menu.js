@@ -3,6 +3,7 @@ import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import './Menu.css';
 
 
+
 export class Menu extends Component {
     constructor(props){
         super(props);
@@ -30,6 +31,7 @@ export class Menu extends Component {
                 <div id="mySidebar" className="sidebar">
                     <a href="javascript:void(0)" className="closebtn" onClick={this.closeNav}>×</a>
                     <a onClick={() => { this.props.history.push('/camera') }}>הוספת שלט</a>
+                    <a onClick={() => { this.props.history.push('/sign') }}>Sign</a>
                     <a onClick={() => { this.props.history.push('/uploadHandler') }}>upload</a>
                     <a>אודות</a>
                     <a onClick={() => { this.props.history.push('/gps') }}>מפה</a>

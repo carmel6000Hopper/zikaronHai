@@ -63,9 +63,9 @@ export class Camera extends Component {
 
           canList.push(canvasObj);
 
-          this.setState({ canList , snapShotsCounter: this.state.snapShotsCounter + 1}, () => {
+          this.setState({ canList, snapShotsCounter: this.state.snapShotsCounter + 1 }, () => {
             //console.log("canvas ref ctx", this.canvasRef.current.getContext('2d'));
-            let ctx=canvasObj.elem.ref.current.getContext('2d');
+            let ctx = canvasObj.elem.ref.current.getContext('2d');
             //let ctx = this.canvasRef.current.getContext('2d');
             ctx.drawImage(video, 0, 0, Camera.CANVAS_WIDTH, Camera.CANVAS_HEIGHT);
           });
@@ -130,8 +130,8 @@ export class Camera extends Component {
         </div>
         {/* <canvas id="canvas" width="400" height="120"></canvas> */}
         <button id="finishButton" onClick={this.onFinish} >Finish</button>
-        <br/><br/>
-        <button onClick={()=>{this.props.history.push('/')}} >back</button>
+        <br /><br />
+        <button onClick={() => { this.props.history.push('/') }}>back</button>
         <label id="resultURL"></label>
 
         {/* // Not adding `{ audio: true }` since we only want video now */}

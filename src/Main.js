@@ -5,9 +5,12 @@ import { UploadHandler } from './components/UploadHandler'
 import { Camera } from './components/Camera.js';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import { DisplayMapOnScreen } from './components/Location.js';
-import { Menu } from './components/Menu';
+import { Menu } from './components/Menu.js';
 import carmelLogo from './images/carmel6000logo.jfif'
-import { GPS } from './components/GPS';
+import { GPS } from './components/GPS.js';
+import { WelcomePage } from './components/WelcomePage.js';
+import { SignUp } from './components/SignUp';
+import { LogIn } from './components/LogIn';
 
 export class Main extends Component {
   constructor(props) {
@@ -50,13 +53,28 @@ export class Main extends Component {
 
     return (
       <div className="App">
+
         <BrowserRouter>
           <Switch>
             <Route exact path="/" render={(props) =>
-              <Menu {...props}
-                setNavBarIsOpened={this.setNavBarIsOpened}
-                setNavBarIsClosed={this.setNavBarIsClosed} />
-            } />
+              (<div>
+                <Menu {...props}
+                  setNavBarIsOpened={this.setNavBarIsOpened}
+                  setNavBarIsClosed={this.setNavBarIsClosed} />
+
+              </div>)} />
+
+            {/* ------------------------------------------------------------- */}
+            <Route exact path="/sign"
+              render={(props) =>
+                (<div>
+                  <Menu {...props}
+                    setNavBarIsOpened={this.setNavBarIsOpened}
+                    setNavBarIsClosed={this.setNavBarIsClosed} />
+                  <WelcomePage />
+                </div>)} />
+            {/* --------------------------------------------------------------------- */}
+
             <Route exact path="/camera"
               render={(props) =>
                 (<div>
@@ -88,10 +106,33 @@ export class Main extends Component {
                   longitude={this.state.longitude}
                   latitude={this.state.latitude} />
               </div>)} />
+            {/* ------------------------------ */}
+            <Route exact path="/signup" render={(props) =>
+              (<div>
+                <Menu {...props}
+                  setNavBarIsOpened={this.setNavBarIsOpened}
+                  setNavBarIsClosed={this.setNavBarIsClosed} />
+                <SignUp {...props}
+                  longitude={this.state.longitude}
+                  latitude={this.state.latitude} />
+              </div>)} />
+              <Route exact path="/login" render={(props) =>
+              (<div>
+                <Menu {...props}
+                  setNavBarIsOpened={this.setNavBarIsOpened}
+                  setNavBarIsClosed={this.setNavBarIsClosed} />
+                <LogIn {...props}
+                  longitude={this.state.longitude}
+                  latitude={this.state.latitude} />
+              </div>)} />
+            {/* ------------------------------ */}
+            {/* <Route exact path="/signin" component={SignIn}/> */}
           </Switch>
         </BrowserRouter>
         <GPS updateLocation={this.updateLocation} />
         <br /> <br />
+
+        <br /><br />
         <img id="carmelLogo" src={carmelLogo} height="60" alt="carmel 6000 logo" />
       </div>
     );
