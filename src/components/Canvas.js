@@ -35,7 +35,7 @@ export class Canvas extends Component {
         return (
             <div >
                 <canvas width={Canvas.CANVAS_WIDTH} height={Canvas.CANVAS_HEIGHT}
-                    key={this.props.snapShotsCounter + 1} ref={this.canvasRef} onClick={this.props.selectCanvas}>
+                    key={this.props.currKey + 1} ref={this.canvasRef} onClick={this.props.selectCanvas}>
                 </canvas>
                 <button id="deleteCanvas" onClick={(e) => this.props.deleteCanvas(e) }>×</button>
             </div>

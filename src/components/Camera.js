@@ -4,7 +4,7 @@ import "./Camera.css";
 import { CanvasArr } from './CanvasArr'
 
 var numImagesTaken = 0;
-const MAX_IMAGES_TAKEN = 5;
+const MAX_NUM_OF_IMAGES = 5;
 
 export class Camera extends Component {
   static CANVAS_WIDTH = 160;
@@ -13,7 +13,7 @@ export class Camera extends Component {
     super(props);
     this.state = {
       canList: [],
-      snapShotsCounter: 0,
+      // snapShotsCounter: 0,
       video: '',
       hasToAddCanvas: false
     };
@@ -39,12 +39,12 @@ export class Camera extends Component {
   }
 
   addSnapOnCanvas() {
-    if(numImagesTaken<MAX_IMAGES_TAKEN){
-      this.setState({ hasToAddCanvas: true }, ()=>{this.CanvasArrRef.current.addCanvasHandler()});
+    if (numImagesTaken < MAX_NUM_OF_IMAGES) {
+      this.setState({ hasToAddCanvas: true }, () => { this.CanvasArrRef.current.addCanvasHandler() });
       numImagesTaken++;
     }
-    else{
-      alert("too many images!");
+    else {
+      alert("too many images taken!");
     }
   }
 
@@ -54,7 +54,7 @@ export class Camera extends Component {
     navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
       video.src = window.URL.createObjectURL(stream);
       video.play();
-      this.setState({ video }, ()=>{
+      this.setState({ video }, () => {
         console.log('Camera.js: this.state.video: ', this.state.video);
       });
     })
@@ -74,7 +74,7 @@ export class Camera extends Component {
     console.log("on finish this.props" + this.props);
     this.props.finishTakingPicturesFunc(URLArray);
     // router - go to the next page - upload Handler
-    this.props.history.push('/uploadHandler');
+    this.props.history.push('/upload');
   }
 
   render() {
@@ -110,9 +110,10 @@ export class Camera extends Component {
 
         <CanvasArr
           hasToAddCanvas={this.state.hasToAddCanvas}
-          hasAddedCanvas={this.hasAddedCanvas} 
+          hasAddedCanvas={this.hasAddedCanvas}
           ref={this.CanvasArrRef}
-          video={this.state.video}/>
+          video={this.state.video}
+        />
       </div>
     );
   }

@@ -96,7 +96,7 @@ export class Main extends Component {
                     navBarIsOpened={this.state.navBarIsOpened} />
                 </div>)} />
 
-            <Route exact path="/uploadHandler"
+            <Route exact path="/upload"
               render={(props) =>
                 (<div>
                   <Menu {...props}

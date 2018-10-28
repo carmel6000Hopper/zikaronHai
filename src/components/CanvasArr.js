@@ -48,8 +48,9 @@ export class CanvasArr extends Component {
     let canvasKeys = this.state.canvasKeys;
     canvasList.splice(index, 1);
     canvasKeys.splice(index, 1);
-    this.setState({ canvasList, canvasKeys });
-    console.log("deleteCanvas" + this.state.canvasList);
+    this.setState({ canvasList, canvasKeys }, ()=>{
+      console.log("deleteCanvas: " + this.state.canvasList);
+    });
   }
 
   addCanvas() {
@@ -57,7 +58,7 @@ export class CanvasArr extends Component {
     this.setState({ currKey: this.state.currKey + 1 });
     
     var canvas = <Canvas
-      snapShotsCounter={this.state.currKey}
+      currKey={this.state.currKey}
       selectCanvas={this.selectCanvas}
       deleteCanvas={this.deleteCanvas}
       video={this.state.video} 
@@ -66,7 +67,9 @@ export class CanvasArr extends Component {
 
     let canvasList = this.state.canvasList;
     canvasList.push(canvas);
-    this.setState({ canvasList });
+    this.setState({ canvasList }, ()=>{
+      console.log("addCanvas: ", this.state.canvasList);
+    });
   }
 
   render() {
