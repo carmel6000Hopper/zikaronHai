@@ -42,13 +42,13 @@ export class SignUp extends Component {
             lastName: '',
             email: '',
             pass: '',
-            passconfirm: '',
+            // passconfirm: '',
             nickname: '',
             firstNameErrorMsg: '',
             lastNameErrorMsg: '',
             passErrorMsg: '',
             // passconfirmErrorMsg: '',
-            nicknameErrorMsg: '',
+            // nicknameErrorMsg: '',
             waitingForSignup: false,
             signedUp: false
         };
@@ -60,6 +60,21 @@ export class SignUp extends Component {
     handleChange(event) {
         if (event.target.id === "email")
             this.setState({ email: event.target.value });
+            if (event.target.id === "first-name") {
+                this.setState({ firstName: event.target.value });
+                if (!checkForLetters(event.target.value))
+                    this.setState({ firstNameErrorMsg: 'על השם להכיל אותיות' });
+                else if (this.state.firstNameErrorMsg.length !== 0)
+                    this.setState({ firstNameErrorMsg: '' });
+            }
+        
+        if (event.target.id === "last-name") {
+            this.setState({ lastName: event.target.value });
+            if (!checkForLetters(event.target.value))
+                this.setState({ lastNameErrorMsg: 'על השם להכיל אותיות' });
+            else if (this.state.lastNameErrorMsg.length !== 0)
+                this.setState({ lastNameErrorMsg: '' });
+        }
         if (event.target.id === "pass") {
             this.setState({ pass: event.target.value });
             if (event.target.value.length < 6)
@@ -67,6 +82,10 @@ export class SignUp extends Component {
             else if (this.state.passErrorMsg.length !== 0)
                 this.setState({ passErrorMsg: '' });
         }
+        if (event.target.id === "nickname")
+        this.setState({ nickname: event.target.value });
+    
+    }
         // if (event.target.id === "passconfirm") {
         //     this.setState({ passconfirm: event.target.value });
         //     if (event.target.value !== this.state.pass)
@@ -74,32 +93,32 @@ export class SignUp extends Component {
         //     else if (this.state.passconfirmErrorMsg.length !== 0)
         //         this.setState({ passconfirmErrorMsg: '' });
         // }
-        if (event.target.id === "firstName") {
-            this.setState({ name: event.target.value });
-            if (!checkForLetters(event.target.value))
-                this.setState({ firstNameErrorMsg: 'על השם להכיל אותיות' });
-            else if (this.state.firstNameErrorMsg.length !== 0)
-                this.setState({ firstNameErrorMsg: '' });
-        }
+//         if (event.target.id === "firstName") {
+//             this.setState({ firstName: event.target.value });
+//             if (!checkForLetters(event.target.value))
+//                 this.setState({ firstNameErrorMsg: 'על השם להכיל אותיות' });
+//             else if (this.state.firstNameErrorMsg.length !== 0)
+//                 this.setState({ firstNameErrorMsg: '' });
+//         }
     
-    if (event.target.id === "lastName") {
-        this.setState({ name: event.target.value });
-        if (!checkForLetters(event.target.value))
-            this.setState({ firstNameErrorMsg: 'על השם להכיל אותיות' });
-        else if (this.state.firstNameErrorMsg.length !== 0)
-            this.setState({ firstNameErrorMsg: '' });
-    }
-}
+//     if (event.target.id === "lastName") {
+//         this.setState({ lastName: event.target.value });
+//         if (!checkForLetters(event.target.value))
+//             this.setState({ lastNameErrorMsg: 'על השם להכיל אותיות' });
+//         else if (this.state.lastNameErrorMsg.length !== 0)
+//             this.setState({ lastNameErrorMsg: '' });
+//     }
+// }
 
     handleSubmit(event) {
         event.preventDefault();
-        if (this.state.firstNameErrorMsg || this.state.passErrorMsg || this.state.passconfirmErrorMsg) {
+        if (this.state.firstNameErrorMsg || this.state.lastNameErrorMsg || this.state.passErrorMsg || this.state.passconfirmErrorMsg) {
             return (<div>somthing wrong</div>);
         }
         else {
             this.setState({ waitingForSignup: true });
-            console.log(this.state.email, this.state.pass, this.state.name);
-            Auth.AuthSignup(this.state.email, this.state.pass, this.state.name, this.onSignup.bind(this));
+            console.log(this.state.email, this.state.pass);
+            Auth.AuthSignup(this.state.email, this.state.pass, this.onSignup.bind(this));
         }
     }
 
@@ -123,7 +142,7 @@ export class SignUp extends Component {
     render() {
         if (this.state.signedUp) {
             console.log("should re-direct")
-            return (<Redirect to='/home' />);
+            return (<Redirect to='/' />);
         }
 
         return (
@@ -161,7 +180,7 @@ export class SignUp extends Component {
                         {/* nickname input */}
                         <div className="row">
                             <input id="nickname" type="text" placeholder="כינוי" value={this.state.nickname} onChange={this.handleChange} required="required" />
-                            <p className="error-text">{this.state.nicknameErrorMsg}</p>
+                            {/* <p className="error-text">{this.state.nicknameErrorMsg}</p> */}
                         </div>
                         <div className="row">
                             {this.renderButtonOrWheel()}

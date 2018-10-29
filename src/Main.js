@@ -138,7 +138,6 @@ export class Main extends Component {
           </Switch>
         </BrowserRouter>
         <br /> <br />
-        <br /><br />
         <img id="carmelLogo" src={carmelLogo} height="60" alt="carmel 6000 logo" />
       </div>
     );
