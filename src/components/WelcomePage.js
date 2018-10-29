@@ -41,7 +41,7 @@ export class WelcomePage extends Component {
                     <br/>
                     <div className="sign-btn login"><Link to="/login">log in</Link></div>
                 </div>
-            </div>
+            </div>  
         );
     }
 }
