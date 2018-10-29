@@ -108,7 +108,6 @@ export class Main extends Component {
                   longitude={this.state.longitude}
                   latitude={this.state.latitude} />
               </div>)} />
-            {/* ------------------------------ */}
             {/* ------------------------------------------------------------- */}
             {/* <Route exact path="/sign"
               render={(props) =>
@@ -118,6 +117,7 @@ export class Main extends Component {
                     setNavBarIsClosed={this.setNavBarIsClosed} />
                   <WelcomePage />
                 </div>)} /> */}
+            {/* ------------------------------------------------------------- */}
             <Route exact path="/signup" render={(props) =>
               (<div>
                 <Menu {...props}
@@ -132,7 +132,6 @@ export class Main extends Component {
                   setNavBarIsClosed={this.setNavBarIsClosed} />
                 <LogIn />
               </div>)} />
-            {/* ------------------------------ */}
 
 
             {/* <Route exact path="/signin" component={SignIn}/> */}
