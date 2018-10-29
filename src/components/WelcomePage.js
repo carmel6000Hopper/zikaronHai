@@ -33,7 +33,7 @@ export class WelcomePage extends Component {
                 <div className="welcome-container ib">
                     <h1 id="welcome">ברוכים הבאים לא ללאברדור!</h1>
                     <p id="welcome_desc">בלי תוצאות ניסויי מעבדה משותפים לכולם בזמן אמת, עכשיו לא אצלך בכיתה</p>
-                    {/* <button onClick={()  => {this.props.history.push('/signin')}}>SignIn</button> */}
+                    {/* <button onClick={() => {this.props.history.push('/signin')}}>SignIn</button> */}
                     {/* <button onClick={() => { this.props.history.push('/login') }}>LogIn</button> */}
                     {/* <button>LogIn</button> */}
                     <br/>

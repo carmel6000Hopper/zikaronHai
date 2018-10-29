@@ -76,7 +76,7 @@ export class LogIn extends Component{
         if(this.state.loggedIn)
         {
             console.log("should re-direct");
-            return(<Redirect to='/home'/>);
+            return(<Redirect to='/'/>);
         }
 
         return(
