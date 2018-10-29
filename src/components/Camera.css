@@ -1,6 +1,8 @@
 #video-border {
     display: flex;
     flex-flow: row;
+    border: 20px solid blue;
+    /* margin-right: auto; */
 }
 
 #snap {
@@ -13,7 +15,7 @@
     margin-top: 190px; */
     width: 35px;
     height: 35px;
-    background-color: white;
+    background-color: rgb(190, 10, 10);
 }
 
 .container {
@@ -29,7 +31,7 @@
 
 #video {
     display: inline-block;
-    position: absolute;
+    /* position: absolute; */
     z-index: 1;
     border-radius: 2px;
     /* margin: 1.8% 35.5%; */
