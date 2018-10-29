@@ -1,6 +1,7 @@
 
 
-import firebase from '../services/FireBaseSingleToned';
+// import firebase from '../services/FireBaseSingleToned';
+import firebase from 'firebase/app';
 
 
 export const Auth={

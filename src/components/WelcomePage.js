@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 // import { SignIn } from './components/SignIn.js';
 // import { BrowserRouter as Route,  } from "react-router-dom";
 // import '../styles/WelcomeTeacher.css';
-
+import './WelcomePage.css'
 import { Link } from 'react-router-dom';
 
 
@@ -20,7 +20,7 @@ export class WelcomePage extends Component {
     }
 
     componentWillMount() {
-        document.body.style.backgroundColor = "#5f8f8f";
+        document.body.style.backgroundColor = "#cccccc";
         //document.body.style.background = "linear-gradient(238deg, #7c30fe, #9862ff)";
     }
 
@@ -37,9 +37,9 @@ export class WelcomePage extends Component {
                     {/* <button onClick={() => { this.props.history.push('/login') }}>LogIn</button> */}
                     {/* <button>LogIn</button> */}
                     <br/>
-                    <div className="row tac"><Link to="/signup" >sign up </Link></div>
+                    <div className="sign-btn signup"><Link to="/signup" >sign up </Link></div>
                     <br/>
-                    <div className="row tac"><Link to="/login">log in</Link></div>
+                    <div className="sign-btn login"><Link to="/login">log in</Link></div>
                 </div>
             </div>
         );
