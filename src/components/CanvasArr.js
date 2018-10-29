@@ -24,7 +24,7 @@ export class CanvasArr extends Component {
   }
 
   addCanvasHandler() {
-    if (numImagesTaken <= MAX_NUM_OF_IMAGES) {
+    if (numImagesTaken < MAX_NUM_OF_IMAGES) {
       this.setState({ video: this.props.video }, () => {
         if (this.props.hasToAddCanvas === true) {
           this.addCanvas();
