@@ -35,12 +35,12 @@ export class Main extends Component {
   setNavBarIsOpened() {
     console.log("setNavBarIsOpened");
     this.setState({ navBarIsOpened: true, marginRight: "250px" });
-    document.getElementById("carmelLogo").style.marginRight = this.state.marginRight;
+    // document.getElementById("carmelLogo").style.marginRight = this.state.marginRight;
   }
   setNavBarIsClosed() {
     console.log("setNavBarIsClosed");
     this.setState({ navBarIsOpened: false, marginRight: "0px" });
-    document.getElementById("carmelLogo").style.marginRight = this.state.marginRight;
+    // document.getElementById("carmelLogo").style.marginRight = this.state.marginRight;
   }
   updateLocation(latitude, longitude) {
     console.log("update location " + latitude + " " + longitude)

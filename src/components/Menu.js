@@ -13,8 +13,8 @@ export class Menu extends Component {
         console.log("Open Nav");
         console.log("this.props: ", this.props);
         this.props.setNavBarIsOpened();
-        document.getElementById("mySidebar").style.width = "250px";
-        document.getElementById("main").style.marginRight = "250px";
+        document.getElementById("mySidebar").style.width = "100%";
+        // document.getElementById("main").style.marginRight = "250px";
     }
 
     closeNav = () =>  {
@@ -22,19 +22,26 @@ export class Menu extends Component {
         // TODO check why this is not working
         this.props.setNavBarIsClosed();
         document.getElementById("mySidebar").style.width = "0";
-        document.getElementById("main").style.marginRight = "0";
+        // document.getElementById("main").style.marginRight = "0";
     }
+
+    onMenuClick = (pagePath) => {
+        this.closeNav();
+        this.props.history.push(pagePath);
+    }
+
     render() {
         return (
             // <meta name="viewport" content="width=device-width, initial-scale=1">
             <div>
                 <div id="mySidebar" className="sidebar">
+                    {/* <button href="javascript:void(0)" className="closebtn" onClick={this.closeNav}>X</button> */}
                     <a href="javascript:void(0)" className="closebtn" onClick={this.closeNav}>×</a>
-                    <a onClick={() => { this.props.history.push('/camera') }}>הוספת שלט</a>
-                    {/* <a onClick={() => { this.props.history.push('/sign') }}>Sign</a> */}
-                    <a onClick={() => { this.props.history.push('/upload') }}>upload</a>
+                    <a onClick={() => { this.onMenuClick("/camera") }}>הוספת שלט</a>
+                    {/* <a onClick={() => { this.closeNav(); this.props.history.push('/sign') }}>Sign</a> */}
+                    <a onClick={() => { this.onMenuClick('/upload') }}>upload</a>
                     <a>אודות</a>
-                    <a onClick={() => { this.props.history.push('/gps') }}>מפה</a>
+                    <a onClick={() => { this.onMenuClick('/gps') }}>מפה</a>
                 </div>
                 <div id="main">
                     <button className="openbtn" onClick={this.openNav}>☰ זכרון חי</button>
