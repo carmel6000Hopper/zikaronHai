@@ -32,7 +32,7 @@ export class Menu extends Component {
                     <a href="javascript:void(0)" className="closebtn" onClick={this.closeNav}>×</a>
                     <a onClick={() => { this.props.history.push('/camera') }}>הוספת שלט</a>
                     <a onClick={() => { this.props.history.push('/sign') }}>Sign</a>
-                    <a onClick={() => { this.props.history.push('/uploadHandler') }}>upload</a>
+                    <a onClick={() => { this.props.history.push('/upload') }}>upload</a>
                     <a>אודות</a>
                     <a onClick={() => { this.props.history.push('/gps') }}>מפה</a>
                 </div>
