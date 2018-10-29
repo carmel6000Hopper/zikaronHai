@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { Canvas } from './Canvas'
 import "./Camera.css";
 
+var numImagesTaken = 0;
+const MAX_NUM_OF_IMAGES = 5;
+
 export class CanvasArr extends Component {
   constructor(props) {
     super(props);
@@ -20,13 +23,20 @@ export class CanvasArr extends Component {
     this.deleteCanvas = this.deleteCanvas.bind(this);
   }
 
-  addCanvasHandler(){
-    this.setState({ video: this.props.video }, ()=>{
-      if (this.props.hasToAddCanvas === true) {
-        this.addCanvas();
-        this.props.hasAddedCanvas();
-      }
-    });
+  addCanvasHandler() {
+    if (numImagesTaken <= MAX_NUM_OF_IMAGES) {
+      this.setState({ video: this.props.video }, () => {
+        if (this.props.hasToAddCanvas === true) {
+          this.addCanvas();
+          this.props.hasAddedCanvas();
+        }
+      });
+      numImagesTaken++;
+      console.log("addCanvasHandler: numImagesTaken: ", numImagesTaken);
+    }
+    else {
+      alert("TOO MANY IMAGES TAKEN!!");
+    }
   }
 
   selectCanvas() {
@@ -39,7 +49,7 @@ export class CanvasArr extends Component {
       key: key,
       value: ctx
     });
-    this.setState({ctxDict});
+    this.setState({ ctxDict });
   }
 
   deleteCanvas(e) {
@@ -48,7 +58,9 @@ export class CanvasArr extends Component {
     let canvasKeys = this.state.canvasKeys;
     canvasList.splice(index, 1);
     canvasKeys.splice(index, 1);
-    this.setState({ canvasList, canvasKeys }, ()=>{
+    this.setState({ canvasList, canvasKeys }, () => {
+      numImagesTaken--;
+      console.log("deleteCanvas: numImagesTaken: ", numImagesTaken);
       console.log("deleteCanvas: " + this.state.canvasList);
     });
   }
@@ -56,18 +68,18 @@ export class CanvasArr extends Component {
   addCanvas() {
     this.state.canvasKeys.push(this.state.currKey);
     this.setState({ currKey: this.state.currKey + 1 });
-    
+
     var canvas = <Canvas
       currKey={this.state.currKey}
       selectCanvas={this.selectCanvas}
       deleteCanvas={this.deleteCanvas}
-      video={this.state.video} 
-      updateContextDict = {this.updateContextDict}
+      video={this.state.video}
+      updateContextDict={this.updateContextDict}
     />
 
     let canvasList = this.state.canvasList;
     canvasList.push(canvas);
-    this.setState({ canvasList }, ()=>{
+    this.setState({ canvasList }, () => {
       console.log("addCanvas: ", this.state.canvasList);
     });
   }
@@ -76,7 +88,7 @@ export class CanvasArr extends Component {
     console.log("in render , the canvas list is " + this.state.canvasList);
     const listItems = this.state.canvasList.map((canvas, i) =>
       <ListItem key={this.state.canvasKeys[i].toString()}
-        canvas={canvas} 
+        canvas={canvas}
       />
     );
 

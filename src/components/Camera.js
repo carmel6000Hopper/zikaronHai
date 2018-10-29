@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 import "./Camera.css";
 import { CanvasArr } from './CanvasArr'
 
-var numImagesTaken = 0;
-const MAX_NUM_OF_IMAGES = 5;
+// var numImagesTaken = 0;
+// const MAX_NUM_OF_IMAGES = 5;
 
 export class Camera extends Component {
   static CANVAS_WIDTH = 160;
@@ -39,13 +39,13 @@ export class Camera extends Component {
   }
 
   addSnapOnCanvas() {
-    if (numImagesTaken < MAX_NUM_OF_IMAGES) {
+    // if (numImagesTaken < MAX_NUM_OF_IMAGES) {
       this.setState({ hasToAddCanvas: true }, () => { this.CanvasArrRef.current.addCanvasHandler() });
-      numImagesTaken++;
-    }
-    else {
-      alert("too many images taken!");
-    }
+      // numImagesTaken++;
+    // }
+    // else {
+    //   alert("too many images taken!");
+    // }
   }
 
   componentDidMount() {
