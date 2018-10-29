@@ -38,13 +38,17 @@ export class SignUp extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: '',
+            firstName: '',
+            lastName: '',
             email: '',
             pass: '',
             passconfirm: '',
-            nameErrorMsg: '',
+            nickname: '',
+            firstNameErrorMsg: '',
+            lastNameErrorMsg: '',
             passErrorMsg: '',
-            passconfirmErrorMsg: '',
+            // passconfirmErrorMsg: '',
+            nicknameErrorMsg: '',
             waitingForSignup: false,
             signedUp: false
         };
@@ -63,26 +67,34 @@ export class SignUp extends Component {
             else if (this.state.passErrorMsg.length !== 0)
                 this.setState({ passErrorMsg: '' });
         }
-        if (event.target.id === "passconfirm") {
-            this.setState({ passconfirm: event.target.value });
-            if (event.target.value !== this.state.pass)
-                this.setState({ passconfirmErrorMsg: 'סיסמה לא תואמת' });
-            else if (this.state.passconfirmErrorMsg.length !== 0)
-                this.setState({ passconfirmErrorMsg: '' });
-        }
-        if (event.target.id === "name") {
+        // if (event.target.id === "passconfirm") {
+        //     this.setState({ passconfirm: event.target.value });
+        //     if (event.target.value !== this.state.pass)
+        //         this.setState({ passconfirmErrorMsg: 'סיסמה לא תואמת' });
+        //     else if (this.state.passconfirmErrorMsg.length !== 0)
+        //         this.setState({ passconfirmErrorMsg: '' });
+        // }
+        if (event.target.id === "firstName") {
             this.setState({ name: event.target.value });
             if (!checkForLetters(event.target.value))
-                this.setState({ nameErrorMsg: 'על השם להכיל אותיות' });
-            else if (this.state.nameErrorMsg.length !== 0)
-                this.setState({ nameErrorMsg: '' });
+                this.setState({ firstNameErrorMsg: 'על השם להכיל אותיות' });
+            else if (this.state.firstNameErrorMsg.length !== 0)
+                this.setState({ firstNameErrorMsg: '' });
         }
+    
+    if (event.target.id === "lastName") {
+        this.setState({ name: event.target.value });
+        if (!checkForLetters(event.target.value))
+            this.setState({ firstNameErrorMsg: 'על השם להכיל אותיות' });
+        else if (this.state.firstNameErrorMsg.length !== 0)
+            this.setState({ firstNameErrorMsg: '' });
     }
+}
 
     handleSubmit(event) {
         event.preventDefault();
-        if (this.state.nameErrorMsg || this.state.passErrorMsg || this.state.passconfirmErrorMsg) {
-            return;
+        if (this.state.firstNameErrorMsg || this.state.passErrorMsg || this.state.passconfirmErrorMsg) {
+            return (<div>somthing wrong</div>);
         }
         else {
             this.setState({ waitingForSignup: true });
@@ -119,23 +131,37 @@ export class SignUp extends Component {
                 <div className="ib signup-container">
                     <h1 className="tac ib">הרשמה</h1>
                     <div className="row"><p className="Subtitle-1 inline">משתמש רשום? </p>
-                        <Link className="Subtitle-1 underline" to="/login">כניסה לחשבון שלי</Link></div>
+                        <Link className="Subtitle-1 underline" to="/login">כניסה לחשבון שלי</Link></div><br />
                     <form onSubmit={this.handleSubmit}>
+                        {/* first name input */}
                         <div className="row">
-                            <input id="name" type="text" placeholder="שם פרטי" value={this.state.name} onChange={this.handleChange} required="required" />
-                            <p className="error-text">{this.state.nameErrorMsg}</p>
+                            <input id="first-name" type="text" placeholder="שם פרטי" value={this.state.firstName} onChange={this.handleChange} required="required" />
+                            <p className="error-text">{this.state.firstNameErrorMsg}</p>
                         </div>
+                        {/* last name input */}
+                        <div className="row">
+                            <input id="last-name" type="text" placeholder="שם משפחה" value={this.state.lastName} onChange={this.handleChange} required="required" />
+                            <p className="error-text">{this.state.lastNameErrorMsg}</p>
+                        </div>
+                        {/* email input */}
                         <div className="row">
                             <input id="email" type="email" placeholder="כתובת אימייל" value={this.state.email} onChange={this.handleChange} required="required" />
                             <p className="error-text">{''}</p>
                         </div>
+                        {/* password input */}
                         <div className="row">
                             <input id="pass" type="password" value={this.state.pass} onChange={this.handleChange} placeholder="סיסמה" required="required" />
                             <p className="error-text">{this.state.passErrorMsg}</p>
                         </div>
+                        {/* confirm password input
                         <div className="row">
                             <input id="passconfirm" type="password" value={this.state.passconfirm} onChange={this.handleChange} placeholder="אימות סיסמה" required="required" />
                             <p className="error-text">{this.state.passconfirmErrorMsg}</p>
+                        </div> */}
+                        {/* nickname input */}
+                        <div className="row">
+                            <input id="nickname" type="text" placeholder="כינוי" value={this.state.nickname} onChange={this.handleChange} required="required" />
+                            <p className="error-text">{this.state.nicknameErrorMsg}</p>
                         </div>
                         <div className="row">
                             {this.renderButtonOrWheel()}

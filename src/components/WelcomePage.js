@@ -18,15 +18,7 @@ export class WelcomePage extends Component {
         };
 
     }
-
-    componentWillMount() {
-        document.body.style.backgroundColor = "#cccccc";
-        //document.body.style.background = "linear-gradient(238deg, #7c30fe, #9862ff)";
-    }
-
-    componentWillUnmount() {
-        document.body.style.backgroundColor = "#ffffff";
-    }
+ 
     render() {
         return (         
             <div className="flex-box-center-container flex-horizontal-center">
