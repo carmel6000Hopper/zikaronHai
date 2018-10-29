@@ -29,28 +29,26 @@ export class Camera extends Component {
   }
 
   setNavBarIsOpened() {
-    //this.setState({ navBarIsOpened: true });
+    // this.setState({ navBarIsOpened: true });
     document.getElementById("cam-container").style.marginRight = "250px";
   }
 
   setNavBarIsClosed() {
-    //this.setState({ navBarIsOpened: false });
+    // this.setState({ navBarIsOpened: false });
     document.getElementById("cam-container").style.marginRight = "0";
   }
 
+  /** this function calls the the addCanvashandler when the snap-photo button is clicked */
   addSnapOnCanvas() {
-    // if (numImagesTaken < MAX_NUM_OF_IMAGES) {
-      this.setState({ hasToAddCanvas: true }, () => { this.CanvasArrRef.current.addCanvasHandler() });
-      // numImagesTaken++;
-    // }
-    // else {
-    //   alert("too many images taken!");
-    // }
+    this.setState({ hasToAddCanvas: true }, () => { this.CanvasArrRef.current.addCanvasHandler() });
   }
 
   componentDidMount() {
     console.log("in component did mount - actualize video");
+
     var video = document.getElementById('video');
+
+    // gets the video from the camera of the device - DOESN'T WORK ON PHONE!!!!
     navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
       video.src = window.URL.createObjectURL(stream);
       video.play();
@@ -73,6 +71,7 @@ export class Camera extends Component {
 
     console.log("on finish this.props" + this.props);
     this.props.finishTakingPicturesFunc(URLArray);
+
     // router - go to the next page - upload Handler
     this.props.history.push('/upload');
   }
@@ -114,6 +113,7 @@ export class Camera extends Component {
           ref={this.CanvasArrRef}
           video={this.state.video}
         />
+
       </div>
     );
   }
