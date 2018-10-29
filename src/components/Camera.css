@@ -9,26 +9,11 @@
     border-radius: 100%;
     z-index: 2;
     /* margin: 17.4% 46.5%; */
-    ;
     /* margin-right: 145px;
-     margin-top: 190px;*/
+    margin-top: 190px; */
     width: 35px;
     height: 35px;
     background-color: white;
-}
-
-#snap-close:hover {
-    position: absolute;
-    border: 0.5px solid grey;
-    border-radius: 100%;
-    z-index: 2;
-    /* margin: 17.4% 46.5%; */
-    ;
-    /* margin-right: 145px;
-     margin-top: 190px;*/
-    width: 35px;
-    height: 35px;
-    background-color: rgba(255, 255, 255, 0.877);
 }
 
 .container {
@@ -48,5 +33,4 @@
     z-index: 1;
     border-radius: 2px;
     /* margin: 1.8% 35.5%; */
-    ;
 }
