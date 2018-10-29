@@ -77,28 +77,12 @@ export class Camera extends Component {
   }
 
   render() {
-    let marginSnap = "";
-    let marginContainer = "";
-    let marginVideo = '';
-
-    if (this.props.navBarIsOpened === true) {
-      marginSnap = "17.4% 6.5%";
-      marginContainer = "6% 10%";
-      marginVideo = "1.8% 6.5%";
-    }
-
-    else {
-      marginSnap = "17.4% 46.5%";
-      marginContainer = "6% 40%";
-      marginVideo = "1.8% 35.5%";
-    }
-
     return (
-      <div id="cam-container" style={{ margin: marginContainer, marginRight: this.props.marginRight }}>
+      <div id="cam-container">
         <div id="video-border">
-          <video id="video" width="320" height="240" autoPlay style={{ margin: marginVideo, marginRight: this.props.marginRight }}></video>
+          <video id="video" width="320" height="240" autoPlay></video>
           <div className="container"></div>
-          <button id="snap" onClick={this.addSnapOnCanvas} style={{ margin: marginSnap, marginRight: this.props.marginRight }}></button>
+          <button id="snap" onClick={this.addSnapOnCanvas}></button>
         </div>
 
         <button id="finishButton" onClick={this.onFinish} >Finish</button>
