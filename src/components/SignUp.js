@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 // import {WelcomePage} from './components/SignIn.js'
 // // import '../styles/App.css';
 // import { BrowserRouter as Route, Redirect, Link } from "react-router-dom";
-import { Auth } from 'C:/Users/Student/live_memory/src/auth/auth.js';
+import { Auth } from '../auth/auth';
 import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router'
 
