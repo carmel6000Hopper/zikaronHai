@@ -6,6 +6,7 @@ import React, { Component } from 'react';
 import { Auth } from '../auth/auth.js';
 import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router'
+import './Login-Signup.css';
 
 // export class SignUp extends Component {
 //     render(){
@@ -57,6 +58,10 @@ export class SignUp extends Component {
         this.renderButtonOrWheel = this.renderButtonOrWheel.bind(this);
     }
 
+componentWillMount(){
+document.body.style.backgroundColor = "#f2f2f2";
+ 
+}
     handleChange(event) {
         if (event.target.id === "email")
             this.setState({ email: event.target.value });
@@ -134,7 +139,7 @@ export class SignUp extends Component {
 
     renderButtonOrWheel() {
         if (!this.state.waitingForSignup)
-            return <button className="blue-button Subtitle-1-grey" type="submit">!צרפו אותי לא ללאברדור</button>;
+            return <button className="submit-btn" type="submit">כניסה</button>;
         else
             return <div>babababba</div>;
     }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { CanvasArr } from './components/CanvasArr';
+// import { CanvasArr } from './components/CanvasArr';
 // import ImageUpload from './components/ImageUpload';
 import { UploadHandler } from './components/UploadHandler'
 import { Camera } from './components/Camera.js';

@@ -4,8 +4,10 @@
 // import { BrowserRouter as Route, Redirect, Link } from "react-router-dom";
 // import Auth from '../services/auth';
 import React, { Component } from 'react';
-import { BrowserRouter as Route,Link, Redirect } from "react-router-dom";
+import {Link, Redirect } from "react-router-dom";
+// import { BrowserRouter as Route,Link, Redirect } from "react-router-dom";
 import { Auth } from '../auth/auth.js';
+import './Login-Signup.css';
 // import TeacherForgotPass from './TeacherForgotPass';
 
 export class LogIn extends Component{
@@ -64,9 +66,14 @@ export class LogIn extends Component{
         this.setState({forgotPassShowing:false});
     }
 
+    componentWillMount(){
+        document.body.style.backgroundColor = "#f2f2f2";
+         
+        }
+
     renderButtonOrWheel(){
         if(!this.state.waitingForLogin)
-            return <button className="blue-button Subtitle-1-grey" type="submit">כניסה</button>;
+            return <button className="submit-btn" type="submit">כניסה</button>;
         else
             return <div>cmcmds</div>;
 
@@ -80,17 +87,18 @@ export class LogIn extends Component{
         }
 
         return(
-            <div className="flex-box-center-container flex-horizontal-center">
+            <div className="body-container flex-box-center-container flex-horizontal-center">
             <div className="ib">
-                <h2 className="h2-center">כניסה לחשבון שלי</h2>
+                <h2 className="h2-center">כניסה</h2>
                 <div className="row"><p className="Subtitle-1 inline">עוד לא נרשמת? </p>
-                <Link className="Subtitle-1 underline" to="/signup">הרשמה</Link></div>
+                <Link className="Subtitle-1 underline" to="/signup">הרשמה</Link></div><br/>
                 <form className="" onSubmit={this.handleSubmit}>
                     <div className="row"><input className="input" id = "email" type="text" placeholder="כתובת אימייל" value={this.state.email} onChange={this.handleEmailChange} required="required"/></div>
+                    <br/>
                     <div className="row"><input className="input" id = "pass" type="password" placeholder="סיסמה" value={this.state.pass} onChange={this.handlePassChange} required="required" /></div>
                     <div className="row">
                         <div className="col">
-                            <button  type="button" className="small-text underline left" onClick={this.openForgotPassModal}>שכחתי סיסמה</button>
+                            <button  type="button" className="small-text  underline left" onClick={this.openForgotPassModal}>שכחתי סיסמה</button>
                         </div>
                     </div>
                     <div className="row">{this.renderButtonOrWheel()}</div>
