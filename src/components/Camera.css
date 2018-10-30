@@ -1,7 +1,12 @@
 #video-border {
     display: flex;
-    flex-flow: row;
+    /* flex-flow: row; */
     border: 20px solid blue;
+    position: relative;
+    width: 50%;
+    height: auto;
+    justify-content: center;
+    align-items: center;
     /* margin-right: auto; */
 }
 
@@ -11,15 +16,15 @@
     border-radius: 100%;
     z-index: 2;
     /* margin: 17.4% 46.5%; */
-    /* margin-right: 145px;
-    margin-top: 190px; */
+    margin-right: 50%;
+    margin-top: 10%;
     width: 35px;
     height: 35px;
     background-color: rgb(190, 10, 10);
 }
 
 .container {
-    position: relative;
+    position: absolute;
     border: 1.5px dashed lightgray;
     border-radius: 10px;
     z-index: 2;
@@ -35,4 +40,7 @@
     z-index: 1;
     border-radius: 2px;
     /* margin: 1.8% 35.5%; */
+    /* display: flex; 
+    justify-content: center; 
+    align-items: center; */
 }

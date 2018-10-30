@@ -25,27 +25,18 @@ export class Main extends Component {
       navBarIsOpened: false,
       marginRight: "0px"
     });
+    
     this.updateLocation = this.updateLocation.bind(this);
     this.gps = new GPS(this.updateLocation);
     this.finishTakingPicturesFunc = this.finishTakingPicturesFunc.bind(this);
-    this.setNavBarIsOpened = this.setNavBarIsOpened.bind(this);
-    this.setNavBarIsClosed = this.setNavBarIsClosed.bind(this);
     console.log("Main componenet constructor updatelocation ", this.updateLocation)
   }
-  setNavBarIsOpened() {
-    console.log("setNavBarIsOpened");
-    this.setState({ navBarIsOpened: true, marginRight: "250px" });
-    // document.getElementById("carmelLogo").style.marginRight = this.state.marginRight;
-  }
-  setNavBarIsClosed() {
-    console.log("setNavBarIsClosed");
-    this.setState({ navBarIsOpened: false, marginRight: "0px" });
-    // document.getElementById("carmelLogo").style.marginRight = this.state.marginRight;
-  }
+
   updateLocation(latitude, longitude) {
     console.log("update location " + latitude + " " + longitude)
     this.setState({ latitude, longitude })
   }
+
   finishTakingPicturesFunc(imageUrlArray) {
     this.setState({ finishTakingPictures: true }, () => {
       console.log("this.state.finishTakingPictures", this.state.finishTakingPictures)
@@ -62,25 +53,21 @@ export class Main extends Component {
   render() {
     return (
       <div className="App">
+
         {/* <WelcomePage /> */}
         <BrowserRouter>
           <Switch>
+
             <Route exact path="/" render={(props) =>
               (<div>
-                <Menu {...props}
-                  setNavBarIsOpened={this.setNavBarIsOpened}
-                  setNavBarIsClosed={this.setNavBarIsClosed} />
+                <Menu {...props}/>
                 <WelcomePage />
-
               </div>)} />
-
 
             <Route exact path="/camera"
               render={(props) =>
                 (<div>
-                  <Menu {...props}
-                    setNavBarIsOpened={this.setNavBarIsOpened}
-                    setNavBarIsClosed={this.setNavBarIsClosed} />
+                  <Menu {...props}/>
                   <Camera {...props}
                     finishTakingPicturesFunc={this.finishTakingPicturesFunc}
                     marginRight={this.state.marginRight}
@@ -90,9 +77,7 @@ export class Main extends Component {
             <Route exact path="/upload"
               render={(props) =>
                 (<div>
-                  <Menu {...props}
-                    setNavBarIsOpened={this.setNavBarIsOpened}
-                    setNavBarIsClosed={this.setNavBarIsClosed} />
+                  <Menu {...props}/>
                   <UploadHandler {...props}
                     imageUrlArray={this.state.imageUrlArray}
                     longitude={this.state.longitude}
@@ -101,13 +86,12 @@ export class Main extends Component {
 
             <Route exact path="/gps" render={(props) =>
               (<div>
-                <Menu {...props}
-                  setNavBarIsOpened={this.setNavBarIsOpened}
-                  setNavBarIsClosed={this.setNavBarIsClosed} />
+                <Menu {...props}/>
                 <DisplayMapOnScreen {...props}
                   longitude={this.state.longitude}
                   latitude={this.state.latitude} />
               </div>)} />
+
             {/* ------------------------------------------------------------- */}
             {/* <Route exact path="/sign"
               render={(props) =>
@@ -118,18 +102,16 @@ export class Main extends Component {
                   <WelcomePage />
                 </div>)} /> */}
             {/* ------------------------------------------------------------- */}
+            
             <Route exact path="/signup" render={(props) =>
               (<div>
-                <Menu {...props}
-                  setNavBarIsOpened={this.setNavBarIsOpened}
-                  setNavBarIsClosed={this.setNavBarIsClosed} />
+                <Menu {...props}/>
                 <SignUp />
               </div>)} />
+
             <Route exact path="/login" render={(props) =>
               (<div>
-                <Menu {...props}
-                  setNavBarIsOpened={this.setNavBarIsOpened}
-                  setNavBarIsClosed={this.setNavBarIsClosed} />
+                <Menu {...props}/>
                 <LogIn />
               </div>)} />
 
@@ -137,6 +119,7 @@ export class Main extends Component {
             {/* <Route exact path="/signin" component={SignIn}/> */}
           </Switch>
         </BrowserRouter>
+
         <br /> <br />
         <img id="carmelLogo" src={carmelLogo} height="60" alt="carmel 6000 logo" />
       </div>

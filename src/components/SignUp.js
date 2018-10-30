@@ -134,7 +134,7 @@ export class SignUp extends Component {
 
     renderButtonOrWheel() {
         if (!this.state.waitingForSignup)
-            return <button className="blue-button Subtitle-1-grey" type="submit">!צרפו אותי לא ללאברדור</button>;
+            return <button className="blue-button Subtitle-1-grey" type="submit">הרשמה</button>;
         else
             return <div>babababba</div>;
     }
