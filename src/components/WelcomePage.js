@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // import { SignIn } from './components/SignIn.js';
-// import { BrowserRouter as Route,  } from "react-router-dom";
+import { BrowserRouter as Route,  } from "react-router-dom";
 // import '../styles/WelcomeTeacher.css';
 import './WelcomePage.css'
 import { Link } from 'react-router-dom';
@@ -29,10 +29,10 @@ export class WelcomePage extends Component {
                     {/* <button onClick={() => { this.props.history.push('/login') }}>LogIn</button> */}
                     {/* <button>LogIn</button> */}
                     <br/>
-                    <div className="sign-btn signup"><Link className="link" to="/signup" >משתמש חדש</Link></div>
+                    <Link className="link" to="/signup" ><div className="sign-btn signup">משתמש חדש</div></Link>
                     <br/>
-                    <div className="sign-btn login"><Link className="link" to="/login">משתמש רשום</Link></div>
-                    <div className="guest">כניסה כאורח</div>
+                    <Link className="link" to="/login"><div className="sign-btn login">משתמש רשום</div></Link>
+                    <div className="guest"><Link className="link" to="/camera">כניסה כאורח</Link></div>
                 </div>
             </div>  
         );

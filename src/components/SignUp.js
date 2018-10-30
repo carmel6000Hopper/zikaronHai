@@ -8,13 +8,6 @@ import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router'
 import './Login-Signup.css';
 
-// export class SignUp extends Component {
-//     render(){
-//         return <h1>sigh Up</h1>
-//     }
-// }
-
-// export default SignUp;
 function checkForLetters(str) {
     let letter;
     for (let i = 0; i < 26; i++) {
@@ -43,12 +36,12 @@ export class SignUp extends Component {
             lastName: '',
             email: '',
             pass: '',
-            // passconfirm: '',
+            passconfirm: '',
             nickname: '',
             firstNameErrorMsg: '',
             lastNameErrorMsg: '',
             passErrorMsg: '',
-            // passconfirmErrorMsg: '',
+            passconfirmErrorMsg: '',
             // nicknameErrorMsg: '',
             waitingForSignup: false,
             signedUp: false
@@ -87,17 +80,17 @@ document.body.style.backgroundColor = "#f2f2f2";
             else if (this.state.passErrorMsg.length !== 0)
                 this.setState({ passErrorMsg: '' });
         }
+        if (event.target.id === "passconfirm") {
+            this.setState({ passconfirm: event.target.value });
+            if (event.target.value !== this.state.pass)
+                this.setState({ passconfirmErrorMsg: 'סיסמה לא תואמת' });
+            else if (this.state.passconfirmErrorMsg.length !== 0)
+                this.setState({ passconfirmErrorMsg: '' });
+        }
         if (event.target.id === "nickname")
         this.setState({ nickname: event.target.value });
     
     }
-        // if (event.target.id === "passconfirm") {
-        //     this.setState({ passconfirm: event.target.value });
-        //     if (event.target.value !== this.state.pass)
-        //         this.setState({ passconfirmErrorMsg: 'סיסמה לא תואמת' });
-        //     else if (this.state.passconfirmErrorMsg.length !== 0)
-        //         this.setState({ passconfirmErrorMsg: '' });
-        // }
 //         if (event.target.id === "firstName") {
 //             this.setState({ firstName: event.target.value });
 //             if (!checkForLetters(event.target.value))
@@ -177,11 +170,11 @@ document.body.style.backgroundColor = "#f2f2f2";
                             <input id="pass" type="password" value={this.state.pass} onChange={this.handleChange} placeholder="סיסמה" required="required" />
                             <p className="error-text">{this.state.passErrorMsg}</p>
                         </div>
-                        {/* confirm password input
+                        {/* confirm password input */}
                         <div className="row">
                             <input id="passconfirm" type="password" value={this.state.passconfirm} onChange={this.handleChange} placeholder="אימות סיסמה" required="required" />
                             <p className="error-text">{this.state.passconfirmErrorMsg}</p>
-                        </div> */}
+                        </div>
                         {/* nickname input */}
                         <div className="row">
                             <input id="nickname" type="text" placeholder="כינוי" value={this.state.nickname} onChange={this.handleChange} required="required" />
