@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { CanvasArr } from './components/CanvasArr';
+// import { CanvasArr } from './components/CanvasArr';
 // import ImageUpload from './components/ImageUpload';
 import { UploadHandler } from './components/UploadHandler'
 import { Camera } from './components/Camera.js';
@@ -22,7 +22,6 @@ export class Main extends Component {
       longitude: 0,
       latitude: 0,
       imageUrlArray: [],
-      navBarIsOpened: false,
       marginRight: "0px"
     });
     
@@ -60,24 +59,23 @@ export class Main extends Component {
 
             <Route exact path="/" render={(props) =>
               (<div>
-                <Menu {...props}/>
+                <Menu {...props} />
                 <WelcomePage />
               </div>)} />
 
             <Route exact path="/camera"
               render={(props) =>
                 (<div>
-                  <Menu {...props}/>
+                  <Menu {...props} />
                   <Camera {...props}
                     finishTakingPicturesFunc={this.finishTakingPicturesFunc}
-                    marginRight={this.state.marginRight}
-                    navBarIsOpened={this.state.navBarIsOpened} />
+                    marginRight={this.state.marginRight} />
                 </div>)} />
 
             <Route exact path="/upload"
               render={(props) =>
                 (<div>
-                  <Menu {...props}/>
+                  <Menu {...props} />
                   <UploadHandler {...props}
                     imageUrlArray={this.state.imageUrlArray}
                     longitude={this.state.longitude}
@@ -86,7 +84,7 @@ export class Main extends Component {
 
             <Route exact path="/gps" render={(props) =>
               (<div>
-                <Menu {...props}/>
+                <Menu {...props} />
                 <DisplayMapOnScreen {...props}
                   longitude={this.state.longitude}
                   latitude={this.state.latitude} />
@@ -96,22 +94,20 @@ export class Main extends Component {
             {/* <Route exact path="/sign"
               render={(props) =>
                 (<div>
-                  <Menu {...props}
-                    setNavBarIsOpened={this.setNavBarIsOpened}
-                    setNavBarIsClosed={this.setNavBarIsClosed} />
+                  <Menu {...props} />
                   <WelcomePage />
                 </div>)} /> */}
             {/* ------------------------------------------------------------- */}
             
             <Route exact path="/signup" render={(props) =>
               (<div>
-                <Menu {...props}/>
+                <Menu {...props} />
                 <SignUp />
               </div>)} />
 
             <Route exact path="/login" render={(props) =>
               (<div>
-                <Menu {...props}/>
+                <Menu {...props} />
                 <LogIn />
               </div>)} />
 

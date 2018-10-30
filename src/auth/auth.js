@@ -4,49 +4,49 @@
 import firebase from 'firebase/app';
 
 
-export const Auth={
+export const Auth = {
 
-    _isAuthenticated:false,
-    
-    isAuthenticated(){
-      
-      let pCode=localStorage.getItem('pinCode');
-      this._isAuthenticated= pCode!==null;
-      return this._isAuthenticated;
-  
+    _isAuthenticated: false,
+
+    isAuthenticated() {
+
+        let pCode = localStorage.getItem('pinCode');
+        this._isAuthenticated = pCode !== null;
+        return this._isAuthenticated;
+
     },
-  
-    authenticate(pinCode,cb){
-        
 
-        let db=firebase.database();
-        
-        db.ref('Experiments/').once('value', (snapshot)=>{
-                
-            if(snapshot.hasChild(pinCode)){
-                    
-                    console.log('pin valid');
-                    
-                    localStorage.setItem("pinCode", pinCode);
+    authenticate(pinCode, cb) {
 
-                    return cb(true);
 
-                }else{
-                    return cb(false);
-                }
+        let db = firebase.database();
+
+        db.ref('Experiments/').once('value', (snapshot) => {
+
+            if (snapshot.hasChild(pinCode)) {
+
+                console.log('pin valid');
+
+                localStorage.setItem("pinCode", pinCode);
+
+                return cb(true);
+
+            } else {
+                return cb(false);
+            }
         });
     },
-    logout(cb){
-  
-      localStorage.removeItem('pinCode','');
-      this._isAuthenticated=false;
-      return cb();
-      
+    logout(cb) {
+
+        localStorage.removeItem('pinCode', '');
+        this._isAuthenticated = false;
+        return cb();
+
     },
-    getPin(){
+    getPin() {
         return localStorage.getItem("pinCode");
     }
-  
-  }
-  
-  export default Auth;
+
+}
+
+export default Auth;
