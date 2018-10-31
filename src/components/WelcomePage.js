@@ -31,8 +31,8 @@ export class WelcomePage extends Component {
                     <br/>
                     <Link className="link" to="/signup" ><div className="sign-btn signup">משתמש חדש</div></Link>
                     <br/>
-                    <Link className="link" to="/login"><div className="sign-btn login">משתמש רשום</div></Link>
-                    <div className="guest"><Link className="link" to="/camera">כניסה כאורח</Link></div>
+                    <Link className="link" to="/login"><div className="sign-btn login">משתמש רשום</div></Link><br/>
+                    <div><Link className="link guest" to="/camera">כניסה כאורח</Link></div>
                 </div>
             </div>  
         );

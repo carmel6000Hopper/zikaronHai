@@ -98,7 +98,7 @@ export class LogIn extends Component{
                     <div className="row"><input className="input" id = "pass" type="password" placeholder="סיסמה" value={this.state.pass} onChange={this.handlePassChange} required="required" /></div>
                     <div className="row">
                         <div className="col">
-                            <button  type="button" className="small-text  underline left" onClick={this.openForgotPassModal}>שכחתי סיסמה</button>
+                            <a className="small-text need-password underline left" onClick={this.openForgotPassModal}>שכחתי סיסמה</a>
                         </div>
                     </div>
                     <div className="row">{this.renderButtonOrWheel()}</div>

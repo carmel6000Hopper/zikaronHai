@@ -9,7 +9,7 @@ body {
     z-index: 3;
     top: 0;
     right: 0;
-    background-color: #111;
+    background-color: #4d4d4d;
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
@@ -19,13 +19,13 @@ body {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
     font-size: 25px;
-    color: #818181;
+    color: #999999;
     display: block;
     transition: 0.3s;
 }
 
 .sidebar a:hover {
-    color: #f1f1f1;
+    color: #ffffff;
 }
 
 a{
