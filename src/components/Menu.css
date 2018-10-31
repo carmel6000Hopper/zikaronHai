@@ -28,9 +28,13 @@ body {
     color: #ffffff;
 }
 
+.a-container{
+    margin-top: 50px;
+}
+
 a{
     cursor: pointer;
-
+    margin-top: 20px;
 }
 
 .sidebar .closebtn {
@@ -63,4 +67,19 @@ a{
 @media screen and (max-height: 450px) {
     .sidebar {padding-top: 15px;}
     .sidebar a {font-size: 18px;}
+}
+
+
+.closebtn{
+    margin-right: 45.6%;
+    margin-top: 40px; 
+    width: 38px;
+    
+}
+
+.closebtn:hover{
+    margin-right: 45.6%;
+    margin-top: 40px; 
+    width: 38px;
+
 }

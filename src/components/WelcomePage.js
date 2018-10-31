@@ -6,6 +6,7 @@ import './WelcomePage.css'
 import { Link } from 'react-router-dom';
 
 
+
 export class WelcomePage extends Component {
     constructor(props) {
         super(props);//runs the constructor of "my father"
