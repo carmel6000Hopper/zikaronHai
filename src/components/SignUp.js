@@ -91,22 +91,6 @@ document.body.style.backgroundColor = "#f2f2f2";
         this.setState({ nickname: event.target.value });
     
     }
-//         if (event.target.id === "firstName") {
-//             this.setState({ firstName: event.target.value });
-//             if (!checkForLetters(event.target.value))
-//                 this.setState({ firstNameErrorMsg: 'על השם להכיל אותיות' });
-//             else if (this.state.firstNameErrorMsg.length !== 0)
-//                 this.setState({ firstNameErrorMsg: '' });
-//         }
-    
-//     if (event.target.id === "lastName") {
-//         this.setState({ lastName: event.target.value });
-//         if (!checkForLetters(event.target.value))
-//             this.setState({ lastNameErrorMsg: 'על השם להכיל אותיות' });
-//         else if (this.state.lastNameErrorMsg.length !== 0)
-//             this.setState({ lastNameErrorMsg: '' });
-//     }
-// }
 
     handleSubmit(event) {
         event.preventDefault();
