@@ -136,32 +136,32 @@ document.body.style.backgroundColor = "#f2f2f2";
                     <form onSubmit={this.handleSubmit}>
                         {/* first name input */}
                         <div className="row">
-                            <input id="first-name" type="text" placeholder="שם פרטי" value={this.state.firstName} onChange={this.handleChange} required="required" />
+                            <input id="first-name" type="text" dir="rtl"placeholder="שם פרטי" value={this.state.firstName} onChange={this.handleChange} required="required" />
                             <p className="error-text">{this.state.firstNameErrorMsg}</p>
                         </div>
                         {/* last name input */}
                         <div className="row">
-                            <input id="last-name" type="text" placeholder="שם משפחה" value={this.state.lastName} onChange={this.handleChange} required="required" />
+                            <input id="last-name" type="text" dir="rtl" placeholder="שם משפחה" value={this.state.lastName} onChange={this.handleChange} required="required" />
                             <p className="error-text">{this.state.lastNameErrorMsg}</p>
                         </div>
                         {/* email input */}
                         <div className="row">
-                            <input id="email" type="email" placeholder="כתובת אימייל" value={this.state.email} onChange={this.handleChange} required="required" />
+                            <input id="email" type="email" dir="rtl" placeholder="כתובת אימייל" value={this.state.email} onChange={this.handleChange} required="required" />
                             <p className="error-text">{''}</p>
                         </div>
                         {/* password input */}
                         <div className="row">
-                            <input id="pass" type="password" value={this.state.pass} onChange={this.handleChange} placeholder="סיסמה" required="required" />
+                            <input id="pass" type="password" dir="rtl" value={this.state.pass} onChange={this.handleChange} placeholder="סיסמה" required="required" />
                             <p className="error-text">{this.state.passErrorMsg}</p>
                         </div>
                         {/* confirm password input */}
                         <div className="row">
-                            <input id="passconfirm" type="password" value={this.state.passconfirm} onChange={this.handleChange} placeholder="אימות סיסמה" required="required" />
+                            <input id="passconfirm" type="password" dir="rtl" value={this.state.passconfirm} onChange={this.handleChange} placeholder="אימות סיסמה" required="required" />
                             <p className="error-text">{this.state.passconfirmErrorMsg}</p>
                         </div>
                         {/* nickname input */}
                         <div className="row">
-                            <input id="nickname" type="text" placeholder="כינוי" value={this.state.nickname} onChange={this.handleChange} required="required" />
+                            <input id="nickname" type="text" dir="rtl" placeholder="כינוי" value={this.state.nickname} onChange={this.handleChange} required="required" />
                             {/* <p className="error-text">{this.state.nicknameErrorMsg}</p> */}
                         </div>
                         <div className="row">

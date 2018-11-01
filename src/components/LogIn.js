@@ -93,9 +93,9 @@ export class LogIn extends Component{
                 <div className="row"><p className="Subtitle-1 inline">עוד לא נרשמת? </p>
                 <Link className="Subtitle-1 underline" to="/signup">הרשמה</Link></div><br/>
                 <form className="" onSubmit={this.handleSubmit}>
-                    <div className="row"><input className="input" id = "email" type="text" placeholder="כתובת אימייל" value={this.state.email} onChange={this.handleEmailChange} required="required"/></div>
+                    <div className="row"><input className="input" id = "email" type="text" dir="rtl" placeholder="כתובת אימייל" value={this.state.email} onChange={this.handleEmailChange} required="required"/></div>
                     <br/>
-                    <div className="row"><input className="input" id = "pass" type="password" placeholder="סיסמה" value={this.state.pass} onChange={this.handlePassChange} required="required" /></div>
+                    <div className="row"><input className="input" id = "pass" type="password" dir="rtl" placeholder="סיסמה" value={this.state.pass} onChange={this.handlePassChange} required="required" /></div>
                     <div className="row">
                         <div className="col">
                             <a className="small-text need-password underline left" onClick={this.openForgotPassModal}>שכחתי סיסמה</a>
