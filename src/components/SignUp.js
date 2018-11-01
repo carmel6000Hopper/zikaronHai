@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 // import {WelcomePage} from './components/SignIn.js'
 // // import '../styles/App.css';
 // import { BrowserRouter as Route, Redirect, Link } from "react-router-dom";
-import { Auth } from '../auth/auth.js';
+//import { Auth } from '../auth/auth.js';
+import { auth } from '../firebase';
 import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router'
 import './Login-Signup.css';
@@ -51,21 +52,21 @@ export class SignUp extends Component {
         this.renderButtonOrWheel = this.renderButtonOrWheel.bind(this);
     }
 
-componentWillMount(){
-document.body.style.backgroundColor = "#f2f2f2";
- 
-}
+    componentWillMount() {
+        document.body.style.backgroundColor = "#f2f2f2";
+
+    }
     handleChange(event) {
         if (event.target.id === "email")
             this.setState({ email: event.target.value });
-            if (event.target.id === "first-name") {
-                this.setState({ firstName: event.target.value });
-                if (!checkForLetters(event.target.value))
-                    this.setState({ firstNameErrorMsg: 'על השם להכיל אותיות' });
-                else if (this.state.firstNameErrorMsg.length !== 0)
-                    this.setState({ firstNameErrorMsg: '' });
-            }
-        
+        if (event.target.id === "first-name") {
+            this.setState({ firstName: event.target.value });
+            if (!checkForLetters(event.target.value))
+                this.setState({ firstNameErrorMsg: 'על השם להכיל אותיות' });
+            else if (this.state.firstNameErrorMsg.length !== 0)
+                this.setState({ firstNameErrorMsg: '' });
+        }
+
         if (event.target.id === "last-name") {
             this.setState({ lastName: event.target.value });
             if (!checkForLetters(event.target.value))
@@ -88,10 +89,10 @@ document.body.style.backgroundColor = "#f2f2f2";
                 this.setState({ passconfirmErrorMsg: '' });
         }
         if (event.target.id === "nickname")
-        this.setState({ nickname: event.target.value });
-    
-    }
+            this.setState({ nickname: event.target.value });
 
+    }
+    
     handleSubmit(event) {
         event.preventDefault();
         if (this.state.firstNameErrorMsg || this.state.lastNameErrorMsg || this.state.passErrorMsg || this.state.passconfirmErrorMsg) {
@@ -100,9 +101,18 @@ document.body.style.backgroundColor = "#f2f2f2";
         else {
             this.setState({ waitingForSignup: true });
             console.log(this.state.email, this.state.pass);
-            Auth.AuthSignup(this.state.email, this.state.pass, this.onSignup.bind(this));
+            auth.doCreateUserWithEmailAndPassword(this.state.email, this.state.pass)
+                // .then(authUser => {
+                //   this.setState({ ...INITIAL_STATE });
+                // })
+                .catch(error => {
+                    this.setState({ passErrorMsg: error });
+                });
+
+            //Auth.AuthSignup(this.state.email, this.state.pass, this.onSignup.bind(this));
         }
     }
+
 
     onSignup(hasSignedUp) {
         if (hasSignedUp) {
@@ -113,10 +123,17 @@ document.body.style.backgroundColor = "#f2f2f2";
             this.setState({ waitingForSignup: false });
         }
     }
-
+   
     renderButtonOrWheel() {
+        const isInvalid =
+        this.state.pass !== this.state.passconfirm ||
+        this.state.pass === '' ||
+        this.state.email === '' ||
+        this.state.firstName === ''||
+        this.state.lastName === ''||
+        this.state.nickname === '';
         if (!this.state.waitingForSignup)
-            return <button className="submit-btn" type="submit">כניסה</button>;
+            return <button className="submit-btn" disabled={this.isInvalid} type="submit">כניסה</button>;
         else
             return <div>babababba</div>;
     }
@@ -136,7 +153,7 @@ document.body.style.backgroundColor = "#f2f2f2";
                     <form onSubmit={this.handleSubmit}>
                         {/* first name input */}
                         <div className="row">
-                            <input id="first-name" type="text" dir="rtl"placeholder="שם פרטי" value={this.state.firstName} onChange={this.handleChange} required="required" />
+                            <input id="first-name" type="text" dir="rtl" placeholder="שם פרטי" value={this.state.firstName} onChange={this.handleChange} required="required" />
                             <p className="error-text">{this.state.firstNameErrorMsg}</p>
                         </div>
                         {/* last name input */}

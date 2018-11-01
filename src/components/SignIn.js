@@ -5,12 +5,14 @@
 // import Auth from '../services/auth';
 import React, { Component } from 'react';
 import {Link, Redirect } from "react-router-dom";
+import { auth } from '../firebase';
 // import { BrowserRouter as Route,Link, Redirect } from "react-router-dom";
-import { Auth } from '../auth/auth.js';
+//import { Auth } from '../auth/auth.js';
+
 import './Login-Signup.css';
 // import TeacherForgotPass from './TeacherForgotPass';
 
-export class LogIn extends Component{
+export class SignIn extends Component{
     constructor(props){
         super(props);
         this.state={
@@ -18,7 +20,8 @@ export class LogIn extends Component{
             pass:'',
             waitingForLogin: false,
             loggedIn: false,
-            forgotPassShowing: false
+            forgotPassShowing: false,
+            errorMessage: ''
         };
         this.handleEmailChange=this.handleEmailChange.bind(this);
         this.handlePassChange=this.handlePassChange.bind(this);
@@ -40,7 +43,15 @@ export class LogIn extends Component{
     handleSubmit(event){
         event.preventDefault();
         this.setState({waitingForLogin:true})
-        Auth.AuthLogin(this.state.email, this.state.pass, this.onLogin.bind(this));
+        auth.doSignInWithEmailAndPassword(this.state.email, this.state.pass)
+        // .then(() => {
+        //   this.setState({ ...INITIAL_STATE });
+        //   history.push(routes.HOME);
+        // })
+        .catch(error => {
+          this.setState({errorMessage : error});
+        });
+        //Auth.AuthLogin(this.state.email, this.state.pass, this.onLogin.bind(this));
     }
 
     onLogin(hasLoggedIn)
@@ -110,4 +121,4 @@ export class LogIn extends Component{
     }
 }
 
-export default LogIn;
+export default SignIn;
