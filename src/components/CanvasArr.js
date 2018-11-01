@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Canvas } from './Canvas'
 import "./Camera.css";
+import "./CanvasArr.css";
 
 var numImagesTaken = 0;
 const MAX_NUM_OF_IMAGES = 5;
@@ -10,7 +11,6 @@ export class CanvasArr extends Component {
     super(props);
     this.state = {
       canvasList: [],
-      ctxDict: [],
       canvasKeys: [],
       listItems: [],
       currKey: 0,
@@ -48,15 +48,6 @@ export class CanvasArr extends Component {
     alert("select canvas");
   }
 
-  // updateContextDict(key, ctx) {
-  //   var ctxDict = this.state.ctxDict // create an empty array
-  //   ctxDict.push({
-  //     key: key,
-  //     value: ctx
-  //   });
-  //   this.setState({ ctxDict });
-  // }
-
   /** this function is called when the X button is clicked and is responsible to delete a canvas
    * the canvas is deleted from the canvas array according to its key and index
    * the counter is updated to numImagesTaken--
@@ -87,7 +78,6 @@ export class CanvasArr extends Component {
       selectCanvas={this.selectCanvas}
       deleteCanvas={this.deleteCanvas}
       video={this.state.video}
-    // updateContextDict={this.updateContextDict}
     />
 
     // add the new canvas to the canvasList
@@ -112,7 +102,7 @@ export class CanvasArr extends Component {
     // display all the list items (canvases) on screen
     return (
       <div>
-        <ul>
+        <ul id="ul-canvas-list">
           {listItems}
         </ul>
       </div>

@@ -13,7 +13,6 @@ export class Camera extends Component {
     super(props);
     this.state = {
       canList: [],
-      // snapShotsCounter: 0,
       video: '',
       hasToAddCanvas: false
     };
@@ -29,12 +28,10 @@ export class Camera extends Component {
   }
 
   setNavBarIsOpened() {
-    // this.setState({ navBarIsOpened: true });
     document.getElementById("cam-container").style.marginRight = "250px";
   }
 
   setNavBarIsClosed() {
-    // this.setState({ navBarIsOpened: false });
     document.getElementById("cam-container").style.marginRight = "0";
   }
 
