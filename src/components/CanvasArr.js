@@ -44,8 +44,13 @@ export class CanvasArr extends Component {
     }
   }
 
-  selectCanvas() {
-    alert("select canvas");
+  selectCanvas(e) {
+    console.log("select canvas");
+    var index = this.state.canvasList.indexOf(e.target.key);
+    let canvasList = this.state.canvasList;
+    let canvasKeys = this.state.canvasKeys;
+    console.log("select: index: ", e.target.key);
+    console.log("canvasKeys[index]: ", canvasKeys[index]);
   }
 
   /** this function is called when the X button is clicked and is responsible to delete a canvas
@@ -54,6 +59,7 @@ export class CanvasArr extends Component {
    */
   deleteCanvas(e) {
     var index = this.state.canvasList.indexOf(e.target.key);
+    console.log("delete: index: ", index);
     let canvasList = this.state.canvasList;
     let canvasKeys = this.state.canvasKeys;
     canvasList.splice(index, 1);
@@ -61,7 +67,7 @@ export class CanvasArr extends Component {
     this.setState({ canvasList, canvasKeys }, () => {
       numImagesTaken--;
       console.log("deleteCanvas: numImagesTaken: ", numImagesTaken);
-      console.log("deleteCanvas: " + this.state.canvasList);
+      console.log("deleteCanvas: canvasList: " + this.state.canvasList);
     });
   }
 
