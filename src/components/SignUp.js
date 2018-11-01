@@ -75,7 +75,7 @@ document.body.style.backgroundColor = "#f2f2f2";
         }
         if (event.target.id === "pass") {
             this.setState({ pass: event.target.value });
-            if (event.target.value.length < 6)
+            if (event.target.value.length < 5)
                 this.setState({ passErrorMsg: 'סיסמה קצרה מידי' });
             else if (this.state.passErrorMsg.length !== 0)
                 this.setState({ passErrorMsg: '' });
@@ -128,43 +128,44 @@ document.body.style.backgroundColor = "#f2f2f2";
         }
 
         return (
-            <div className="flex-box-center-container flex-horizontal-center">
-                <div className="ib signup-container">
+            <div className="flex-box-center-container flex-horizontal-center" dir="rtl" >
+                <div className="ib signup-container" dir="rtl" >
                     <h1 className="tac ib">הרשמה</h1>
-                    <div className="row"><p className="Subtitle-1 inline">משתמש רשום? </p>
+                    <div className="row" dir="rtl" >
+                    <p className="Subtitle-1 inline" dir="rtl" >משתמש רשום? </p>
                         <Link className="Subtitle-1 underline" to="/login">כניסה לחשבון שלי</Link></div><br />
                     <form onSubmit={this.handleSubmit}>
                         {/* first name input */}
-                        <div className="row">
-                            <input id="first-name" type="text" dir="rtl"placeholder="שם פרטי" value={this.state.firstName} onChange={this.handleChange} required="required" />
-                            <p className="error-text">{this.state.firstNameErrorMsg}</p>
+                        <div className="row" dir="rtl" >
+                            <input id="first-name" type="text" dir="rtl" placeholder="שם פרטי" value={this.state.firstName} onChange={this.handleChange} required="required" />
+                            <p className="error-text" dir="rtl" >{this.state.firstNameErrorMsg}</p>
                         </div>
                         {/* last name input */}
-                        <div className="row">
+                        <div className="row" dir="rtl" >
                             <input id="last-name" type="text" dir="rtl" placeholder="שם משפחה" value={this.state.lastName} onChange={this.handleChange} required="required" />
-                            <p className="error-text">{this.state.lastNameErrorMsg}</p>
+                            <p className="error-text" dir="rtl" >{this.state.lastNameErrorMsg}</p>
                         </div>
                         {/* email input */}
-                        <div className="row">
+                        <div className="row" dir="rtl" >
                             <input id="email" type="email" dir="rtl" placeholder="כתובת אימייל" value={this.state.email} onChange={this.handleChange} required="required" />
-                            <p className="error-text">{''}</p>
+                            <p className="error-text" dir="rtl" >{''}</p>
                         </div>
                         {/* password input */}
-                        <div className="row">
+                        <div className="row" dir="rtl" >
                             <input id="pass" type="password" dir="rtl" value={this.state.pass} onChange={this.handleChange} placeholder="סיסמה" required="required" />
-                            <p className="error-text">{this.state.passErrorMsg}</p>
+                            <p className="error-text" dir="rtl" >{this.state.passErrorMsg}</p>
                         </div>
                         {/* confirm password input */}
-                        <div className="row">
+                        <div className="row" dir="rtl" >
                             <input id="passconfirm" type="password" dir="rtl" value={this.state.passconfirm} onChange={this.handleChange} placeholder="אימות סיסמה" required="required" />
-                            <p className="error-text">{this.state.passconfirmErrorMsg}</p>
+                            <p className="error-text" dir="rtl" >{this.state.passconfirmErrorMsg}</p>
                         </div>
                         {/* nickname input */}
-                        <div className="row">
+                        <div className="row" dir="rtl" >
                             <input id="nickname" type="text" dir="rtl" placeholder="כינוי" value={this.state.nickname} onChange={this.handleChange} required="required" />
                             {/* <p className="error-text">{this.state.nicknameErrorMsg}</p> */}
                         </div>
-                        <div className="row">
+                        <div className="row" dir="rtl" >
                             {this.renderButtonOrWheel()}
                         </div>
                     </form>
