@@ -50,9 +50,16 @@ export class CanvasArr extends Component {
     console.log("selectCanvas: currKey: ", currKey);
     console.log("selectCanvas: canvasKeys: ", canvasKeys); 
     console.log("selectCanvas: canvasList: ", canvasList);
+
+    
+    /** get the index of currKey from the canvasKeys array
+     * this is the index of the canvas also in the canvasList array
+     */
     let index =  canvasKeys.indexOf(currKey);
     console.log("selectCanvas: index: ", index);
-    console.log("canvasList[index]: ", canvasList[index]);
+
+    //the specific position of the selected canvas in the canvasList array according to its index
+    console.log("canvasList[index]: ", canvasList[index]); 
   }
 
   /** this function is called when the X button is clicked and is responsible to delete a canvas
@@ -65,12 +72,20 @@ export class CanvasArr extends Component {
     console.log("deleteCanvas: currKey: ", currKey);
     console.log("deleteCanvas: canvasKeys: ", canvasKeys); 
     console.log("deleteCanvas: canvasList: ", canvasList);
+
+    /** get the index of currKey from the canvasKeys array
+     * this is the index of the canvas also in the canvasList array
+     */
     let index =  canvasKeys.indexOf(currKey);
     console.log("deleteCanvas: index: ", index);
+
+    // remove the index from the canvasList array and from the canvasKeys array
     canvasList.splice(index, 1);
     canvasKeys.splice(index, 1);
-     this.setState({ canvasList, canvasKeys }, () => {
-      numImagesTaken--;
+    
+    //update the state of the canvasList and canvasKeys arrays with the removed index
+    this.setState({ canvasList, canvasKeys }, () => {
+      numImagesTaken--; //update the numImagesTaken as they changed when the canvas was removed
       console.log("deleteCanvas: numImagesTaken: ", numImagesTaken);
       console.log("deleteCanvas splice: canvasKeys: ", this.state.canvasKeys); 
       console.log("deleteCanvas splice: canvasList: ", this.state.canvasList);
