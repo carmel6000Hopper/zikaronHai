@@ -44,30 +44,36 @@ export class CanvasArr extends Component {
     }
   }
 
-  selectCanvas(e) {
-    console.log("select canvas");
-    var index = this.state.canvasList.indexOf(e.target.key);
+  selectCanvas(currKey) {
     let canvasList = this.state.canvasList;
     let canvasKeys = this.state.canvasKeys;
-    console.log("select: index: ", e.target.key);
-    console.log("canvasKeys[index]: ", canvasKeys[index]);
+    console.log("selectCanvas: currKey: ", currKey);
+    console.log("selectCanvas: canvasKeys: ", canvasKeys); 
+    console.log("selectCanvas: canvasList: ", canvasList);
+    let index =  canvasKeys.indexOf(currKey);
+    console.log("selectCanvas: index: ", index);
+    console.log("canvasList[index]: ", canvasList[index]);
   }
 
   /** this function is called when the X button is clicked and is responsible to delete a canvas
    * the canvas is deleted from the canvas array according to its key and index
    * the counter is updated to numImagesTaken--
    */
-  deleteCanvas(e) {
-    var index = this.state.canvasList.indexOf(e.target.key);
-    console.log("delete: index: ", index);
+  deleteCanvas(currKey) {
     let canvasList = this.state.canvasList;
     let canvasKeys = this.state.canvasKeys;
+    console.log("deleteCanvas: currKey: ", currKey);
+    console.log("deleteCanvas: canvasKeys: ", canvasKeys); 
+    console.log("deleteCanvas: canvasList: ", canvasList);
+    let index =  canvasKeys.indexOf(currKey);
+    console.log("deleteCanvas: index: ", index);
     canvasList.splice(index, 1);
     canvasKeys.splice(index, 1);
-    this.setState({ canvasList, canvasKeys }, () => {
+     this.setState({ canvasList, canvasKeys }, () => {
       numImagesTaken--;
       console.log("deleteCanvas: numImagesTaken: ", numImagesTaken);
-      console.log("deleteCanvas: canvasList: " + this.state.canvasList);
+      console.log("deleteCanvas splice: canvasKeys: ", this.state.canvasKeys); 
+      console.log("deleteCanvas splice: canvasList: ", this.state.canvasList);
     });
   }
 
@@ -76,7 +82,10 @@ export class CanvasArr extends Component {
   addCanvas() {
     // update the key of the new canvas to be unique
     this.state.canvasKeys.push(this.state.currKey);
-    this.setState({ currKey: this.state.currKey + 1 });
+    this.setState({ currKey: this.state.currKey + 1 }, ()=>{
+      // console.log("addCanvas: this.state.currKey: ", this.state.currKey); //next key
+      console.log("addCanvas: this.state.canvasKeys: ", this.state.canvasKeys);
+    });
 
     // calls the canvas component to create a new canvas
     var canvas = <Canvas
@@ -90,7 +99,7 @@ export class CanvasArr extends Component {
     let canvasList = this.state.canvasList;
     canvasList.push(canvas);
     this.setState({ canvasList }, () => {
-      console.log("addCanvas: ", this.state.canvasList);
+      console.log("addCanvas: this.state.canvasList: ", this.state.canvasList);
     });
   }
 
