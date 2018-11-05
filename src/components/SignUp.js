@@ -7,7 +7,7 @@ import React, { Component } from 'react';
 import { auth } from '../firebase';
 import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router'
-import './Login-Signup.css';
+import './Signin-Signup.css';
 
 function checkForLetters(str) {
     let letter;
@@ -92,7 +92,7 @@ export class SignUp extends Component {
             this.setState({ nickname: event.target.value });
 
     }
-    
+
     handleSubmit(event) {
         event.preventDefault();
         if (this.state.firstNameErrorMsg || this.state.lastNameErrorMsg || this.state.passErrorMsg || this.state.passconfirmErrorMsg) {
@@ -123,19 +123,18 @@ export class SignUp extends Component {
             this.setState({ waitingForSignup: false });
         }
     }
-   
+
     renderButtonOrWheel() {
         const isInvalid =
-        this.state.pass !== this.state.passconfirm ||
-        this.state.pass === '' ||
-        this.state.email === '' ||
-        this.state.firstName === ''||
-        this.state.lastName === ''||
-        this.state.nickname === '';
+            this.state.pass !== this.state.passconfirm ||
+            this.state.pass === '' ||
+            this.state.email === '' ||
+            this.state.firstName === '' ||
+            this.state.lastName === '' ||
+            this.state.nickname === '';
         if (!this.state.waitingForSignup)
             return <button className="submit-btn" disabled={this.isInvalid} type="submit">כניסה</button>;
-        else
-            return <div>babababba</div>;
+     
     }
 
     render() {
@@ -143,13 +142,13 @@ export class SignUp extends Component {
             console.log("should re-direct")
             return (<Redirect to='/' />);
         }
+        var linkToAccount = <Link className="Subtitle-1 underline" to="/signIn" style={{ textDecoration: 'none' }}>כניסה</Link>;
 
         return (
             <div className="flex-box-center-container flex-horizontal-center">
                 <div className="ib signup-container">
                     <h1 className="tac ib">הרשמה</h1>
-                    <div className="row"><p className="Subtitle-1 inline">משתמש רשום? </p>
-                        <Link className="Subtitle-1 underline" to="/login">כניסה לחשבון שלי</Link></div><br />
+                    <div className="row"><p className="Subtitle-1 inline">  משתמש רשום ? {linkToAccount} </p></div>
                     <form onSubmit={this.handleSubmit}>
                         {/* first name input */}
                         <div className="row">

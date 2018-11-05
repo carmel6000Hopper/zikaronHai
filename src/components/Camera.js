@@ -84,7 +84,6 @@ export class Camera extends Component {
           <div className="container"></div>
           <button id="snap" onClick={this.addSnapOnCanvas}></button>
         </div>
-
         <button id="finishButton" onClick={this.onFinish} >Finish</button>
         <br /><br />
         <button onClick={() => { this.props.history.push('/') }} >back</button>
