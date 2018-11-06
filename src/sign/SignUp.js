@@ -3,10 +3,11 @@ import React, { Component } from 'react';
 // import {WelcomePage} from './components/SignIn.js'
 // // import '../styles/App.css';
 // import { BrowserRouter as Route, Redirect, Link } from "react-router-dom";
-import { Auth } from '../auth/auth.js';
+//import { Auth } from '../auth/auth.js';
+import { auth } from '../firebase';
 import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router'
-import './Login-Signup.css';
+import './Signin-Signup.css';
 
 function checkForLetters(str) {
     let letter;
@@ -49,23 +50,24 @@ export class SignUp extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.renderButtonOrWheel = this.renderButtonOrWheel.bind(this);
+       // this.clickOnEnter = this.clickOnEnter.bind(this);
     }
 
-componentWillMount(){
-document.body.style.backgroundColor = "#f2f2f2";
- 
-}
+    componentWillMount() {
+        document.body.style.backgroundColor = "#f2f2f2";
+
+    }
     handleChange(event) {
         if (event.target.id === "email")
             this.setState({ email: event.target.value });
-            if (event.target.id === "first-name") {
-                this.setState({ firstName: event.target.value });
-                if (!checkForLetters(event.target.value))
-                    this.setState({ firstNameErrorMsg: 'על השם להכיל אותיות' });
-                else if (this.state.firstNameErrorMsg.length !== 0)
-                    this.setState({ firstNameErrorMsg: '' });
-            }
-        
+        if (event.target.id === "first-name") {
+            this.setState({ firstName: event.target.value });
+            if (!checkForLetters(event.target.value))
+                this.setState({ firstNameErrorMsg: 'על השם להכיל אותיות' });
+            else if (this.state.firstNameErrorMsg.length !== 0)
+                this.setState({ firstNameErrorMsg: '' });
+        }
+
         if (event.target.id === "last-name") {
             this.setState({ lastName: event.target.value });
             if (!checkForLetters(event.target.value))
@@ -88,8 +90,7 @@ document.body.style.backgroundColor = "#f2f2f2";
                 this.setState({ passconfirmErrorMsg: '' });
         }
         if (event.target.id === "nickname")
-        this.setState({ nickname: event.target.value });
-    
+            this.setState({ nickname: event.target.value });
     }
 
     handleSubmit(event) {
@@ -100,9 +101,19 @@ document.body.style.backgroundColor = "#f2f2f2";
         else {
             this.setState({ waitingForSignup: true });
             console.log(this.state.email, this.state.pass);
-            Auth.AuthSignup(this.state.email, this.state.pass, this.onSignup.bind(this));
+            auth.doCreateUserWithEmailAndPassword(this.state.email, this.state.pass)
+                // .then(authUser => {
+                //   this.setState({ ...INITIAL_STATE });
+                // })
+                // .catch(error => {
+                //     this.setState({ passErrorMsg: error });
+                // });
+
+            //Auth.AuthSignup(this.state.email, this.state.pass, this.onSignup.bind(this));
         }
+        this.props.history.push('./camera');
     }
+
 
     onSignup(hasSignedUp) {
         if (hasSignedUp) {
@@ -113,12 +124,29 @@ document.body.style.backgroundColor = "#f2f2f2";
             this.setState({ waitingForSignup: false });
         }
     }
-
+    // clickOnEnter(){
+    //     this.props.history.push('../camera');
+    // }
     renderButtonOrWheel() {
+        const isInvalid =
+            this.state.pass !== this.state.passconfirm ||
+            this.state.pass === '' ||
+            this.state.email === '' ||
+            this.state.firstName === '' ||
+            this.state.lastName === '' ||
+            this.state.nickname === '';
         if (!this.state.waitingForSignup)
-            return <button className="submit-btn" type="submit">כניסה</button>;
-        else
-            return <div>babababba</div>;
+        // handleClick(e) {
+        //     e.preventDefault();
+        //   }
+        //   render() {
+        //     return (
+        //       <Link to='/bar' onClick={this.handleClick}>Bar</Link>
+        //     );
+        //   }
+         //   return <div><Link className="link guest" to="../camera">כניסה</Link></div>
+         return <button className="submit-btn" disabled={this.isInvalid} type="submit">כניסה</button>;
+     
     }
 
     render() {
@@ -126,6 +154,7 @@ document.body.style.backgroundColor = "#f2f2f2";
             console.log("should re-direct")
             return (<Redirect to='/' />);
         }
+        var linkToAccount = <Link className="Subtitle-1 underline" to="/signIn" style={{ textDecoration: 'none' }}>כניסה</Link>;
 
         return (
             <div className="flex-box-center-container flex-horizontal-center" dir="rtl" >
