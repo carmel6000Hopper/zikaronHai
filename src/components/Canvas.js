@@ -8,7 +8,6 @@ export class Canvas extends Component {
     constructor(props) {
         super(props);
         this.state = ({
-            id: 0,
             video: ''
         });
         this.canvasRef = React.createRef();
@@ -40,7 +39,7 @@ export class Canvas extends Component {
                     width={Canvas.CANVAS_WIDTH}
                     height={Canvas.CANVAS_HEIGHT}
                     ref={this.canvasRef}
-                    onClick={() => this.props.selectCanvas(this.canvasRef.current.currKey)}>
+                    onClick={() => this.props.selectCanvas(this.canvasRef.current)}>
                 </canvas>
                 
                 <button id="deleteCanvas" onClick={() => {
