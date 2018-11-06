@@ -14,7 +14,8 @@ export class Camera extends Component {
     this.state = {
       canList: [],
       video: '',
-      hasToAddCanvas: false
+      hasToAddCanvas: false,
+      cameraMode: true
     };
 
     this.canvasRef = React.createRef();
@@ -41,18 +42,25 @@ export class Camera extends Component {
   }
 
   componentDidMount() {
-    console.log("in component did mount - actualize video");
+    this.actualizeVideo();
+  }
 
-    var video = document.getElementById('video');
+  actualizeVideo = () => {
+    if (this.state.cameraMode) {
 
-    // gets the video from the camera of the device - DOESN'T WORK ON PHONE!!!!
-    navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
-      video.src = window.URL.createObjectURL(stream);
-      video.play();
-      this.setState({ video }, () => {
-        console.log('Camera.js: this.state.video: ', this.state.video);
-      });
-    })
+      console.log("in component did mount - actualize video");
+
+      var video = document.getElementById('video');
+
+      // gets the video from the camera of the device - DOESN'T WORK ON PHONE!!!!
+      navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
+        video.src = window.URL.createObjectURL(stream);
+        video.play();
+        this.setState({ video }, () => {
+          console.log('Camera.js: this.state.video: ', this.state.video);
+        });
+      })
+    }
   }
 
   onFinish = () => {
@@ -73,24 +81,31 @@ export class Camera extends Component {
     this.props.history.push('/upload');
   }
 
+  changeCameraMode = (flag) => {
+    this.setState({ cameraMode: flag }, this.actualizeVideo);
+  }
+
   render() {
     return (
-      <div id="cam-container">
-        <div id="video-border">
-          <video id="video" width="320" height="240" autoPlay></video>
-          <div className="container"></div>
-          <button id="snap" onClick={this.addSnapOnCanvas}></button>
-        </div>
-
-        <button id="finishButton" onClick={this.onFinish} >Finish</button>
-        <br /><br />
-        <button onClick={() => { this.props.history.push('/') }} >back</button>
-        <label id="resultURL"></label>
-        <div className="snapshots-container"></div>
+      <div>
+        {this.state.cameraMode ?
+          <div id="cam-container">
+            <div id="video-border">
+              <video id="video" autoPlay></video>
+              <div className="container"></div>
+              <button id="snap" onClick={this.addSnapOnCanvas}></button>
+            </div>
+            <button id="finishButton" onClick={this.onFinish} >Finish</button>
+            <br /><br />
+            <button onClick={() => { this.props.history.push('/') }} >back</button>
+            <label id="resultURL"></label>
+          </div>
+          : null}
 
         <CanvasArr
           hasToAddCanvas={this.state.hasToAddCanvas}
           hasAddedCanvas={this.hasAddedCanvas}
+          changeCameraMode={this.changeCameraMode}
           ref={this.CanvasArrRef}
           video={this.state.video}
         />

@@ -7,6 +7,10 @@ var numImagesTaken = 0;
 const MAX_NUM_OF_IMAGES = 5;
 
 export class CanvasArr extends Component {
+
+  static RESIZE_CANVAS_WIDTH = 360;
+  static RESIZE_CANVAS_HEIGHT = 270;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -14,8 +18,13 @@ export class CanvasArr extends Component {
       canvasKeys: [],
       listItems: [],
       currKey: 0,
-      video: ''
+      video: '',
+      isSelected: false,
+      canvasWidth: 0,
+      canvasHeight: 0
     };
+
+    this.newCanvasRef = React.createRef();
 
     this.addCanvasHandler = this.addCanvasHandler.bind(this);
     this.addCanvas = this.addCanvas.bind(this);
@@ -44,60 +53,12 @@ export class CanvasArr extends Component {
     }
   }
 
-  selectCanvas(currKey) {
-    let canvasList = this.state.canvasList;
-    let canvasKeys = this.state.canvasKeys;
-    console.log("selectCanvas: currKey: ", currKey);
-    console.log("selectCanvas: canvasKeys: ", canvasKeys); 
-    console.log("selectCanvas: canvasList: ", canvasList);
-
-    
-    /** get the index of currKey from the canvasKeys array
-     * this is the index of the canvas also in the canvasList array
-     */
-    let index =  canvasKeys.indexOf(currKey);
-    console.log("selectCanvas: index: ", index);
-
-    //the specific position of the selected canvas in the canvasList array according to its index
-    console.log("canvasList[index]: ", canvasList[index]); 
-  }
-
-  /** this function is called when the X button is clicked and is responsible to delete a canvas
-   * the canvas is deleted from the canvas array according to its key and index
-   * the counter is updated to numImagesTaken--
-   */
-  deleteCanvas(currKey) {
-    let canvasList = this.state.canvasList;
-    let canvasKeys = this.state.canvasKeys;
-    console.log("deleteCanvas: currKey: ", currKey);
-    console.log("deleteCanvas: canvasKeys: ", canvasKeys); 
-    console.log("deleteCanvas: canvasList: ", canvasList);
-
-    /** get the index of currKey from the canvasKeys array
-     * this is the index of the canvas also in the canvasList array
-     */
-    let index =  canvasKeys.indexOf(currKey);
-    console.log("deleteCanvas: index: ", index);
-
-    // remove the index from the canvasList array and from the canvasKeys array
-    canvasList.splice(index, 1);
-    canvasKeys.splice(index, 1);
-    
-    //update the state of the canvasList and canvasKeys arrays with the removed index
-    this.setState({ canvasList, canvasKeys }, () => {
-      numImagesTaken--; //update the numImagesTaken as they changed when the canvas was removed
-      console.log("deleteCanvas: numImagesTaken: ", numImagesTaken);
-      console.log("deleteCanvas splice: canvasKeys: ", this.state.canvasKeys); 
-      console.log("deleteCanvas splice: canvasList: ", this.state.canvasList);
-    });
-  }
-
   /** this function creates a new canvas with a unique key using the canvas component
    * and adds it to the canvasList*/
   addCanvas() {
     // update the key of the new canvas to be unique
     this.state.canvasKeys.push(this.state.currKey);
-    this.setState({ currKey: this.state.currKey + 1 }, ()=>{
+    this.setState({ currKey: this.state.currKey + 1 }, () => {
       // console.log("addCanvas: this.state.currKey: ", this.state.currKey); //next key
       console.log("addCanvas: this.state.canvasKeys: ", this.state.canvasKeys);
     });
@@ -110,12 +71,71 @@ export class CanvasArr extends Component {
       video={this.state.video}
     />
 
+    console.log("addCanvas: canvas: ", canvas);
+
     // add the new canvas to the canvasList
     let canvasList = this.state.canvasList;
     canvasList.push(canvas);
     this.setState({ canvasList }, () => {
       console.log("addCanvas: this.state.canvasList: ", this.state.canvasList);
     });
+  }
+
+  /** this function is called when the X button is clicked and is responsible to delete a canvas
+   * the canvas is deleted from the canvas array according to its key and index
+   * the counter is updated to numImagesTaken--
+   */
+  deleteCanvas(currKey) {
+    let canvasList = this.state.canvasList;
+    let canvasKeys = this.state.canvasKeys;
+    console.log("deleteCanvas: currKey: ", currKey);
+    console.log("deleteCanvas: canvasKeys: ", canvasKeys);
+    console.log("deleteCanvas: canvasList: ", canvasList);
+
+    /** get the index of currKey from the canvasKeys array
+     * this is the index of the canvas also in the canvasList array
+     */
+    let index = canvasKeys.indexOf(currKey);
+    console.log("deleteCanvas: index: ", index);
+
+    // remove the index from the canvasList array and from the canvasKeys array
+    canvasList.splice(index, 1);
+    canvasKeys.splice(index, 1);
+
+    //update the state of the canvasList and canvasKeys arrays with the removed index
+    this.setState({ canvasList, canvasKeys }, () => {
+      numImagesTaken--; //update the numImagesTaken as they changed when the canvas was removed
+      console.log("deleteCanvas: numImagesTaken: ", numImagesTaken);
+      console.log("deleteCanvas splice: canvasKeys: ", this.state.canvasKeys);
+      console.log("deleteCanvas splice: canvasList: ", this.state.canvasList);
+    });
+  }
+
+  /** this function creates a new canvas with the info of the selected canvas 
+   * with a different size that is showed on the screen 
+   * the new canvas will be shown on top of the other elements of the page - width 100%, z-index 3
+   * 
+   * TODO
+   */
+  selectCanvas(currCanvasRef) {
+    console.log("selectCanvas: currCanvasRef: ", currCanvasRef);
+    // this.newCanvasRef = currCanvasRef;
+    let newCtx = this.newCanvasRef.current.getContext('2d');
+    this.setState({
+      canvasWidth: CanvasArr.RESIZE_CANVAS_WIDTH,
+      canvasHeight: CanvasArr.RESIZE_CANVAS_HEIGHT
+    }, () => {
+      // ctx.drawImage(image, dx, dy, dWidth, dHeight);
+      newCtx.drawImage(currCanvasRef, 0, 0, CanvasArr.RESIZE_CANVAS_WIDTH, CanvasArr.RESIZE_CANVAS_HEIGHT);
+      console.log("newCtx: ", newCtx);
+      console.log("this.newCanvasRef.current: ", this.newCanvasRef.current);
+      this.props.changeCameraMode(false);
+    });
+  }
+
+  backToCameraMode = () => {
+    this.props.changeCameraMode(true);
+    this.setState({ canvasWidth: 0, canvasHeight: 0 });
   }
 
   render() {
@@ -132,9 +152,21 @@ export class CanvasArr extends Component {
     // display all the list items (canvases) on screen
     return (
       <div>
-        <ul id="ul-canvas-list">
+        <canvas
+          id="new-canvas"
+          ref={this.newCanvasRef}
+          width={this.state.canvasWidth}
+          height={this.state.canvasHeight}
+        />
+        <button
+          className={this.state.canvasWidth > 0 ? "show" : "hide"}
+          onClick={this.backToCameraMode}>
+          button
+        </button>
+
+        <div id="canvas-list">
           {listItems}
-        </ul>
+        </div>
       </div>
     );
   }
@@ -142,7 +174,7 @@ export class CanvasArr extends Component {
 
 /** this function turns the props (canvas) into a list item and returns it so it could be displayed on screen */
 function ListItem(props) {
-  return <li>{props.canvas}</li>;
+  return <div>{props.canvas}</div>;
 }
 
 export default CanvasArr;

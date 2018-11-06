@@ -1,7 +1,7 @@
 import Map from "./Location"
 import React, { Component } from 'react';
 
-export default class LocationGPS extends Component {
+export class LocationGPS extends Component {
     constructor(props){
         super(props);
     }
@@ -17,6 +17,8 @@ export default class LocationGPS extends Component {
                  onMarkerClicked = {this.onMarkerClicked}/>
                  <div></div>
             </div>
-        )
+        );
     }
 }
+
+export default LocationGPS;
