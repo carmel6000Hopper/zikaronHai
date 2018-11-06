@@ -22,15 +22,15 @@ const withAuthentication = (Component) =>
     }
 
     render() {
-        render() {
-            const { authUser } = this.state;
-      
-            return (
-              <AuthUserContext.Provider value={authUser}>
-                <Component {...this.props} />
-              </AuthUserContext.Provider>
-            );
-          }
+
+      const { authUser } = this.state;
+
+      return (
+        <AuthUserContext.Provider value={authUser}>
+          <Component {...this.props} />
+        </AuthUserContext.Provider>
+      );
     }
 
-}
+
+  }

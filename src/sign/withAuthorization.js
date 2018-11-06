@@ -9,8 +9,8 @@ const withAuthorization = (authCondition) => (Component) => {
     componentDidMount() {
       firebase.auth.onAuthStateChanged(authUser => {
         if (!authCondition(authUser)) {
-            /// TODO to change
-        //   this.props.history.push(routes.SIGN_IN);
+          console.log("in if (!authCondition(authUser))" );
+          this.props.history.push('./signin');
         }
       });
     }
@@ -28,3 +28,11 @@ const withAuthorization = (authCondition) => (Component) => {
 }
 
 export default withAuthorization;
+
+// const PrivateRoute = ({ component: Component, ...rest }) => (
+//   <Route {...rest} render={(props) => (
+//     fakeAuth.isAuthenticated === true
+//       ? <Component {...props} />
+//       : <Redirect to='/login' />
+//   )} />
+// )

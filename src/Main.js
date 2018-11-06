@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-//import { firebase } from './firebase';
 import { auth , firebase} from './firebase';
-// import { CanvasArr } from './components/CanvasArr';
-// import ImageUpload from './components/ImageUpload';
 
 // import components 
 import { UploadHandler } from './components/UploadHandler'
@@ -37,6 +34,7 @@ export class Main extends Component {
     this.updateLocation = this.updateLocation.bind(this);
     this.gps = new GPS(this.updateLocation);
     this.finishTakingPicturesFunc = this.finishTakingPicturesFunc.bind(this);
+    this.updateAuthUser = this.updateAuthUser.bind(this);
     console.log("Main componenet constructor updatelocation ", this.updateLocation)
   }
 
@@ -54,26 +52,26 @@ export class Main extends Component {
       })
     })
   }
-  
-
-  
-  componentDidMount() {
+  updateAuthUser(){
+   
     firebase.auth().onAuthStateChanged(authUser => {
       authUser
         ? this.setState({ authUser })
         : this.setState({ authUser: null });
     });
+  }
+  componentDidMount() {
+    console.log("componentDidMount Main - update authuser")
+    this.updateAuthUser();
     // gps start
     this.gps.startWatchingPosition();
   }
   render() {
     return (
       <div className="App">
-
         {/* <WelcomePage /> */}
         <BrowserRouter>
           <Switch>
-
             <Route exact path="/" render={(props) =>
               (<div>
                 <Menu {...props} />
@@ -85,6 +83,7 @@ export class Main extends Component {
                 (<div>
                   <Menu {...props} />
                   <Camera {...props}
+                    authUser={this.state.authUser}
                     finishTakingPicturesFunc={this.finishTakingPicturesFunc}
                     marginRight={this.state.marginRight} />
                 </div>)} />
@@ -112,19 +111,10 @@ export class Main extends Component {
                 <Menu {...props} />
                 <PasswordForgetForm  {...props} />
               </div>)} />
-
-            {/* ------------------------------------------------------------- */}
-            {/* <Route exact path="/sign"
-              render={(props) =>
-                (<div>
-                  <Menu {...props} />
-                  <WelcomePage />
-                </div>)} /> */}
-            {/* ------------------------------------------------------------- */}
-            
+         
             <Route exact path="/signup" render={(props) =>
               (<div>
-                <Menu {...props} />
+                {/* <Menu {...props} /> */}
                 <SignUp  {...props} />
               </div>)} />
               <Route exact path="/account" render={(props) =>
@@ -134,15 +124,14 @@ export class Main extends Component {
               </div>)} />
             <Route exact path="/signin" render={(props) =>
               (<div>
-                <Menu {...props} />
-                <SignIn />
+                {/* <Menu {...props} /> */}
+                <SignIn {...props} />
               </div>)} />
               <Route exact path="/signout" render={(props) =>
               (<div>
                 <Menu {...props} />
                 <SignOut  {...props}/>
               </div>)} />
-
           </Switch>
         </BrowserRouter>
 

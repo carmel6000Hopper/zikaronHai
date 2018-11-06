@@ -20,7 +20,7 @@ const NavigationNonAuth = () =>
         <Link className="link" to="/signup" ><div className="sign-btn signup">משתמש חדש</div></Link>
         <br />
         <Link className="link" to="/signin"><div className="sign-btn signin">משתמש רשום</div></Link><br />
-        <div><Link className="link guest" to="/camera">כניסה כאורח</Link></div>
+        <Link className="link" to="/gps"><div className="sign-btn visitor">כניסה כאורח</div></Link><br/>
     </div>
 
 

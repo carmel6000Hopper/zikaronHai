@@ -69,11 +69,14 @@ export class SignIn extends Component {
         auth.doSignInWithEmailAndPassword(this.state.email, this.state.pass)
             .then(() => {
                 // history.push(routes.HOME);
+                console.log("do sign in")
+                this.props.history.push('/camera');
             })
             .catch(error => {
                 this.setState({ errorMessage: error });
             });
         //Auth.AuthSignIn(this.state.email, this.state.pass, this.onSignIn.bind(this));
+      
     }
 
     onSignIn(hasSignedIn) {
@@ -104,8 +107,8 @@ export class SignIn extends Component {
     }
     renderButtonOrWheel() {
         if (!this.state.waitingForSignIn)
-            return <div><Link className="link guest" to="../camera">כניסה</Link></div>
-        // return <button className="submit-btn" type="submit">כניסה</button>;
+            //return <div><Link className="link guest" to="../camera">כניסה</Link></div>
+             return <button className="submit-btn" type="submit">כניסה</button>;
         else
             return <div>cmcmds</div>;
     }
