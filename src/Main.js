@@ -12,14 +12,14 @@ import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import { DisplayMapOnScreen } from './components/Location.js';
 import { Menu } from './components/Menu.js';
 import { GPS } from './components/GPS.js';
-import Navigation from './components/Navigation.js';
-import { SignUp } from './components/SignUp';
-import { SignIn } from './components/SignIn';
-import { SignOut } from './components/SignOut';
-import AccountPage from './components/Account';
+import Navigation from './sign/Navigation.js';
+import { SignUp } from './sign/SignUp';
+import { SignIn } from './sign/SignIn';
+import { SignOut } from './sign/SignOut';
+import AccountPage from './sign/Account';
 // import images
 import carmelLogo from './images/carmel6000logo.jfif'
-import { PasswordForgetForm } from './components/PasswordForget';
+import { PasswordForgetForm } from './sign/PasswordForget';
 
 export class Main extends Component {
   constructor(props) {
@@ -110,7 +110,7 @@ export class Main extends Component {
               <Route exact path="/forgetpass" render={(props) =>
               (<div>
                 <Menu {...props} />
-                <PasswordForgetForm />
+                <PasswordForgetForm  {...props} />
               </div>)} />
 
             {/* ------------------------------------------------------------- */}
@@ -140,7 +140,7 @@ export class Main extends Component {
               <Route exact path="/signout" render={(props) =>
               (<div>
                 <Menu {...props} />
-                <SignOut />
+                <SignOut  {...props}/>
               </div>)} />
 
           </Switch>

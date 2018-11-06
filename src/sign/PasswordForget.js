@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-
 import { auth } from '../firebase';
-
 
 const PasswordForgetPage = () =>
   <div>
@@ -22,13 +20,11 @@ const INITIAL_STATE = {
 class PasswordForgetForm extends Component {
   constructor(props) {
     super(props);
-
     this.state = { ...INITIAL_STATE };
   }
 
   onSubmit = (event) => {
     const { email } = this.state;
-
     auth.doPasswordReset(email)
       .then(() => {
         this.setState({ ...INITIAL_STATE });
@@ -36,7 +32,6 @@ class PasswordForgetForm extends Component {
       .catch(error => {
         this.setState(byPropKey('error', error));
       });
-
     event.preventDefault();
   }
 
@@ -54,8 +49,7 @@ class PasswordForgetForm extends Component {
           value={this.state.email}
           onChange={event => this.setState(byPropKey('email', event.target.value))}
           type="text"
-          placeholder="Email Address"
-        />
+          placeholder="Email Address"/>
         <button disabled={isInvalid} type="submit">
           Reset My Password
         </button>

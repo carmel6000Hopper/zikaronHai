@@ -50,6 +50,7 @@ export class SignUp extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.renderButtonOrWheel = this.renderButtonOrWheel.bind(this);
+       // this.clickOnEnter = this.clickOnEnter.bind(this);
     }
 
     componentWillMount() {
@@ -90,7 +91,6 @@ export class SignUp extends Component {
         }
         if (event.target.id === "nickname")
             this.setState({ nickname: event.target.value });
-
     }
 
     handleSubmit(event) {
@@ -105,12 +105,13 @@ export class SignUp extends Component {
                 // .then(authUser => {
                 //   this.setState({ ...INITIAL_STATE });
                 // })
-                .catch(error => {
-                    this.setState({ passErrorMsg: error });
-                });
+                // .catch(error => {
+                //     this.setState({ passErrorMsg: error });
+                // });
 
             //Auth.AuthSignup(this.state.email, this.state.pass, this.onSignup.bind(this));
         }
+        this.props.history.push('./camera');
     }
 
 
@@ -123,7 +124,9 @@ export class SignUp extends Component {
             this.setState({ waitingForSignup: false });
         }
     }
-
+    // clickOnEnter(){
+    //     this.props.history.push('../camera');
+    // }
     renderButtonOrWheel() {
         const isInvalid =
             this.state.pass !== this.state.passconfirm ||
@@ -133,7 +136,16 @@ export class SignUp extends Component {
             this.state.lastName === '' ||
             this.state.nickname === '';
         if (!this.state.waitingForSignup)
-            return <button className="submit-btn" disabled={this.isInvalid} type="submit">כניסה</button>;
+        // handleClick(e) {
+        //     e.preventDefault();
+        //   }
+        //   render() {
+        //     return (
+        //       <Link to='/bar' onClick={this.handleClick}>Bar</Link>
+        //     );
+        //   }
+         //   return <div><Link className="link guest" to="../camera">כניסה</Link></div>
+         return <button className="submit-btn" disabled={this.isInvalid} type="submit">כניסה</button>;
      
     }
 

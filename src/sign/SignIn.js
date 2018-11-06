@@ -29,7 +29,7 @@ export class SignIn extends Component {
         this.handlePassChange = this.handlePassChange.bind(this);
         //this.forgotPassModal = this.forgotPassModal.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-       // this.openForgotPassModal = this.openForgotPassModal.bind(this);
+        // this.openForgotPassModal = this.openForgotPassModal.bind(this);
         //this.closeForgotPassModal = this.closeForgotPassModal.bind(this);
         this.renderButtonOrWheel = this.renderButtonOrWheel.bind(this);
         this.SignInForm = this.SignInForm.bind(this);
@@ -45,7 +45,7 @@ export class SignIn extends Component {
                 <div className="row"><input className="input" id="pass" type="password" dir="rtl" placeholder="סיסמה" value={this.state.pass} onChange={this.handlePassChange} required="required" /></div>
                 <div className="row">
                     <div className="col">
-                    <div>{forgetPasswordLink}</div>
+                        <div>{forgetPasswordLink}</div>
                     </div>
                 </div>
                 <div className="row">{this.renderButtonOrWheel()}</div>
@@ -67,9 +67,9 @@ export class SignIn extends Component {
         event.preventDefault();
         this.setState({ waitingForSignIn: true })
         auth.doSignInWithEmailAndPassword(this.state.email, this.state.pass)
-        .then(() => {
-           // history.push(routes.HOME);
-        })
+            .then(() => {
+                // history.push(routes.HOME);
+            })
             .catch(error => {
                 this.setState({ errorMessage: error });
             });
@@ -104,7 +104,8 @@ export class SignIn extends Component {
     }
     renderButtonOrWheel() {
         if (!this.state.waitingForSignIn)
-            return <button className="submit-btn" type="submit">כניסה</button>;
+            return <div><Link className="link guest" to="../camera">כניסה</Link></div>
+        // return <button className="submit-btn" type="submit">כניסה</button>;
         else
             return <div>cmcmds</div>;
     }
