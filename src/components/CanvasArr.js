@@ -8,8 +8,8 @@ const MAX_NUM_OF_IMAGES = 5;
 
 export class CanvasArr extends Component {
 
-  static RESIZE_CANVAS_WIDTH = 240;
-  static RESIZE_CANVAS_HEIGHT = 180;
+  static RESIZE_CANVAS_WIDTH = 360;
+  static RESIZE_CANVAS_HEIGHT = 270;
 
   constructor(props) {
     super(props);
@@ -19,7 +19,9 @@ export class CanvasArr extends Component {
       listItems: [],
       currKey: 0,
       video: '',
-      isSelected: false
+      isSelected: false,
+      canvasWidth: 0,
+      canvasHeight: 0
     };
 
     this.newCanvasRef = React.createRef();
@@ -60,10 +62,17 @@ export class CanvasArr extends Component {
    */
   selectCanvas(currCanvasRef) {
     console.log("selectCanvas: currCanvasRef: ", currCanvasRef);
-    this.newCanvasRef = currCanvasRef;
-    // let newCtx = this.newCanvasRef.current.getContext('2d');
-    // newCtx.drawImage(currCanvasRef, 0, 0);
-    console.log("this.newCanvasRef.current: ", this.newCanvasRef.current);
+    // this.newCanvasRef = currCanvasRef;
+    let newCtx = this.newCanvasRef.current.getContext('2d');
+    this.setState({
+      canvasWidth: CanvasArr.RESIZE_CANVAS_WIDTH,
+      canvasHeight: CanvasArr.RESIZE_CANVAS_HEIGHT
+    }, () => {
+      // ctx.drawImage(image, dx, dy, dWidth, dHeight);
+      newCtx.drawImage(currCanvasRef, 0, 0, CanvasArr.RESIZE_CANVAS_WIDTH, CanvasArr.RESIZE_CANVAS_HEIGHT);
+      console.log("newCtx: ", newCtx);
+      console.log("this.newCanvasRef.current: ", this.newCanvasRef.current);
+    });
 
     /**____________________________________________________________________________ */
     /** create new canvas dynamically - problem with REF (null) - doesnt work !?!??!?!!  */
@@ -207,7 +216,14 @@ export class CanvasArr extends Component {
         <ul id="ul-canvas-list">
           {listItems}
         </ul>
-        <canvas ref={this.newCanvasRef}></canvas>
+        {/* <button href="javascript:void(0)">back</button> */}
+        {/* width={360} height={270} */}
+        <canvas
+          id="new-canvas"
+          ref={this.newCanvasRef}
+          width={this.state.canvasWidth}
+          height={this.state.canvasHeight}
+        />
       </div>
     );
   }

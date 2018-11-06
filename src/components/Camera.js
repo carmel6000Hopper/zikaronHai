@@ -77,7 +77,7 @@ export class Camera extends Component {
     return (
       <div id="cam-container">
         <div id="video-border">
-          <video id="video" width="320" height="240" autoPlay></video>
+          <video id="video" autoPlay></video>
           <div className="container"></div>
           <button id="snap" onClick={this.addSnapOnCanvas}></button>
         </div>
