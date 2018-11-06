@@ -1,40 +1,42 @@
-import { GeoFireQuery } from './GeoFireQuery';
-import { storage, dBRefImages, fbData, firebase } from '../firebase';
-
-const firebaseRef = fbData.ref().child('geoFire').push();
-// Create a new GeoFire instance at the random Firebase location
-const GeoFire = require('geofire');
 export class ImageDetector {
-    constructor(longitude, latitude) {
+    constructor(longitude, latitude, geoFire) {
         this.findCloseLocationImage = false;
         this.keyClosestImage = '';
         // TODO change default place
-        this.longitude = 0;
-        this.latitude = 0;
+        this.longitude = longitude;
+        this.latitude = latitude;
+        this.geoFire = geoFire;
         this.setFindCloseLocationImage = this.setFindCloseLocationImage.bind(this);
         this.setKeyClosestImage = this.setKeyClosestImage.bind(this);
+        this.checkClosestImageInDb = this.checkClosestImageInDb.bind(this);
     }
 
     setFindCloseLocationImage() {
         console.log("setFindCloseLocationImage")
         this.findCloseLocationImage = true;
     }
-
     setKeyClosestImage(key) {
         this.keyClosestImage = key;
     }
 
     checkForImageInDb() {
-        checkClosestImageInDb().then(function () {
-            if (findCloseLocationImage === true) {
-                console.log("checkClosestImageInDb");
-                // check if
-            }
-        });
+        this.checkClosestImageInDb();
+        // .then(function () {
+        // if (this.findCloseLocationImage === true) {
+        //     console.log("checkClosestImageInDb");
+        //     // TODO check if it is the same picture
+        //     return true;
+        // }
+        // else {
+        //     return false;
+        // }
+        return true;
+        // }).catch( err => { console.log(err); })
     }
     checkClosestImageInDb() {
-        let geoQuery = this.props.geoFire.query({
-            center: [this.props.longitude, this.props.latitude],
+        console.log("checkClosestImageInDb");
+        let geoQuery = this.geoFire.query({
+            center: [this.longitude, this.latitude],
             // radius in kilometer
             radius: 0.05
         });
@@ -49,4 +51,4 @@ export class ImageDetector {
     }
 }
 
-export default CheckForImageInDb;
+export default ImageDetector;
