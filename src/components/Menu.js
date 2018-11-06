@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import './Menu.css';
-import x from '../images/x-button-menu.png'
+import x from '../images/menu-exit.png'
 
 
 export class Menu extends Component {

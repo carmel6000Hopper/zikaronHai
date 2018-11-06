@@ -12,6 +12,7 @@ import { GPS } from './components/GPS.js';
 import { WelcomePage } from './components/WelcomePage.js';
 import { SignUp } from './components/SignUp';
 import { LogIn } from './components/LogIn';
+import LocationGPS from "./components/LocationGPS";
 
 export class Main extends Component {
   constructor(props) {
@@ -82,10 +83,19 @@ export class Main extends Component {
                     latitude={this.state.latitude} />
                 </div>)} />
 
-            <Route exact path="/gps" render={(props) =>
+            <Route exact path="/gps1" render={(props) =>
               (<div>
                 <Menu {...props} />
                 <DisplayMapOnScreen {...props}
+                  longitude={this.state.longitude}
+                  latitude={this.state.latitude} />
+              </div>)} />
+
+              
+            <Route exact path="/gps" render={(props) =>
+              (<div>
+                <Menu {...props} />
+                <LocationGPS {...props}
                   longitude={this.state.longitude}
                   latitude={this.state.latitude} />
               </div>)} />
