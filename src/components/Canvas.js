@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 
 export class Canvas extends Component {
 
-    static CANVAS_WIDTH = 160;
-    static CANVAS_HEIGHT = 120;
+    static CANVAS_WIDTH = 120;
+    static CANVAS_HEIGHT = 90;
 
     constructor(props) {
         super(props);

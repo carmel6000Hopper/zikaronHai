@@ -53,92 +53,32 @@ export class CanvasArr extends Component {
     }
   }
 
-  //small: width: 160, height 120
-  /** this function creates a new canvas with the info of the selected canvas 
-   * with a different size that is showed on the screen 
-   * the new canvas will be shown on top of the other elements of the page - width 100%, z-index 3
-   * 
-   * TODO
-   */
-  selectCanvas(currCanvasRef) {
-    console.log("selectCanvas: currCanvasRef: ", currCanvasRef);
-    // this.newCanvasRef = currCanvasRef;
-    let newCtx = this.newCanvasRef.current.getContext('2d');
-    this.setState({
-      canvasWidth: CanvasArr.RESIZE_CANVAS_WIDTH,
-      canvasHeight: CanvasArr.RESIZE_CANVAS_HEIGHT
-    }, () => {
-      // ctx.drawImage(image, dx, dy, dWidth, dHeight);
-      newCtx.drawImage(currCanvasRef, 0, 0, CanvasArr.RESIZE_CANVAS_WIDTH, CanvasArr.RESIZE_CANVAS_HEIGHT);
-      console.log("newCtx: ", newCtx);
-      console.log("this.newCanvasRef.current: ", this.newCanvasRef.current);
+  /** this function creates a new canvas with a unique key using the canvas component
+   * and adds it to the canvasList*/
+  addCanvas() {
+    // update the key of the new canvas to be unique
+    this.state.canvasKeys.push(this.state.currKey);
+    this.setState({ currKey: this.state.currKey + 1 }, () => {
+      // console.log("addCanvas: this.state.currKey: ", this.state.currKey); //next key
+      console.log("addCanvas: this.state.canvasKeys: ", this.state.canvasKeys);
     });
 
-    /**____________________________________________________________________________ */
-    /** create new canvas dynamically - problem with REF (null) - doesnt work !?!??!?!!  */
+    // calls the canvas component to create a new canvas
+    var canvas = <Canvas
+      currKey={this.state.currKey}
+      selectCanvas={this.selectCanvas}
+      deleteCanvas={this.deleteCanvas}
+      video={this.state.video}
+    />
 
-    // let newCanvas = <canvas
-    //   width={CanvasArr.RESIZE_CANVAS_WIDTH}
-    //   height={CanvasArr.RESIZE_CANVAS_HEIGHT}
-    //   ref={this.newCanvasRef}
-    // />
-    // console.log("newCanvas: ", newCanvas);
+    console.log("addCanvas: canvas: ", canvas);
 
-    // let newCtx = this.canvasRef.current.getContext('2d');
-    // newCtx.drawImage(this.state.video, 0, 0, Canvas.CANVAS_WIDTH, Canvas.CANVAS_HEIGHT);
-
-    // let newCtx = newCanvas.getContext('2d');
-    // console.log("newCtx: ", newCtx);
-    // newCtx.drawImage(currCanvasRef, 0, 0);
-
-    /**____________________________________________________________________________ */
-    /** resize canvas - uses the old canvas ref so changes the old canvas - doesnt work!!!! */
-
-    // let newCanvas = currCanvasRef;
-    // console.log("newCanvas: ", newCanvas);
-    // newCanvas.width = newCanvas.RESIZE_CANVAS_WIDTH;
-    // newCanvas.height = newCanvas.RESIZE_CANVAS_HEIGHT;
-    // console.log("selectCanvas after resize: newCanvas: ", newCanvas);
-
-    /**____________________________________________________________________________ */
-    /** resize canvas - the canvas is resized but the image on it disappears - doesnt work!!! */
-
-    // let currKey = currCanvasRef.currKey;
-    // if (this.state.isSelected) {
-    //   this.setState({ isSelected: !this.state.isSelected }, () => {
-    //     console.log("unselecting: this.state.isSelected: ", this.state.isSelected);
-    //   });
-    //   currCanvasRef.width = 160;
-    //   currCanvasRef.height = 120;
-    //   console.log("unselecting: currCanvasRef: ", currCanvasRef);
-    // }
-    // else { //if the canvas is not selected, then select it 
-    //   this.setState({ isSelected: !this.state.isSelected }, () => {
-    //     console.log("selecting: this.state.isSelected: ", this.state.isSelected);
-    //   });
-
-    //   currCanvasRef.width = 240;
-    //   currCanvasRef.height = 180;
-    //   console.log("selecting: currCanvasRef: ", currCanvasRef);
-
-    //   //this code isnt used yet
-    //   let canvasList = this.state.canvasList;
-    //   let canvasKeys = this.state.canvasKeys;
-    //   console.log("selectCanvas: currKey: ", currKey);
-    //   console.log("selectCanvas: canvasKeys: ", canvasKeys);
-    //   console.log("selectCanvas: canvasList: ", canvasList);
-
-    //   /** get the index of currKey from the canvasKeys array
-    //    * this is the index of the canvas also in the canvasList array
-    //    */
-    //   let index = canvasKeys.indexOf(currKey);
-    //   console.log("selectCanvas: index: ", index);
-
-    //   //the specific position of the selected canvas in the canvasList array according to its index
-    //   console.log("canvasList[index]: ", canvasList[index]);
-
-    //   // canvasList[index].type.style.width = 240;
-    // }
+    // add the new canvas to the canvasList
+    let canvasList = this.state.canvasList;
+    canvasList.push(canvas);
+    this.setState({ canvasList }, () => {
+      console.log("addCanvas: this.state.canvasList: ", this.state.canvasList);
+    });
   }
 
   /** this function is called when the X button is clicked and is responsible to delete a canvas
@@ -171,32 +111,31 @@ export class CanvasArr extends Component {
     });
   }
 
-  /** this function creates a new canvas with a unique key using the canvas component
-   * and adds it to the canvasList*/
-  addCanvas() {
-    // update the key of the new canvas to be unique
-    this.state.canvasKeys.push(this.state.currKey);
-    this.setState({ currKey: this.state.currKey + 1 }, () => {
-      // console.log("addCanvas: this.state.currKey: ", this.state.currKey); //next key
-      console.log("addCanvas: this.state.canvasKeys: ", this.state.canvasKeys);
+  /** this function creates a new canvas with the info of the selected canvas 
+   * with a different size that is showed on the screen 
+   * the new canvas will be shown on top of the other elements of the page - width 100%, z-index 3
+   * 
+   * TODO
+   */
+  selectCanvas(currCanvasRef) {
+    console.log("selectCanvas: currCanvasRef: ", currCanvasRef);
+    // this.newCanvasRef = currCanvasRef;
+    let newCtx = this.newCanvasRef.current.getContext('2d');
+    this.setState({
+      canvasWidth: CanvasArr.RESIZE_CANVAS_WIDTH,
+      canvasHeight: CanvasArr.RESIZE_CANVAS_HEIGHT
+    }, () => {
+      // ctx.drawImage(image, dx, dy, dWidth, dHeight);
+      newCtx.drawImage(currCanvasRef, 0, 0, CanvasArr.RESIZE_CANVAS_WIDTH, CanvasArr.RESIZE_CANVAS_HEIGHT);
+      console.log("newCtx: ", newCtx);
+      console.log("this.newCanvasRef.current: ", this.newCanvasRef.current);
+      this.props.changeCameraMode(false);
     });
+  }
 
-    // calls the canvas component to create a new canvas
-    var canvas = <Canvas
-      currKey={this.state.currKey}
-      selectCanvas={this.selectCanvas}
-      deleteCanvas={this.deleteCanvas}
-      video={this.state.video}
-    />
-
-    console.log("addCanvas: canvas: ", canvas);
-
-    // add the new canvas to the canvasList
-    let canvasList = this.state.canvasList;
-    canvasList.push(canvas);
-    this.setState({ canvasList }, () => {
-      console.log("addCanvas: this.state.canvasList: ", this.state.canvasList);
-    });
+  backToCameraMode = () => {
+    this.props.changeCameraMode(true);
+    this.setState({ canvasWidth: 0, canvasHeight: 0 });
   }
 
   render() {
@@ -213,17 +152,21 @@ export class CanvasArr extends Component {
     // display all the list items (canvases) on screen
     return (
       <div>
-        <ul id="ul-canvas-list">
-          {listItems}
-        </ul>
-        {/* <button href="javascript:void(0)">back</button> */}
-        {/* width={360} height={270} */}
         <canvas
           id="new-canvas"
           ref={this.newCanvasRef}
           width={this.state.canvasWidth}
           height={this.state.canvasHeight}
         />
+        <button
+          className={this.state.canvasWidth > 0 ? "show" : "hide"}
+          onClick={this.backToCameraMode}>
+          button
+        </button>
+
+        <div id="canvas-list">
+          {listItems}
+        </div>
       </div>
     );
   }
@@ -231,7 +174,7 @@ export class CanvasArr extends Component {
 
 /** this function turns the props (canvas) into a list item and returns it so it could be displayed on screen */
 function ListItem(props) {
-  return <li>{props.canvas}</li>;
+  return <div>{props.canvas}</div>;
 }
 
 export default CanvasArr;
