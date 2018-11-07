@@ -53,7 +53,6 @@ export class Main extends Component {
     })
   }
   updateAuthUser(){
-   
     firebase.auth().onAuthStateChanged(authUser => {
       authUser
         ? this.setState({ authUser })
@@ -69,7 +68,6 @@ export class Main extends Component {
   render() {
     return (
       <div className="App">
-        {/* <WelcomePage /> */}
         <BrowserRouter>
           <Switch>
             <Route exact path="/" render={(props) =>
@@ -94,6 +92,7 @@ export class Main extends Component {
                   <Menu {...props} />
                   <UploadHandler {...props}
                     imageUrlArray={this.state.imageUrlArray}
+                    authUser={this.state.authUser}
                     longitude={this.state.longitude}
                     latitude={this.state.latitude} />
                 </div>)} />
@@ -126,6 +125,7 @@ export class Main extends Component {
               (<div>
                 {/* <Menu {...props} /> */}
                 <SignIn {...props} />
+                 {/* updateAuthUser = {this.updateAuthUser}/> */}
               </div>)} />
               <Route exact path="/signout" render={(props) =>
               (<div>

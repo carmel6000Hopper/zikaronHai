@@ -67,22 +67,24 @@ export class SignIn extends Component {
         event.preventDefault();
         this.setState({ waitingForSignIn: true })
         auth.doSignInWithEmailAndPassword(this.state.email, this.state.pass)
-            .then(() => {
+            .then(authUser => {
                 // history.push(routes.HOME);
                 console.log("do sign in")
+                console.log(authUser)
                 this.props.history.push('/camera');
             })
             .catch(error => {
                 this.setState({ errorMessage: error });
             });
         //Auth.AuthSignIn(this.state.email, this.state.pass, this.onSignIn.bind(this));
-      
+
     }
 
     onSignIn(hasSignedIn) {
+        console.log("onSignedIn");
         if (hasSignedIn) {
             this.setState({ loggedIn: hasSignedIn, waitingForSignIn: false });
-            this.props.rerenderAppComp();
+            //this.props.rerenderAppComp();
         }
         else {
             this.setState({ waitingForSignIn: false });
@@ -106,9 +108,11 @@ export class SignIn extends Component {
         document.body.style.backgroundColor = "#f2f2f2";
     }
     renderButtonOrWheel() {
+        const isInvalid =
+            this.state.email === '' ||
+            this.state.pass === '' ;
         if (!this.state.waitingForSignIn)
-            //return <div><Link className="link guest" to="../camera">כניסה</Link></div>
-             return <button className="submit-btn" type="submit">כניסה</button>;
+            return <button className="submit-btn" type="submit" disabled={isInvalid}>כניסה</button>;
         else
             return <div>cmcmds</div>;
     }

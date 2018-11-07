@@ -111,6 +111,7 @@ export class SignUp extends Component {
                     fbData.doCreateUser(authUser.user.uid, this.state.nickname, this.state.email)
                         .then(() => {
                             //this.setState({ ...INITIAL_STATE });
+                            this.setState({})
                             console.log("doCreateUser work ")
                             this.props.history.push('./camera');
                         })
@@ -165,7 +166,7 @@ export class SignUp extends Component {
             console.log("should re-direct")
             return (<Redirect to='/' />);
         }
-        var linkToAccount = <Link className="Subtitle-1 underline" to="/signIn" style={{ textDecoration: 'none' }}>כניסה</Link>;
+        // var linkToAccount = <Link className="Subtitle-1 underline" to="/signIn" style={{ textDecoration: 'none' }}>כניסה</Link>;
 
         return (
             <div className="flex-box-center-container flex-horizontal-center" dir="rtl" >
