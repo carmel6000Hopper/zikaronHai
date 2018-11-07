@@ -4,7 +4,7 @@ import { Link, BrowserRouter as Route } from 'react-router-dom';
 
 import AuthUserContext from '../sign/AuthUserContext';
 import './Menu.css';
-import x from '../images/x-button-menu.png'
+import x from '../images/menu-exit.png'
 
 
 

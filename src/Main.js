@@ -1,12 +1,20 @@
 import React, { Component } from 'react';
 import './App.css';
+<<<<<<< HEAD
 import { auth , firebase} from './firebase';
+=======
+//import { firebase } from './firebase';
+import { auth, firebase } from './firebase';
+// import { CanvasArr } from './components/CanvasArr';
+// import ImageUpload from './components/ImageUpload';
+>>>>>>> 6eff03fb08db92f24daa0e670eb8e0fcf711c16a
 
 // import components 
 import { UploadHandler } from './components/UploadHandler'
 import { Camera } from './components/Camera.js';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
-import { DisplayMapOnScreen } from './components/Location.js';
+// import { DisplayMapOnScreen } from './components/Location.js';
+import { LocationGPS } from './components/LocationGPS.js';
 import { Menu } from './components/Menu.js';
 import { GPS } from './components/GPS.js';
 import Navigation from './sign/Navigation.js';
@@ -24,13 +32,13 @@ export class Main extends Component {
     this.state = ({
       finishTakingPictures: false,
       locationUserConfirmation: false,
-      authUser : null,
+      authUser: null,
       longitude: 0,
       latitude: 0,
       imageUrlArray: [],
       marginRight: "0px"
     });
-    
+
     this.updateLocation = this.updateLocation.bind(this);
     this.gps = new GPS(this.updateLocation);
     this.finishTakingPicturesFunc = this.finishTakingPicturesFunc.bind(this);
@@ -52,7 +60,14 @@ export class Main extends Component {
       })
     })
   }
+<<<<<<< HEAD
   updateAuthUser(){
+=======
+
+
+
+  componentDidMount() {
+>>>>>>> 6eff03fb08db92f24daa0e670eb8e0fcf711c16a
     firebase.auth().onAuthStateChanged(authUser => {
       authUser
         ? this.setState({ authUser })
@@ -97,13 +112,22 @@ export class Main extends Component {
                     latitude={this.state.latitude} />
                 </div>)} />
 
-            <Route exact path="/gps" render={(props) =>
+              {/* <Route exact path="/gps1" render={(props) =>
               (<div>
                 <Menu {...props} />
                 <DisplayMapOnScreen {...props}
                   longitude={this.state.longitude}
                   latitude={this.state.latitude} />
-              </div>)} />
+              </div>)} /> */}
+
+
+              <Route exact path="/gps" render={(props) =>
+                (<div>
+                  <Menu {...props} />
+                  <LocationGPS {...props}
+                    longitude={this.state.longitude}
+                    latitude={this.state.latitude} />
+                </div>)} />
 
               <Route exact path="/forgetpass" render={(props) =>
               (<div>
@@ -134,7 +158,6 @@ export class Main extends Component {
               </div>)} />
           </Switch>
         </BrowserRouter>
-
         <br /> <br />
         <img id="carmelLogo" src={carmelLogo} height="60" alt="carmel 6000 logo" />
       </div>
