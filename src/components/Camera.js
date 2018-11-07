@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import AuthUserContext from '../sign/AuthUserContext';
-import withAuthorization from '../sign/withAuthorization';
+import { AuthConsumer } from '../sign/withAuthorization';
+
 import { firebase } from '../firebase';
 import "./Camera.css";
 import { CanvasArr } from './CanvasArr'
@@ -15,8 +16,8 @@ export class Camera extends Component {
       canList: [],
       video: '',
       hasToAddCanvas: false,
-      cameraMode: true,
-      authUser:''
+      //cameraMode: true,
+      authUser: ''
     };
     this.canvasRef = React.createRef();
     this.CanvasArrRef = React.createRef();
@@ -40,8 +41,8 @@ export class Camera extends Component {
   addSnapOnCanvas() {
     this.setState({ hasToAddCanvas: true }, () => { this.CanvasArrRef.current.addCanvasHandler() });
   }
-  afterCameraRendering(){
-      this.actualizeVideo();
+  afterCameraRendering() {
+    this.actualizeVideo();
   }
   notAuthorized() {
     console.log("in if (!authCondition(authUser))");
@@ -50,7 +51,7 @@ export class Camera extends Component {
 
   CameraRender = () =>
     <div>
-      {this.state.cameraMode ?
+      {/* {this.state.cameraMode ? */}
         <div id="cam-container">
           <div id="video-border">
             <video id="video" autoPlay></video>
@@ -62,7 +63,7 @@ export class Camera extends Component {
           <button onClick={() => { this.props.history.push('/') }} >back</button>
           <label id="resultURL"></label>
         </div>
-        : null}
+        {/* : null} */}
 
       <CanvasArr
         hasToAddCanvas={this.state.hasToAddCanvas}
@@ -71,7 +72,7 @@ export class Camera extends Component {
         ref={this.CanvasArrRef}
         video={this.state.video}
       />
-      this.afterCameraRendering();
+      {this.afterCameraRendering()}
     </div>
 
   actualizeVideo = () => {
@@ -109,24 +110,23 @@ export class Camera extends Component {
     // router - go to the next page - upload Handler
     this.props.history.push('/upload');
   }
-
   changeCameraMode = (flag) => {
     this.setState({ cameraMode: flag }, this.actualizeVideo);
   }
   render() {
     return (
-      <div >
-        <AuthUserContext.Consumer>
-          {authUser => authUser
-            ? <this.CameraRender /> 
-            : this.notAuthorized()
-          }
-        </AuthUserContext.Consumer>
-
-      </div>
+      <this.CameraRender />
+      // <AuthConsumer>
+      //   {({ isAuth, login, logout }) => (
+      //     <div >{isAuth ? <this.CameraRender /> : this.notAuthorized()} </div>
+      //   )}
+      // </AuthConsumer>
     );
+ 
   }
 }
 
-const authCondition = (authUser) => !!authUser;
-export default withAuthorization(authCondition)(Camera);
+//const authCondition = (authUser) => !!authUser;
+//export default withAuthorization(authCondition)(Camera);
+
+export default Camera;

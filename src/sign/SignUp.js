@@ -130,7 +130,7 @@ export class SignUp extends Component {
     onSignup(hasSignedUp) {
         if (hasSignedUp) {
             this.setState({ signedUp: hasSignedUp, waitingForSignup: false });
-            this.props.rerenderAppComp();
+            //this.props.rerenderAppComp();
         }
         else {
             this.setState({ waitingForSignup: false });

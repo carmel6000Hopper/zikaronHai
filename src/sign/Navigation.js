@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { BrowserRouter as Route, } from "react-router-dom";
 import AuthUserContext from './AuthUserContext';
+import { AuthConsumer } from './withAuthorization';
 import SignOut from './SignOut';
 
 
@@ -10,8 +11,8 @@ import './WelcomePage.css'
 
 const NavigationAuth = () =>
     <div className="flex-box-center-container flex-horizontal-center">
-        <Link className="link" to="/homepage"><div className="to-home-page">לדף הראשי</div></Link><br />
-        <Link className="link" to="/account"><div className="to-account-page">החשבון שלי</div></Link><br />
+        <Link className="link" to="/homepage"><div className="sign-btn to-home-page">לדף הראשי</div></Link><br />
+        <Link className="link" to="/account"><div className="sign-btn to-account-page">החשבון שלי</div></Link><br />
         <Link className="link" to="/signout"><div className="sign-btn signout">התנתק</div></Link><br />
     </div>
 
@@ -23,13 +24,12 @@ const NavigationNonAuth = () =>
         <Link className="link" to="/gps"><div className="sign-btn visitor">כניסה כאורח</div></Link><br/>
     </div>
 
-
 const Navigation = () =>
-    <AuthUserContext.Consumer>
+    <AuthConsumer>
         {authUser => authUser
             ? <NavigationAuth />
             : <NavigationNonAuth />
         }
-    </AuthUserContext.Consumer>
+    </AuthConsumer>
 
 export default Navigation;
