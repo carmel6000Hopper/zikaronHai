@@ -1,16 +1,32 @@
-
+import { Route, Redirect } from 'react-router-dom'
 import React, { Component } from 'react';
 
 import { auth } from '../firebase';
+import { AuthConsumer } from './withAuthorization';
 
 export class SignOut extends Component {
+    constructor(props) {
+        super(props);
+        this.goToSignIn = this.goToSignIn.bind(this);
+    }
+    goToSignIn() {
+        this.props.history.push('./signin');
+    }
     render() {
         return (
-            <button
-                type="button"
-                onClick={auth.doSignOut} >
-                Sign Out
-        </button>
+            <AuthConsumer>
+                {({ isAuth, logout }) => (
+                    <div>
+                        <button
+                            type="button"
+                            onClick={logout} >
+                            Sign Out </button>
+                        <div> {isAuth ?  (<Redirect to='/' />) : (<Redirect to='/signin' />) }</div>
+                    </div>
+                )}
+
+            </AuthConsumer>
+
         );
     }
 }

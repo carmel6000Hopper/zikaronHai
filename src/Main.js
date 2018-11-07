@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { auth , firebase} from './firebase';
+import { auth, firebase } from './firebase';
 
 // import components 
 import { UploadHandler } from './components/UploadHandler'
@@ -15,9 +15,11 @@ import { SignUp } from './sign/SignUp';
 import { SignIn } from './sign/SignIn';
 import { SignOut } from './sign/SignOut';
 import AccountPage from './sign/Account';
+import { AuthProvider } from './sign/withAuthorization'
 // import images
 import carmelLogo from './images/carmel6000logo.jfif'
 import { PasswordForgetForm } from './sign/PasswordForget';
+import ProtectedRoute from './sign/ProtectedRoute';
 
 export class Main extends Component {
   constructor(props) {
@@ -53,7 +55,7 @@ export class Main extends Component {
       })
     })
   }
-  updateAuthUser(){
+  updateAuthUser() {
     firebase.auth().onAuthStateChanged(authUser => {
       authUser
         ? this.setState({ authUser })
@@ -69,34 +71,36 @@ export class Main extends Component {
   render() {
     return (
       <div className="App">
+
         <BrowserRouter>
-          <Switch>
-            <Route exact path="/" render={(props) =>
-              (<div>
-                <Menu {...props} />
-                <Navigation  authUser={this.state.authUser} />
-              </div>)} />
-
-            <Route exact path="/camera"
-              render={(props) =>
+          <AuthProvider>
+            <Switch>
+              <Route exact path="/" render={(props) =>
                 (<div>
                   <Menu {...props} />
-                  <Camera {...props}
-                    authUser={this.state.authUser}
-                    finishTakingPicturesFunc={this.finishTakingPicturesFunc}
-                    marginRight={this.state.marginRight} />
+                  <Navigation authUser={this.state.authUser} />
                 </div>)} />
 
-            <Route exact path="/upload"
-              render={(props) =>
-                (<div>
-                  <Menu {...props} />
-                  <UploadHandler {...props}
-                    imageUrlArray={this.state.imageUrlArray}
-                    authUser={this.state.authUser}
-                    longitude={this.state.longitude}
-                    latitude={this.state.latitude} />
-                </div>)} />
+              <ProtectedRoute exact path="/camera"
+                render={(props) =>
+                  (<div>
+                    <Menu {...props} />
+                    <Camera {...props}
+                      authUser={this.state.authUser}
+                      finishTakingPicturesFunc={this.finishTakingPicturesFunc}
+                      marginRight={this.state.marginRight} />
+                  </div>)} />
+
+              <ProtectedRoute exact path="/upload"
+                render={(props) =>
+                  (<div>
+                    <Menu {...props} />
+                    <UploadHandler {...props}
+                      imageUrlArray={this.state.imageUrlArray}
+                      authUser={this.state.authUser}
+                      longitude={this.state.longitude}
+                      latitude={this.state.latitude} />
+                  </div>)} />
 
               {/* <Route exact path="/gps" render={(props) =>
               (<div>
@@ -116,33 +120,34 @@ export class Main extends Component {
                 </div>)} />
 
               <Route exact path="/forgetpass" render={(props) =>
-              (<div>
-                <Menu {...props} />
-                <PasswordForgetForm  {...props} />
-              </div>)} />
-         
-            <Route exact path="/signup" render={(props) =>
-              (<div>
-                {/* <Menu {...props} /> */}
-                <SignUp  {...props} />
-              </div>)} />
-              <Route exact path="/account" render={(props) =>
-              (<div>
-                <Menu {...props} />
-                <AccountPage  {...props} />
-              </div>)} />
-            <Route exact path="/signin" render={(props) =>
-              (<div>
-                {/* <Menu {...props} /> */}
-                <SignIn {...props} />
-                 {/* updateAuthUser = {this.updateAuthUser}/> */}
-              </div>)} />
+                (<div>
+                  <Menu {...props} />
+                  <PasswordForgetForm  {...props} />
+                </div>)} />
+
+              <Route exact path="/signup" render={(props) =>
+                (<div>
+                  {/* <Menu {...props} /> */}
+                  <SignUp  {...props} />
+                </div>)} />
+              <ProtectedRoute exact path="/account" render={(props) =>
+                (<div>
+                  <Menu {...props} />
+                  <AccountPage  {...props} />
+                </div>)} />
+              <Route exact path="/signin" render={(props) =>
+                (<div>
+                  {/* <Menu {...props} /> */}
+                  <SignIn {...props} />
+                  {/* updateAuthUser = {this.updateAuthUser}/> */}
+                </div>)} />
               <Route exact path="/signout" render={(props) =>
-              (<div>
-                <Menu {...props} />
-                <SignOut  {...props}/>
-              </div>)} />
-          </Switch>
+                (<div>
+                  <Menu {...props} />
+                  <SignOut  {...props} />
+                </div>)} />
+            </Switch>
+          </AuthProvider>
         </BrowserRouter>
         <br /> <br />
         <img id="carmelLogo" src={carmelLogo} height="60" alt="carmel 6000 logo" />
