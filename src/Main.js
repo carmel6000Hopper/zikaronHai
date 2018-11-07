@@ -1,13 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-<<<<<<< HEAD
 import { auth , firebase} from './firebase';
-=======
-//import { firebase } from './firebase';
-import { auth, firebase } from './firebase';
-// import { CanvasArr } from './components/CanvasArr';
-// import ImageUpload from './components/ImageUpload';
->>>>>>> 6eff03fb08db92f24daa0e670eb8e0fcf711c16a
 
 // import components 
 import { UploadHandler } from './components/UploadHandler'
@@ -60,14 +53,7 @@ export class Main extends Component {
       })
     })
   }
-<<<<<<< HEAD
   updateAuthUser(){
-=======
-
-
-
-  componentDidMount() {
->>>>>>> 6eff03fb08db92f24daa0e670eb8e0fcf711c16a
     firebase.auth().onAuthStateChanged(authUser => {
       authUser
         ? this.setState({ authUser })
