@@ -20,6 +20,7 @@ export class Menu extends Component {
         console.log("close Nav");
         document.getElementById("mySidebar").style.width = "0";
     }
+    
     MenuSignedIn = () =>
         <div id="mySidebar" className="sidebar">
             <img src={x} href="javascript:void(0)" className="closebtn" onClick={this.closeNav} />

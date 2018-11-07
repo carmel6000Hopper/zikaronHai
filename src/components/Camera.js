@@ -116,17 +116,8 @@ export class Camera extends Component {
   render() {
     return (
       <this.CameraRender />
-      // <AuthConsumer>
-      //   {({ isAuth, login, logout }) => (
-      //     <div >{isAuth ? <this.CameraRender /> : this.notAuthorized()} </div>
-      //   )}
-      // </AuthConsumer>
     );
  
   }
 }
-
-//const authCondition = (authUser) => !!authUser;
-//export default withAuthorization(authCondition)(Camera);
-
 export default Camera;
