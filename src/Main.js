@@ -98,7 +98,7 @@ export class Main extends Component {
                     latitude={this.state.latitude} />
                 </div>)} />
 
-              {/* <Route exact path="/gps1" render={(props) =>
+              {/* <Route exact path="/gps" render={(props) =>
               (<div>
                 <Menu {...props} />
                 <DisplayMapOnScreen {...props}

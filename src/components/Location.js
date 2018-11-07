@@ -1,9 +1,13 @@
 import React from 'react'
 import { compose, withProps, componentFromProp } from "recompose"
 import { MapWithAMarker, withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
+import MarkerClusterer from "react-google-maps/lib/components/addons/MarkerClusterer";
 
 
-export const DisplayMapOnScreen =  compose (
+
+// --------------OLD CODE -------------------------------------------
+
+export const DisplayMapOnScreen = compose(
   withProps({
     //אישור להשתמש בגוגל מפות api
     googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyCOkNwkwX1xa59m94TYXKXzmBYBnhQZCGE&callback=initMap",
@@ -15,32 +19,123 @@ export const DisplayMapOnScreen =  compose (
   }),
   // --------------------------
   withScriptjs,
-    // --------------------------
+  // --------------------------
   withGoogleMap
 )
 
-((props) =>
-<div>
-  <GoogleMap
-    defaultZoom={18}
-    defaultCenter = {{ lat: {...props}.latitude , lng: {...props}.longitude}} >
+  ((props) =>{
+  return(
+    <div>
+      <GoogleMap
+        defaultZoom={10}
+        // defaultCenter={{ lat:32.6, lng: 35 }} >
+        defaultCenter={{ lat: { ...props }.latitude, lng: { ...props }.longitude }} >
+       
+        <Marker
+          // key={marker.photo_id}
+          // position={{ lat: this.props.markers[0].lat, lng: this.props.markers.lng[1] }}
+          // position={{ lat: 32.6, lng: 35 }}
+          // position={{ lat: 31.9, lng: 35 }}
+          position={{
+            lat: { ...props }.latitude,
+            lng: { ...props }.longitude
+          }}
+          onClick={props.onMarkerClicked}
+        />
 
-    <Marker
-      position={{ lat:{...props}.latitude ,
-      lng: {...props}.longitude }} 
-      onClick={props.onMarkerClicked}
-    />
-  </GoogleMap>
-  </div>
-);
+        {props.markers.map((pos)=> <Marker position = {{ lat:pos.lat, lng: pos.lng }}/>)}
+      </GoogleMap>
+      
+    </div>
+  )}
+    
+  );
 
 export default DisplayMapOnScreen;
 
+// -------------------------------END----------------------------------------
+
+// ---------------TRYING------------------------------------------------------
+
+// const fetch = require("isomorphic-fetch");
+// const { compose, withProps, withHandlers } = require("recompose");
+// const {
+//   withScriptjs,
+//   withGoogleMap,
+//   GoogleMap,
+//   Marker,
+// } = require("react-google-maps");
+// const { MarkerClusterer } = require("react-google-maps/lib/components/addons/MarkerClusterer");
+
+// const MapC = compose(
+//   withProps({
+//     googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyCOkNwkwX1xa59m94TYXKXzmBYBnhQZCGE&v=3.exp&libraries=geometry,drawing,places",
+//     loadingElement: <div style={{ height: `100%` }} />,
+//     containerElement: <div style={{ height: `400px` }} />,
+//     mapElement: <div style={{ height: `100%` }} />,
+//   }),
+//   withHandlers({
+//     onMarkerClustererClick: () => (markerClusterer) => {
+//       const clickedMarkers = markerClusterer.getMarkers()
+//       console.log(`Current clicked markers length: ${clickedMarkers.length}`)
+//       console.log(clickedMarkers)
+//     },
+//   }),
+//   withScriptjs,
+//   withGoogleMap
+// )(props =>
+//   <GoogleMap
+//     defaultZoom={3}
+//     defaultCenter={{ lat: 25.0391667, lng: 121.525 }}
+//   >
+//     <MarkerClusterer
+//       onClick={props.onMarkerClustererClick}
+//       averageCenter
+//       enableRetinaIcons
+//       gridSize={60}
+//     >
+//       {props.markers.map(marker => (
+//         <Marker
+//           key={marker.photo_id}
+//           position={{ lat: marker.latitude, lng: marker.longitude }}
+//         />
+//       ))}
+//     </MarkerClusterer>
+//   </GoogleMap>
+// );
+
+// export class DisplayMapOnScreen extends React.PureComponent {
+//   componentWillMount() {
+//     this.setState({ markers: [] })
+//   }
+
+//   componentDidMount() {
+//     const url = [
+//       // Length issue
+//       `https://gist.githubusercontent.com`,
+//       `/farrrr/dfda7dd7fccfec5474d3`,
+//       `/raw/758852bbc1979f6c4522ab4e92d1c92cba8fb0dc/data.json`
+//     ].join("")
+
+//     fetch(url)
+//       .then(res => res.json())
+//       .then(data => {
+//         this.setState({ markers: data.photos });
+//       });
+//   }
+
+//   render() {
+//     return (
+//       <MapC markers={this.state.markers} />
+//     )
+//   }
+// }
+
+// export default DisplayMapOnScreen;
 
 
 
-
-
+// ----------------------------------------------------------------------
 
 
 
