@@ -35,7 +35,7 @@ export class LocationGPS extends Component {
             this.setState({ clickMarker: clickMarker });
         }
 
-        console.log("img src", this.state.imagePlaceSrc);
+        console.log("img src: ", this.state.imagePlaceSrc);
 
 
     }
