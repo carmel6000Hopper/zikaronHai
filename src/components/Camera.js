@@ -119,7 +119,7 @@ export class Camera extends Component {
         <AuthUserContext.Consumer>
           {authUser => authUser
             ? <this.CameraRender /> 
-            : this.notAuthorized()
+            : <this.CameraRender />
           }
         </AuthUserContext.Consumer>
 
