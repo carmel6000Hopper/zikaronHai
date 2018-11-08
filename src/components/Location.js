@@ -27,7 +27,7 @@ export const DisplayMapOnScreen = compose(
   return(
     <div>
       <GoogleMap
-        defaultZoom={10}
+        defaultZoom={7}
         // defaultCenter={{ lat:32.6, lng: 35 }} >
         defaultCenter={{ lat: { ...props }.latitude, lng: { ...props }.longitude }} >
        
@@ -40,10 +40,10 @@ export const DisplayMapOnScreen = compose(
             lat: { ...props }.latitude,
             lng: { ...props }.longitude
           }}
-          onClick={props.onMarkerClicked}
+          onClick={(place) => props.onMarkerClicked("jerusalem")}
         />
 
-        {props.markers.map((pos)=> <Marker position = {{ lat:pos.lat, lng: pos.lng }}/>)}
+        {props.markers.map((pos)=> <Marker position = {{ lat:pos.lat, lng: pos.lng }} onClick={() => props.onMarkerClicked(pos.placeName)}/>)}
       </GoogleMap>
       
     </div>

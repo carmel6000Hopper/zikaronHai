@@ -12,15 +12,20 @@ export class LocationGPS extends Component {
             markers : [
                 {
                     lng:32.6,
-                    lat:35
+                    lat:35,
+                    placeName: "1"
                 },
                 {
                     lng:32.1,
-                    lat:32.1
+                    lat:32.1,
+                    placeName: "2"
+
                 },
                 {
                     lng: 34,
-                    lat: 32
+                    lat: 32,
+                    placeName: "3"
+
                 }
             ]
         }
@@ -43,7 +48,7 @@ export class LocationGPS extends Component {
         //     });
     
 
-    onMarkerClicked = () => {
+    onMarkerClicked = (place) => {
         let placeName = this.state.placeName;
         let imagePlaceSrc = this.imagePlaceSrc;
         let clickMarker = this.state.clickMarker;
@@ -51,7 +56,7 @@ export class LocationGPS extends Component {
         if (clickMarker === true) {
 
             console.log("clickMarker is: ", this.state.clickMarker);
-            placeName = "Place name that need to change";
+            placeName = "Place name " + place + " that need to change ";
             imagePlaceSrc = "src that need to be in the img src"
             this.setState({ placeName: placeName });
             this.setState({ imagePlaceSrc: imagePlaceSrc });
