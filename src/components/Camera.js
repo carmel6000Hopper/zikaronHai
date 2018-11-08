@@ -51,7 +51,6 @@ export class Camera extends Component {
 
   CameraRender = () =>
     <div>
-      {/* {this.state.cameraMode ? */}
         <div id="cam-container">
           <div id="video-border">
             <video id="video" autoPlay></video>
@@ -63,8 +62,6 @@ export class Camera extends Component {
           <button onClick={() => { this.props.history.push('/') }} >back</button>
           <label id="resultURL"></label>
         </div>
-        {/* : null} */}
-
       <CanvasArr
         hasToAddCanvas={this.state.hasToAddCanvas}
         hasAddedCanvas={this.hasAddedCanvas}

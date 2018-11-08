@@ -2,7 +2,7 @@ import { Route, Redirect } from 'react-router-dom'
 import React, { Component } from 'react';
 
 import { auth } from '../firebase';
-import { AuthConsumer } from './withAuthorization';
+import {AuthConsumer}  from './withAuthorization';
 
 export class SignOut extends Component {
     constructor(props) {
@@ -21,7 +21,7 @@ export class SignOut extends Component {
                             type="button"
                             onClick={logout} >
                             Sign Out </button>
-                        <div> {isAuth ?  (<Redirect to='/' />) : (<Redirect to='/signin' />) }</div>
+                        <div> {isAuth == true ? null: (<Redirect to='/signin'/>) }</div>
                     </div>
                 )}
 

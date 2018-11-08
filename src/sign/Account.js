@@ -8,13 +8,10 @@ const AccountPage = () =>
   <AuthConsumer>
         {({ isAuth, login, logout }) => (
           <div >{isAuth ? ( <div>
-            <PasswordForgetForm />
             <PasswordChangeForm />
+            <PasswordForgetForm />
           </div>) : null} </div>
         )}
   </AuthConsumer>
 
-//const authCondition = (authUser) => !!authUser;
-
-//export default withAuthorization(authCondition)(AccountPage);
 export default AccountPage;
