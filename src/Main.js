@@ -5,7 +5,8 @@ import { auth, firebase } from './firebase';
 // import components 
 import { UploadHandler } from './components/UploadHandler'
 import { Camera } from './components/Camera.js';
-import { Switch, Route, BrowserRouter } from 'react-router-dom';
+// import { TryCordovaCamera } from './components/TryCordovaCamera.js';
+import { Switch, Route, BrowserRouter, HashRouter } from 'react-router-dom';
 // import { DisplayMapOnScreen } from './components/Location.js';
 import { LocationGPS } from './components/LocationGPS.js';
 import {ReinitializePassMsg} from './components/ReinitializePassMsg.js'
@@ -73,7 +74,8 @@ export class Main extends Component {
     return (
       <div className="App">
         <AuthProvider >
-          <BrowserRouter>
+          <HashRouter>
+          {/* <BrowserRouter> */}
             <Switch>
               <Route exact path="/" render={(props) =>
                 (<div>
@@ -89,8 +91,16 @@ export class Main extends Component {
                       authUser={this.state.authUser}
                       finishTakingPicturesFunc={this.finishTakingPicturesFunc}
                       marginRight={this.state.marginRight}
-                       />
+                    />
                   </div>)} />
+                  {/* <ProtectedRoute exact path="/camera"
+                component ={(props) =>
+                  (<div>
+                    <Menu {...props} />
+                    <TryCordovaCamera {...props}
+                      authUser={this.state.authUser}
+                    />
+                  </div>)} /> */}
               <ProtectedRoute exact path="/upload" component ={(props) => (<div>
                     <Menu {...props} />
                     <UploadHandler {...props} 
@@ -142,8 +152,9 @@ export class Main extends Component {
                   <SignOut  {...props} />
                 </div>)} />
             </Switch>
-
-          </BrowserRouter>
+          
+          </HashRouter>
+          {/* </BrowserRouter> */}
 
           <br /> <br />
           <img id="carmelLogo" src={carmelLogo} height="60" alt="carmel 6000 logo" />

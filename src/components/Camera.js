@@ -19,8 +19,10 @@ export class Camera extends Component {
       //cameraMode: true,
       authUser: ''
     };
+
+    this.cameraRef = React.createRef();
     this.canvasRef = React.createRef();
-    this.CanvasArrRef = React.createRef();
+    this.canvasArrRef = React.createRef();
     this.addSnapOnCanvas = this.addSnapOnCanvas.bind(this);
     this.hasAddedCanvas = this.hasAddedCanvas.bind(this);
   }
@@ -39,45 +41,46 @@ export class Camera extends Component {
 
   /** this function calls the the addCanvashandler when the snap-photo button is clicked */
   addSnapOnCanvas() {
-    this.setState({ hasToAddCanvas: true }, () => { this.CanvasArrRef.current.addCanvasHandler() });
+    this.setState({ hasToAddCanvas: true }, () => { this.canvasArrRef.current.addCanvasHandler() });
   }
-  afterCameraRendering() {
-    this.actualizeVideo();
-  }
+  // afterCameraRendering() {
+  //   this.actualizeVideo();
+  // }
   notAuthorized() {
     console.log("in if (!authCondition(authUser))");
     this.props.history.push('./signin');
   }
 
-  CameraRender = () =>
-    <div>
-        <div id="cam-container">
-          <div id="video-border">
-            <video id="video" autoPlay></video>
-            <div className="container"></div>
-            <button id="snap" onClick={this.addSnapOnCanvas}></button>
-          </div>
-          <button id="finishButton" onClick={this.onFinish} >Finish</button>
-          <br /><br />
-          <button onClick={() => { this.props.history.push('/') }} >back</button>
-          <label id="resultURL"></label>
-        </div>
-      <CanvasArr
-        hasToAddCanvas={this.state.hasToAddCanvas}
-        hasAddedCanvas={this.hasAddedCanvas}
-        changeCameraMode={this.changeCameraMode}
-        ref={this.CanvasArrRef}
-        video={this.state.video}
-      />
-      {this.afterCameraRendering()}
-    </div>
+  // CameraRender = () =>
+  //   <div>
+  //       <div id="cam-container">
+  //         <div id="video-border">
+  //           <video id="video" autoPlay></video>
+  //           <div className="container"></div>
+  //           <button id="snap" onClick={this.addSnapOnCanvas}></button>
+  //         </div>
+  //         <button id="finishButton" onClick={this.onFinish} >Finish</button>
+  //         <br /><br />
+  //         <button onClick={() => { this.props.history.push('/') }} >back</button>
+  //         <label id="resultURL"></label>
+  //       </div>
+  //     <CanvasArr
+  //       hasToAddCanvas={this.state.hasToAddCanvas}
+  //       hasAddedCanvas={this.hasAddedCanvas}
+  //       changeCameraMode={this.changeCameraMode}
+  //       ref={this.CanvasArrRef}
+  //       video={this.state.video}
+  //     />
+  //     {this.afterCameraRendering()}
+  //   </div>
 
   actualizeVideo = () => {
     if (this.state.cameraMode) {
 
       console.log("in component did mount - actualize video");
 
-      var video = document.getElementById('video');
+      let video = this.cameraRef.current;
+      console.log("this.cameraRef.current: ", this.cameraRef.current);
 
       // gets the video from the camera of the device - DOESN'T WORK ON PHONE!!!!
       navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
@@ -112,7 +115,31 @@ export class Camera extends Component {
   }
   render() {
     return (
-      <this.CameraRender />
+      <div>
+        {this.state.cameraMode ?
+          <div id="cam-container">
+            <div id="video-border">
+              <video ref={this.cameraRef} id="video" autoPlay></video>
+              <div className="container"></div>
+              <button id="snap" onClick={this.addSnapOnCanvas}></button>
+            </div>
+            <button id="finishButton" onClick={this.onFinish} >Finish</button>
+            <br /><br />
+            <button onClick={() => { this.props.history.push('/') }} >back</button>
+            <label id="resultURL"></label>
+          </div>
+          : null}
+
+        <CanvasArr
+          hasToAddCanvas={this.state.hasToAddCanvas}
+          hasAddedCanvas={this.hasAddedCanvas}
+          changeCameraMode={this.changeCameraMode}
+          ref={this.canvasArrRef}
+          video={this.state.video}
+        />
+
+      </div>
+      // <this.CameraRender />
     );
  
   }
