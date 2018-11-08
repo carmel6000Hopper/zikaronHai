@@ -74,8 +74,8 @@ export class Main extends Component {
     return (
       <div className="App">
         <AuthProvider >
-          <HashRouter>
-          {/* <BrowserRouter> */}
+          {/* <HashRouter> */}
+          <BrowserRouter>
             <Switch>
               <Route exact path="/" render={(props) =>
                 (<div>
@@ -153,8 +153,8 @@ export class Main extends Component {
                 </div>)} />
             </Switch>
           
-          </HashRouter>
-          {/* </BrowserRouter> */}
+          {/* </HashRouter> */}
+          </BrowserRouter>
 
           <br /> <br />
           <img id="carmelLogo" src={carmelLogo} height="60" alt="carmel 6000 logo" />

@@ -58,7 +58,7 @@ export class SignIn extends Component {
                                 <button className="submit-btn" type="submit" disabled={isInvalid}>כניסה</button> :
                                 <div>cmcmds</div>}
                         </div>
-                        <div>{isAuth ? <Redirect to='/camera'/> : null}</div>
+                        <div>{isAuth === true ? <Redirect to='/camera'/> : null}</div>
                     </form>
                 )}
             </AuthConsumer>
@@ -76,7 +76,7 @@ export class SignIn extends Component {
 
     handleSubmit(event, login) {
         login();
-        this.props.history.push('./camera');
+        //this.props.history.push('./camera');
         // event.preventDefault();
         // this.setState({ waitingForSignIn: true })
         // auth.doSignInWithEmailAndPassword(this.state.email, this.state.pass)

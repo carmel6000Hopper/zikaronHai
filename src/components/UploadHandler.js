@@ -30,7 +30,6 @@ export class UploadHandler extends Component {
                 console.log("hasToUpload is equal to ");
                 console.log(this.state.hasToUpload);
 
-            
         }
      
         render() {
