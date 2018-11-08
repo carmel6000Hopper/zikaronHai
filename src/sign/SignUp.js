@@ -11,7 +11,7 @@ import './Signin-Signup.css';
 
 const byPropKey = (propertyName, value) => () => ({
     [propertyName]: value,
-  });
+});
 function checkForLetters(str) {
     let letter;
     for (let i = 0; i < 26; i++) {
@@ -52,8 +52,7 @@ export class SignUp extends Component {
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.renderButtonOrWheel = this.renderButtonOrWheel.bind(this);
-        // this.clickOnEnter = this.clickOnEnter.bind(this);
+
     }
 
     componentWillMount() {
@@ -104,7 +103,7 @@ export class SignUp extends Component {
         else {
             this.setState({ waitingForSignup: true });
             console.log(this.state.email, this.state.pass);
-            auth.doCreateUserWithEmailAndPassword(this.state.email,this.state.pass)
+            auth.doCreateUserWithEmailAndPassword(this.state.email, this.state.pass)
                 .then(authUser => {
                     console.log("doCreateUserWithEmailAndPassword");
                     // Create a user in your own accessible Firebase Database too
@@ -122,7 +121,7 @@ export class SignUp extends Component {
                 .catch(error => {
                     this.setState(byPropKey('error', error));
                 });
-                
+
         }
 
     }
@@ -136,30 +135,7 @@ export class SignUp extends Component {
             this.setState({ waitingForSignup: false });
         }
     }
-    // clickOnEnter(){
-    //     this.props.history.push('../camera');
-    // }
-    renderButtonOrWheel() {
-        const isInvalid =
-            this.state.pass !== this.state.passconfirm ||
-            this.state.pass === '' ||
-            this.state.email === '' ||
-            this.state.firstName === '' ||
-            this.state.lastName === '' ||
-            this.state.nickname === '';
-        if (!this.state.waitingForSignup)
-            // handleClick(e) {
-            //     e.preventDefault();
-            //   }
-            //   render() {
-            //     return (
-            //       <Link to='/bar' onClick={this.handleClick}>Bar</Link>
-            //     );
-            //   }
-            //   return <div><Link className="link guest" to="../camera">כניסה</Link></div>
-            return <button className="submit-btn" disabled={this.isInvalid} type="submit">כניסה</button>;
 
-    }
 
     render() {
         if (this.state.signedUp) {
@@ -167,6 +143,13 @@ export class SignUp extends Component {
             return (<Redirect to='/' />);
         }
         // var linkToAccount = <Link className="Subtitle-1 underline" to="/signIn" style={{ textDecoration: 'none' }}>כניסה</Link>;
+        const isInvalid =
+            this.state.pass !== this.state.passconfirm ||
+            this.state.pass === '' ||
+            this.state.email === '' ||
+            this.state.firstName === '' ||
+            this.state.lastName === '' ||
+            this.state.nickname === '';
 
         return (
             <div className="flex-box-center-container flex-horizontal-center" dir="rtl" >
@@ -207,7 +190,7 @@ export class SignUp extends Component {
                             {/* <p className="error-text">{this.state.nicknameErrorMsg}</p> */}
                         </div>
                         <div className="row" dir="rtl" >
-                            {this.renderButtonOrWheel()}
+                            {!this.state.waitingForSignup ? <button className="submit-btn" disabled={this.isInvalid} type="submit">כניסה</button> : null}
                         </div>
                     </form>
                 </div>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { Link, BrowserRouter as Route } from 'react-router-dom';
 
-import AuthUserContext from '../sign/AuthUserContext';
+import { AuthConsumer } from '../sign/withAuthorization'
 import './Menu.css';
 import x from '../images/menu-exit.png'
 
@@ -25,12 +25,12 @@ export class Menu extends Component {
         <div id="mySidebar" className="sidebar">
             <img src={x} href="javascript:void(0)" className="closebtn" onClick={this.closeNav} />
             <div className="a-container">
-                <a href={'/camera'} onClick={this.closeNav}>הוספת שלט</a>
-                <a href={'/upload'} onClick={this.closeNav}>upload</a>
+                <Link to ={'/camera'} onClick={this.closeNav}>הוספת שלט</Link>
+                <Link to ={'/upload'} onClick={this.closeNav}>upload</Link>
                 <a>אודות</a>
-                <a href={'/gps'} onClick={this.closeNav}>מפה</a>
-                <a href={'/account'} onClick={this.closeNav}>החשבון שלי</a>
-                <a href={'/'} onClick={this.closeNav}>התנתק</a>
+                <Link to ={'/gps'} onClick={this.closeNav}>מפה</Link>
+                <Link to ={'/account'} onClick={this.closeNav}>החשבון שלי</Link>
+                <Link to ={'/signout'} onClick={this.closeNav}>התנתק</Link>
             </div>
         </div>
 
@@ -39,8 +39,8 @@ export class Menu extends Component {
             <img src={x} href="javascript:void(0)" className="closebtn" onClick={this.closeNav} />
             <div className="a-container">
                 <a>אודות</a>
-                <a href={'/signin'} onClick={this.closeNav}>כניסה כמשתמש</a>
-                <a href={'/gps'} onClick={this.closeNav}>מפה</a>
+                <Link to={'/signin'} onClick={this.closeNav}>כניסה כמשתמש</Link>
+                <Link to={'/gps'} onClick={this.closeNav}>מפה</Link>
             </div>
         </div>
 
@@ -48,12 +48,12 @@ export class Menu extends Component {
     render() {
         return (
             <div>
-                <AuthUserContext.Consumer>
-                    {authUser => authUser
+                <AuthConsumer>
+                    {isAuth => isAuth
                         ? <this.MenuSignedIn />
                         : <this.MenuVisitor />
                     }
-                </AuthUserContext.Consumer>
+                </AuthConsumer>
                 <div id="main">
                     <button className="openbtn" onClick={this.openNav}>☰ זכרון חי</button>
                 </div>

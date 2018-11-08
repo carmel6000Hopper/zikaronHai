@@ -71,9 +71,8 @@ export class Main extends Component {
   render() {
     return (
       <div className="App">
-
-        <BrowserRouter>
-          <AuthProvider>
+        <AuthProvider >
+          <BrowserRouter>
             <Switch>
               <Route exact path="/" render={(props) =>
                 (<div>
@@ -82,35 +81,24 @@ export class Main extends Component {
                 </div>)} />
 
               <ProtectedRoute exact path="/camera"
-                render={(props) =>
+                component ={(props) =>
                   (<div>
                     <Menu {...props} />
                     <Camera {...props}
                       authUser={this.state.authUser}
                       finishTakingPicturesFunc={this.finishTakingPicturesFunc}
-                      marginRight={this.state.marginRight} />
+                      marginRight={this.state.marginRight}
+                       />
                   </div>)} />
-
-              <ProtectedRoute exact path="/upload"
-                render={(props) =>
-                  (<div>
+              <ProtectedRoute exact path="/upload" component ={(props) => (<div>
                     <Menu {...props} />
-                    <UploadHandler {...props}
+                    <UploadHandler {...props} 
                       imageUrlArray={this.state.imageUrlArray}
                       authUser={this.state.authUser}
                       longitude={this.state.longitude}
                       latitude={this.state.latitude} />
-                  </div>)} />
-
-              {/* <Route exact path="/gps" render={(props) =>
-              (<div>
-                <Menu {...props} />
-                <DisplayMapOnScreen {...props}
-                  longitude={this.state.longitude}
-                  latitude={this.state.latitude} />
-              </div>)} /> */}
-
-
+                  </div>)}  />}
+                
               <Route exact path="/gps" render={(props) =>
                 (<div>
                   <Menu {...props} />
@@ -130,7 +118,7 @@ export class Main extends Component {
                   {/* <Menu {...props} /> */}
                   <SignUp  {...props} />
                 </div>)} />
-              <ProtectedRoute exact path="/account" render={(props) =>
+              <ProtectedRoute exact path="/account" component={(props) =>
                 (<div>
                   <Menu {...props} />
                   <AccountPage  {...props} />
@@ -141,17 +129,20 @@ export class Main extends Component {
                   <SignIn {...props} />
                   {/* updateAuthUser = {this.updateAuthUser}/> */}
                 </div>)} />
-              <Route exact path="/signout" render={(props) =>
+              <ProtectedRoute exact path="/signout" component={(props) =>
                 (<div>
                   <Menu {...props} />
                   <SignOut  {...props} />
                 </div>)} />
             </Switch>
-          </AuthProvider>
-        </BrowserRouter>
-        <br /> <br />
-        <img id="carmelLogo" src={carmelLogo} height="60" alt="carmel 6000 logo" />
+
+          </BrowserRouter>
+
+          <br /> <br />
+          <img id="carmelLogo" src={carmelLogo} height="60" alt="carmel 6000 logo" />
+        </AuthProvider>
       </div>
+
     );
   }
 }

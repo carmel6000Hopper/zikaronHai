@@ -75,20 +75,20 @@ export class SignIn extends Component {
     }
 
     handleSubmit(event, login) {
-
         login();
-        event.preventDefault();
-        this.setState({ waitingForSignIn: true })
-        auth.doSignInWithEmailAndPassword(this.state.email, this.state.pass)
-            .then(authUser => {
-                // history.push(routes.HOME);
-                console.log("do sign in")
-                console.log(authUser)
-                this.props.history.push('./camera');
-            })
-            .catch(error => {
-                this.setState({ errorMessage: error });
-            });
+        this.props.history.push('./camera');
+        // event.preventDefault();
+        // this.setState({ waitingForSignIn: true })
+        // auth.doSignInWithEmailAndPassword(this.state.email, this.state.pass)
+        //     .then(authUser => {
+        //         // history.push(routes.HOME);
+        //         console.log("do sign in")
+        //         console.log(authUser)
+        //         this.props.history.push('./camera');
+        //     })
+        //     .catch(error => {
+        //         this.setState({ errorMessage: error });
+        //     });
         //Auth.AuthSignIn(this.state.email, this.state.pass, this.onSignIn.bind(this));
 
     }

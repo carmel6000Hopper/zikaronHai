@@ -41,7 +41,7 @@ import React from 'react'
 
 
 
-class AuthProvider extends React.Component {
+export class AuthProvider extends React.Component {
   state = { isAuth: false }
 
   constructor(props) {
@@ -60,7 +60,6 @@ class AuthProvider extends React.Component {
     });
   }
   login(email, pass) {
-    //login();
     //event.preventDefault();
     //this.setState({ waitingForSignIn: true })
     auth.doSignInWithEmailAndPassword(email, pass)
@@ -77,7 +76,9 @@ class AuthProvider extends React.Component {
     //Auth.AuthSignIn(this.state.email, this.state.pass, this.onSignIn.bind(this));
 
     console.log ("in login")
-    this.setState({ isAuth: true });
+    this.setState({ isAuth: true }, () =>
+    console.log("isAuth" + this.state.isAuth)
+    );
     //this.props.history.push('/camera');
     //<Redirect to='/camera'/>;
   }
@@ -106,6 +107,6 @@ class AuthProvider extends React.Component {
 }
 
 const authCondition = (authUser) => !!authUser;
-const AuthConsumer = AuthUserContext.Consumer
+export const AuthConsumer = AuthUserContext.Consumer
 
-export { AuthProvider, AuthConsumer }
+export default { AuthProvider, AuthConsumer }
