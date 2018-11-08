@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
-//import { firebase } from './firebase';
 import { auth, firebase } from './firebase';
-// import { CanvasArr } from './components/CanvasArr';
-// import ImageUpload from './components/ImageUpload';
 
 // import components 
 import { UploadHandler } from './components/UploadHandler'
-// import { Camera } from './components/Camera.js';
-import { TryCordovaCamera } from './components/TryCordovaCamera.js';
+import { Camera } from './components/Camera.js';
+// import { TryCordovaCamera } from './components/TryCordovaCamera.js';
 import { Switch, Route, BrowserRouter, HashRouter } from 'react-router-dom';
 // import { DisplayMapOnScreen } from './components/Location.js';
 import { LocationGPS } from './components/LocationGPS.js';
@@ -19,9 +16,11 @@ import { SignUp } from './sign/SignUp';
 import { SignIn } from './sign/SignIn';
 import { SignOut } from './sign/SignOut';
 import AccountPage from './sign/Account';
+import { AuthProvider } from './sign/withAuthorization'
 // import images
 import carmelLogo from './images/carmel6000logo.jfif'
 import { PasswordForgetForm } from './sign/PasswordForget';
+import ProtectedRoute from './sign/ProtectedRoute';
 
 export class Main extends Component {
   constructor(props) {
@@ -39,6 +38,7 @@ export class Main extends Component {
     this.updateLocation = this.updateLocation.bind(this);
     this.gps = new GPS(this.updateLocation);
     this.finishTakingPicturesFunc = this.finishTakingPicturesFunc.bind(this);
+    this.updateAuthUser = this.updateAuthUser.bind(this);
     console.log("Main componenet constructor updatelocation ", this.updateLocation)
   }
 
@@ -56,69 +56,59 @@ export class Main extends Component {
       })
     })
   }
-
-
-
-  componentDidMount() {
+  updateAuthUser() {
     firebase.auth().onAuthStateChanged(authUser => {
       authUser
         ? this.setState({ authUser })
         : this.setState({ authUser: null });
     });
+  }
+  componentDidMount() {
+    console.log("componentDidMount Main - update authuser")
+    this.updateAuthUser();
     // gps start
     this.gps.startWatchingPosition();
   }
   render() {
     return (
       <div className="App">
-        <div>
-          {/* <BrowserRouter> */}
+        <AuthProvider >
           <HashRouter>
+          {/* <BrowserRouter> */}
             <Switch>
-
               <Route exact path="/" render={(props) =>
                 (<div>
                   <Menu {...props} />
                   <Navigation authUser={this.state.authUser} />
                 </div>)} />
 
-              {/* <Route exact path="/camera"
-                render={(props) =>
+              <ProtectedRoute exact path="/camera"
+                component ={(props) =>
                   (<div>
                     <Menu {...props} />
                     <Camera {...props}
+                      authUser={this.state.authUser}
                       finishTakingPicturesFunc={this.finishTakingPicturesFunc}
-                      marginRight={this.state.marginRight} />
-                  </div>)} /> */}
-
-              <Route exact path="/camera"
-                render={(props) =>
+                      marginRight={this.state.marginRight}
+                    />
+                  </div>)} />
+                  {/* <ProtectedRoute exact path="/camera"
+                component ={(props) =>
                   (<div>
                     <Menu {...props} />
                     <TryCordovaCamera {...props}
-                      finishTakingPicturesFunc={this.finishTakingPicturesFunc}
-                      marginRight={this.state.marginRight} />
-                  </div>)} />
-
-              <Route exact path="/upload"
-                render={(props) =>
-                  (<div>
+                      authUser={this.state.authUser}
+                    />
+                  </div>)} /> */}
+              <ProtectedRoute exact path="/upload" component ={(props) => (<div>
                     <Menu {...props} />
-                    <UploadHandler {...props}
+                    <UploadHandler {...props} 
                       imageUrlArray={this.state.imageUrlArray}
+                      authUser={this.state.authUser}
                       longitude={this.state.longitude}
                       latitude={this.state.latitude} />
-                  </div>)} />
-
-              {/* <Route exact path="/gps1" render={(props) =>
-              (<div>
-                <Menu {...props} />
-                <DisplayMapOnScreen {...props}
-                  longitude={this.state.longitude}
-                  latitude={this.state.latitude} />
-              </div>)} /> */}
-
-
+                  </div>)}  />}
+                
               <Route exact path="/gps" render={(props) =>
                 (<div>
                   <Menu {...props} />
@@ -130,37 +120,40 @@ export class Main extends Component {
               <Route exact path="/forgetpass" render={(props) =>
                 (<div>
                   <Menu {...props} />
-                  <PasswordForgetForm {...props} />
+                  <PasswordForgetForm  {...props} />
                 </div>)} />
 
               <Route exact path="/signup" render={(props) =>
                 (<div>
-                  <Menu {...props} />
+                  {/* <Menu {...props} /> */}
                   <SignUp  {...props} />
                 </div>)} />
-              <Route exact path="/account" render={(props) =>
+              <ProtectedRoute exact path="/account" component={(props) =>
                 (<div>
                   <Menu {...props} />
                   <AccountPage  {...props} />
                 </div>)} />
               <Route exact path="/signin" render={(props) =>
                 (<div>
-                  <Menu {...props} />
-                  <SignIn />
+                  {/* <Menu {...props} /> */}
+                  <SignIn {...props} />
+                  {/* updateAuthUser = {this.updateAuthUser}/> */}
                 </div>)} />
-              <Route exact path="/signout" render={(props) =>
+              <ProtectedRoute exact path="/signout" component={(props) =>
                 (<div>
                   <Menu {...props} />
                   <SignOut  {...props} />
                 </div>)} />
-
             </Switch>
+          
           </HashRouter>
           {/* </BrowserRouter> */}
-        </div>
-        <br /> <br />
-        <img id="carmelLogo" src={carmelLogo} height="60" alt="carmel 6000 logo" />
+
+          <br /> <br />
+          <img id="carmelLogo" src={carmelLogo} height="60" alt="carmel 6000 logo" />
+        </AuthProvider>
       </div>
+
     );
   }
 }

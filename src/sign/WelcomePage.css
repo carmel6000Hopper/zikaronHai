@@ -23,7 +23,7 @@
 }
 
 
-.signIn {
+.signin {
     background-color: rgb(110, 162, 221);
 }
 
@@ -38,7 +38,7 @@
     color: rgba(0, 0, 0, 0.664);
 }
 
-.guest {
+.visitor {
     color: blue;
 
     margin-top: 15px;

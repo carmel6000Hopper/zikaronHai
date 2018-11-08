@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-// import { Canvas } from './Canvas'
+import AuthUserContext from '../sign/AuthUserContext';
+import { AuthConsumer } from '../sign/withAuthorization';
+
+import { firebase } from '../firebase';
 import "./Camera.css";
 import { CanvasArr } from './CanvasArr'
 
-// var numImagesTaken = 0;
-// const MAX_NUM_OF_IMAGES = 5;
 
 export class Camera extends Component {
   static CANVAS_WIDTH = 160;
@@ -15,7 +16,8 @@ export class Camera extends Component {
       canList: [],
       video: '',
       hasToAddCanvas: false,
-      cameraMode: true
+      //cameraMode: true,
+      authUser: ''
     };
 
     this.cameraRef = React.createRef();
@@ -41,10 +43,36 @@ export class Camera extends Component {
   addSnapOnCanvas() {
     this.setState({ hasToAddCanvas: true }, () => { this.canvasArrRef.current.addCanvasHandler() });
   }
-
-  componentDidMount() {
-    this.actualizeVideo();
+  // afterCameraRendering() {
+  //   this.actualizeVideo();
+  // }
+  notAuthorized() {
+    console.log("in if (!authCondition(authUser))");
+    this.props.history.push('./signin');
   }
+
+  // CameraRender = () =>
+  //   <div>
+  //       <div id="cam-container">
+  //         <div id="video-border">
+  //           <video id="video" autoPlay></video>
+  //           <div className="container"></div>
+  //           <button id="snap" onClick={this.addSnapOnCanvas}></button>
+  //         </div>
+  //         <button id="finishButton" onClick={this.onFinish} >Finish</button>
+  //         <br /><br />
+  //         <button onClick={() => { this.props.history.push('/') }} >back</button>
+  //         <label id="resultURL"></label>
+  //       </div>
+  //     <CanvasArr
+  //       hasToAddCanvas={this.state.hasToAddCanvas}
+  //       hasAddedCanvas={this.hasAddedCanvas}
+  //       changeCameraMode={this.changeCameraMode}
+  //       ref={this.CanvasArrRef}
+  //       video={this.state.video}
+  //     />
+  //     {this.afterCameraRendering()}
+  //   </div>
 
   actualizeVideo = () => {
     if (this.state.cameraMode) {
@@ -82,11 +110,9 @@ export class Camera extends Component {
     // router - go to the next page - upload Handler
     this.props.history.push('/upload');
   }
-
   changeCameraMode = (flag) => {
     this.setState({ cameraMode: flag }, this.actualizeVideo);
   }
-
   render() {
     return (
       <div>
@@ -113,8 +139,9 @@ export class Camera extends Component {
         />
 
       </div>
+      // <this.CameraRender />
     );
+ 
   }
 }
-
 export default Camera;

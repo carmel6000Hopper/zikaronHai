@@ -4,11 +4,14 @@ import React, { Component } from 'react';
 // // import '../styles/App.css';
 // import { BrowserRouter as Route, Redirect, Link } from "react-router-dom";
 //import { Auth } from '../auth/auth.js';
-import { auth } from '../firebase';
+import { auth, fbData } from '../firebase';
 import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router'
 import './Signin-Signup.css';
 
+const byPropKey = (propertyName, value) => () => ({
+    [propertyName]: value,
+});
 function checkForLetters(str) {
     let letter;
     for (let i = 0; i < 26; i++) {
@@ -49,8 +52,7 @@ export class SignUp extends Component {
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.renderButtonOrWheel = this.renderButtonOrWheel.bind(this);
-       // this.clickOnEnter = this.clickOnEnter.bind(this);
+
     }
 
     componentWillMount() {
@@ -96,38 +98,51 @@ export class SignUp extends Component {
     handleSubmit(event) {
         event.preventDefault();
         if (this.state.firstNameErrorMsg || this.state.lastNameErrorMsg || this.state.passErrorMsg || this.state.passconfirmErrorMsg) {
-            return (<div>somthing wrong</div>);
+            return (<div>something wrong</div>);
         }
         else {
             this.setState({ waitingForSignup: true });
             console.log(this.state.email, this.state.pass);
             auth.doCreateUserWithEmailAndPassword(this.state.email, this.state.pass)
-                // .then(authUser => {
-                //   this.setState({ ...INITIAL_STATE });
-                // })
-                // .catch(error => {
-                //     this.setState({ passErrorMsg: error });
-                // });
+                .then(authUser => {
+                    console.log("doCreateUserWithEmailAndPassword");
+                    // Create a user in your own accessible Firebase Database too
+                    fbData.doCreateUser(authUser.user.uid, this.state.nickname, this.state.email)
+                        .then(() => {
+                            //this.setState({ ...INITIAL_STATE });
+                            this.setState({})
+                            console.log("doCreateUser work ")
+                            this.props.history.push('./camera');
+                        })
+                        .catch(error => {
+                            this.setState(byPropKey('error', error));
+                        });
+                })
+                .catch(error => {
+                    this.setState(byPropKey('error', error));
+                });
 
-            //Auth.AuthSignup(this.state.email, this.state.pass, this.onSignup.bind(this));
         }
-        this.props.history.push('./camera');
-    }
 
+    }
 
     onSignup(hasSignedUp) {
         if (hasSignedUp) {
             this.setState({ signedUp: hasSignedUp, waitingForSignup: false });
-            this.props.rerenderAppComp();
+            //this.props.rerenderAppComp();
         }
         else {
             this.setState({ waitingForSignup: false });
         }
     }
-    // clickOnEnter(){
-    //     this.props.history.push('../camera');
-    // }
-    renderButtonOrWheel() {
+
+
+    render() {
+        if (this.state.signedUp) {
+            console.log("should re-direct")
+            return (<Redirect to='/' />);
+        }
+        // var linkToAccount = <Link className="Subtitle-1 underline" to="/signIn" style={{ textDecoration: 'none' }}>כניסה</Link>;
         const isInvalid =
             this.state.pass !== this.state.passconfirm ||
             this.state.pass === '' ||
@@ -135,34 +150,14 @@ export class SignUp extends Component {
             this.state.firstName === '' ||
             this.state.lastName === '' ||
             this.state.nickname === '';
-        if (!this.state.waitingForSignup)
-        // handleClick(e) {
-        //     e.preventDefault();
-        //   }
-        //   render() {
-        //     return (
-        //       <Link to='/bar' onClick={this.handleClick}>Bar</Link>
-        //     );
-        //   }
-         //   return <div><Link className="link guest" to="../camera">כניסה</Link></div>
-         return <button className="submit-btn" disabled={this.isInvalid} type="submit">כניסה</button>;
-     
-    }
-
-    render() {
-        if (this.state.signedUp) {
-            console.log("should re-direct")
-            return (<Redirect to='/' />);
-        }
-        var linkToAccount = <Link className="Subtitle-1 underline" to="/signIn" style={{ textDecoration: 'none' }}>כניסה</Link>;
 
         return (
             <div className="flex-box-center-container flex-horizontal-center" dir="rtl" >
                 <div className="ib signup-container" dir="rtl" >
                     <h1 className="tac ib">הרשמה</h1>
                     <div className="row" dir="rtl" >
-                    <p className="Subtitle-1 inline" dir="rtl" >משתמש רשום? </p>
-                        <Link className="Subtitle-1 underline" to="/login">כניסה לחשבון שלי</Link></div><br />
+                        <p className="Subtitle-1 inline" dir="rtl" >משתמש רשום? </p>
+                        <Link className="Subtitle-1 underline" to="/signin">כניסה לחשבון שלי</Link></div><br />
                     <form onSubmit={this.handleSubmit}>
                         {/* first name input */}
                         <div className="row" dir="rtl" >
@@ -195,7 +190,7 @@ export class SignUp extends Component {
                             {/* <p className="error-text">{this.state.nicknameErrorMsg}</p> */}
                         </div>
                         <div className="row" dir="rtl" >
-                            {this.renderButtonOrWheel()}
+                            {!this.state.waitingForSignup ? <button className="submit-btn" disabled={this.isInvalid} type="submit">כניסה</button> : null}
                         </div>
                     </form>
                 </div>

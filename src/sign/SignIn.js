@@ -12,7 +12,7 @@ import { PasswordForgetForm } from './PasswordForget';
 
 import './Signin-Signup.css';
 // import TeacherForgotPass from './TeacherForgotPass';
-
+import { AuthConsumer } from './withAuthorization';
 
 export class SignIn extends Component {
     constructor(props) {
@@ -31,29 +31,40 @@ export class SignIn extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         // this.openForgotPassModal = this.openForgotPassModal.bind(this);
         //this.closeForgotPassModal = this.closeForgotPassModal.bind(this);
-        this.renderButtonOrWheel = this.renderButtonOrWheel.bind(this);
+
         this.SignInForm = this.SignInForm.bind(this);
     }
 
     SignInForm() {
-        var forgetPasswordLink = <Link className="Subtitle-1 underline" to="/forgetpass" style={{ textDecoration: 'none' }}>שכחתי סיסמה</Link>
+        const isInvalid =
+            this.state.email === '' ||
+            this.state.pass === '';
 
+        var forgetPasswordLink = <Link className="Subtitle-1 underline" to="/forgetpass" style={{ textDecoration: 'none' }}>שכחתי סיסמה</Link>
         return (
-            <form className="" onSubmit={this.handleSubmit}>
-                <div className="row"><input className="input" id="email" type="text" dir="rtl" placeholder="כתובת אימייל" value={this.state.email} onChange={this.handleEmailChange} required="required" /></div>
-                <br />
-                <div className="row"><input className="input" id="pass" type="password" dir="rtl" placeholder="סיסמה" value={this.state.pass} onChange={this.handlePassChange} required="required" /></div>
-                <div className="row">
-                    <div className="col">
-                        <div>{forgetPasswordLink}</div>
-                    </div>
-                </div>
-                <div className="row">{this.renderButtonOrWheel()}</div>
-            </form>
+            <AuthConsumer>
+                {({ isAuth, login }) => (
+                    <form className="" onSubmit={ () => login(this.state.email, this.state.pass)}>
+                        <div className="row"><input className="input" id="email" type="text" dir="rtl" placeholder="כתובת אימייל" value={this.state.email} onChange={this.handleEmailChange} required="required" /></div>
+                        <br />
+                        <div className="row"><input className="input" id="pass" type="password" dir="rtl" placeholder="סיסמה" value={this.state.pass} onChange={this.handlePassChange} required="required" /></div>
+                        <div className="row">
+                            <div className="col">
+                                <div>{forgetPasswordLink}</div>
+                            </div>
+                        </div>
+                        <div className="row">
+                            {!this.state.waitingForSignIn ?
+                                <button className="submit-btn" type="submit" disabled={isInvalid}>כניסה</button> :
+                                <div>cmcmds</div>}
+                        </div>
+                        <div>{isAuth ? <Redirect to='/camera'/> : null}</div>
+                    </form>
+                )}
+            </AuthConsumer>
         );
 
     }
-
 
     handleEmailChange(event) {
         this.setState({ email: event.target.value });
@@ -63,23 +74,30 @@ export class SignIn extends Component {
         this.setState({ pass: event.target.value });
     }
 
-    handleSubmit(event) {
-        event.preventDefault();
-        this.setState({ waitingForSignIn: true })
-        auth.doSignInWithEmailAndPassword(this.state.email, this.state.pass)
-            .then(() => {
-                // history.push(routes.HOME);
-            })
-            .catch(error => {
-                this.setState({ errorMessage: error });
-            });
+    handleSubmit(event, login) {
+        login();
+        this.props.history.push('./camera');
+        // event.preventDefault();
+        // this.setState({ waitingForSignIn: true })
+        // auth.doSignInWithEmailAndPassword(this.state.email, this.state.pass)
+        //     .then(authUser => {
+        //         // history.push(routes.HOME);
+        //         console.log("do sign in")
+        //         console.log(authUser)
+        //         this.props.history.push('./camera');
+        //     })
+        //     .catch(error => {
+        //         this.setState({ errorMessage: error });
+        //     });
         //Auth.AuthSignIn(this.state.email, this.state.pass, this.onSignIn.bind(this));
+
     }
 
     onSignIn(hasSignedIn) {
+        console.log("onSignedIn");
         if (hasSignedIn) {
             this.setState({ loggedIn: hasSignedIn, waitingForSignIn: false });
-            this.props.rerenderAppComp();
+            //this.props.rerenderAppComp();
         }
         else {
             this.setState({ waitingForSignIn: false });
@@ -102,17 +120,11 @@ export class SignIn extends Component {
         // TODO - check why it is necessary
         document.body.style.backgroundColor = "#f2f2f2";
     }
-    renderButtonOrWheel() {
-        if (!this.state.waitingForSignIn)
-            return <div><Link className="link guest" to="../camera">כניסה</Link></div>
-        // return <button className="submit-btn" type="submit">כניסה</button>;
-        else
-            return <div>cmcmds</div>;
-    }
+
     render() {
         if (this.state.loggedIn) {
             console.log("should re-direct");
-            return (<Redirect to='/' />);
+            //return (<Redirect to='/' />);
         }
         var signUpLink = <Link className="Subtitle-1 underline" to="/signup" style={{ textDecoration: 'none' }}>הרשמה</Link>
         return (
