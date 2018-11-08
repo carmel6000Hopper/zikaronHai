@@ -67,18 +67,19 @@ export class AuthProvider extends React.Component {
             // history.push(routes.HOME);
             console.log("do sign in")
             console.log(authUser)
-           
+            this.setState({ isAuth: true }, () =>
+            console.log("isAuth" + this.state.isAuth)
+            )      
         })
         .catch(error => {
+          alert(error); 
           console.log(error);
            // this.setState({ errorMessage: error });
         });
     //Auth.AuthSignIn(this.state.email, this.state.pass, this.onSignIn.bind(this));
 
     console.log ("in login")
-    this.setState({ isAuth: true }, () =>
-    console.log("isAuth" + this.state.isAuth)
-    );
+   
     //this.props.history.push('/camera');
     //<Redirect to='/camera'/>;
   }

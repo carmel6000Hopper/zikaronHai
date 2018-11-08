@@ -49,7 +49,7 @@ export class Menu extends Component {
         return (
             <div>
                 <AuthConsumer>
-                    {isAuth => isAuth
+                    {isAuth => isAuth === true
                         ? <this.MenuSignedIn />
                         : <this.MenuVisitor />
                     }

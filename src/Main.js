@@ -8,6 +8,7 @@ import { Camera } from './components/Camera.js';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 // import { DisplayMapOnScreen } from './components/Location.js';
 import { LocationGPS } from './components/LocationGPS.js';
+import {ReinitializePassMsg} from './components/ReinitializePassMsg.js'
 import { Menu } from './components/Menu.js';
 import { GPS } from './components/GPS.js';
 import Navigation from './sign/Navigation.js';
@@ -127,6 +128,12 @@ export class Main extends Component {
                 (<div>
                   {/* <Menu {...props} /> */}
                   <SignIn {...props} />
+                  {/* updateAuthUser = {this.updateAuthUser}/> */}
+                </div>)} />
+                <Route exact path="/reinitializepassmsg" render={(props) =>
+                (<div>
+                  <Menu {...props} />
+                  <ReinitializePassMsg {...props} />
                   {/* updateAuthUser = {this.updateAuthUser}/> */}
                 </div>)} />
               <ProtectedRoute exact path="/signout" component={(props) =>
