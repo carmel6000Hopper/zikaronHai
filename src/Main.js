@@ -7,8 +7,9 @@ import { auth, firebase } from './firebase';
 
 // import components 
 import { UploadHandler } from './components/UploadHandler'
-import { Camera } from './components/Camera.js';
-import { Switch, Route, BrowserRouter } from 'react-router-dom';
+// import { Camera } from './components/Camera.js';
+import { TryCordovaCamera } from './components/TryCordovaCamera.js';
+import { Switch, Route, BrowserRouter, HashRouter } from 'react-router-dom';
 // import { DisplayMapOnScreen } from './components/Location.js';
 import { LocationGPS } from './components/LocationGPS.js';
 import { Menu } from './components/Menu.js';
@@ -70,36 +71,46 @@ export class Main extends Component {
   render() {
     return (
       <div className="App">
-<div>
-        <BrowserRouter>
-          <Switch>
+        <div>
+          {/* <BrowserRouter> */}
+          <HashRouter>
+            <Switch>
 
-            <Route exact path="/" render={(props) =>
-              (<div>
-                <Menu {...props} />
-                <Navigation authUser={this.state.authUser} />
-              </div>)} />
-
-            <Route exact path="/camera"
-              render={(props) =>
+              <Route exact path="/" render={(props) =>
                 (<div>
                   <Menu {...props} />
-                  <Camera {...props}
-                    finishTakingPicturesFunc={this.finishTakingPicturesFunc}
-                    marginRight={this.state.marginRight} />
+                  <Navigation authUser={this.state.authUser} />
                 </div>)} />
 
-            <Route exact path="/upload"
-              render={(props) =>
-                (<div>
-                  <Menu {...props} />
-                  <UploadHandler {...props}
-                    imageUrlArray={this.state.imageUrlArray}
-                    longitude={this.state.longitude}
-                    latitude={this.state.latitude} />
-                </div>)} />
+              {/* <Route exact path="/camera"
+                render={(props) =>
+                  (<div>
+                    <Menu {...props} />
+                    <Camera {...props}
+                      finishTakingPicturesFunc={this.finishTakingPicturesFunc}
+                      marginRight={this.state.marginRight} />
+                  </div>)} /> */}
 
-            {/* <Route exact path="/gps1" render={(props) =>
+              <Route exact path="/camera"
+                render={(props) =>
+                  (<div>
+                    <Menu {...props} />
+                    <TryCordovaCamera {...props}
+                      finishTakingPicturesFunc={this.finishTakingPicturesFunc}
+                      marginRight={this.state.marginRight} />
+                  </div>)} />
+
+              <Route exact path="/upload"
+                render={(props) =>
+                  (<div>
+                    <Menu {...props} />
+                    <UploadHandler {...props}
+                      imageUrlArray={this.state.imageUrlArray}
+                      longitude={this.state.longitude}
+                      latitude={this.state.latitude} />
+                  </div>)} />
+
+              {/* <Route exact path="/gps1" render={(props) =>
               (<div>
                 <Menu {...props} />
                 <DisplayMapOnScreen {...props}
@@ -108,49 +119,50 @@ export class Main extends Component {
               </div>)} /> */}
 
 
-            <Route exact path="/gps" render={(props) =>
-              (<div>
-                <Menu {...props} />
-                <LocationGPS {...props}
-                  longitude={this.state.longitude}
-                  latitude={this.state.latitude} />
-                  </div>)} />
+              <Route exact path="/gps" render={(props) =>
+                (<div>
+                  <Menu {...props} />
+                  <LocationGPS {...props}
+                    longitude={this.state.longitude}
+                    latitude={this.state.latitude} />
+                </div>)} />
 
-                <Route exact path="/forgetpass" render={(props) =>
-                  (<div>
-                    <Menu {...props} />
-                    <PasswordForgetForm {...props} />
-                  </div>)} />
+              <Route exact path="/forgetpass" render={(props) =>
+                (<div>
+                  <Menu {...props} />
+                  <PasswordForgetForm {...props} />
+                </div>)} />
 
-                <Route exact path="/signup" render={(props) =>
-                  (<div>
-                    <Menu {...props} />
-                    <SignUp  {...props} />
-                  </div>)} />
-                <Route exact path="/account" render={(props) =>
-                  (<div>
-                    <Menu {...props} />
-                    <AccountPage  {...props} />
-                  </div>)} />
-                <Route exact path="/signin" render={(props) =>
-                  (<div>
-                    <Menu {...props} />
-                    <SignIn />
-                  </div>)} />
-                <Route exact path="/signout" render={(props) =>
-                  (<div>
-                    <Menu {...props} />
-                    <SignOut  {...props} />
-                  </div>)} />
+              <Route exact path="/signup" render={(props) =>
+                (<div>
+                  <Menu {...props} />
+                  <SignUp  {...props} />
+                </div>)} />
+              <Route exact path="/account" render={(props) =>
+                (<div>
+                  <Menu {...props} />
+                  <AccountPage  {...props} />
+                </div>)} />
+              <Route exact path="/signin" render={(props) =>
+                (<div>
+                  <Menu {...props} />
+                  <SignIn />
+                </div>)} />
+              <Route exact path="/signout" render={(props) =>
+                (<div>
+                  <Menu {...props} />
+                  <SignOut  {...props} />
+                </div>)} />
 
-          </Switch>
-                </BrowserRouter>
-</div>
-              <br /> <br />
-              <img id="carmelLogo" src={carmelLogo} height="60" alt="carmel 6000 logo" />
-              </div>
+            </Switch>
+          </HashRouter>
+          {/* </BrowserRouter> */}
+        </div>
+        <br /> <br />
+        <img id="carmelLogo" src={carmelLogo} height="60" alt="carmel 6000 logo" />
+      </div>
     );
-          }
-        }
-        
+  }
+}
+
 export default Main;

@@ -18,8 +18,9 @@ export class Camera extends Component {
       cameraMode: true
     };
 
+    this.cameraRef = React.createRef();
     this.canvasRef = React.createRef();
-    this.CanvasArrRef = React.createRef();
+    this.canvasArrRef = React.createRef();
     this.addSnapOnCanvas = this.addSnapOnCanvas.bind(this);
     this.hasAddedCanvas = this.hasAddedCanvas.bind(this);
   }
@@ -38,7 +39,7 @@ export class Camera extends Component {
 
   /** this function calls the the addCanvashandler when the snap-photo button is clicked */
   addSnapOnCanvas() {
-    this.setState({ hasToAddCanvas: true }, () => { this.CanvasArrRef.current.addCanvasHandler() });
+    this.setState({ hasToAddCanvas: true }, () => { this.canvasArrRef.current.addCanvasHandler() });
   }
 
   componentDidMount() {
@@ -50,7 +51,8 @@ export class Camera extends Component {
 
       console.log("in component did mount - actualize video");
 
-      var video = document.getElementById('video');
+      let video = this.cameraRef.current;
+      console.log("this.cameraRef.current: ", this.cameraRef.current);
 
       // gets the video from the camera of the device - DOESN'T WORK ON PHONE!!!!
       navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
@@ -91,7 +93,7 @@ export class Camera extends Component {
         {this.state.cameraMode ?
           <div id="cam-container">
             <div id="video-border">
-              <video id="video" autoPlay></video>
+              <video ref={this.cameraRef} id="video" autoPlay></video>
               <div className="container"></div>
               <button id="snap" onClick={this.addSnapOnCanvas}></button>
             </div>
@@ -106,7 +108,7 @@ export class Camera extends Component {
           hasToAddCanvas={this.state.hasToAddCanvas}
           hasAddedCanvas={this.hasAddedCanvas}
           changeCameraMode={this.changeCameraMode}
-          ref={this.CanvasArrRef}
+          ref={this.canvasArrRef}
           video={this.state.video}
         />
 

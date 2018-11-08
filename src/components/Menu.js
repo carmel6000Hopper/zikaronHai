@@ -1,44 +1,45 @@
 import React, { Component } from 'react';
-// import { Switch, Route, BrowserRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './Menu.css';
-import x from '../images/menu-exit.png'
+import menuExitBtn from '../images/menu-exit.png'
 
 
 export class Menu extends Component {
+
+    constructor(props) {
+        super(props);
+        this.navRef = React.createRef();
+    }
+
     openNav = () => {
         console.log("Open Nav");
-        document.getElementById("mySidebar").style.width = "100%";
+        this.navRef.current.style.width = "100%";
     }
 
-    closeNav = () =>  {
+    closeNav = () => {
         console.log("close Nav");
-        document.getElementById("mySidebar").style.width = "0";
+        this.navRef.current.style.width = "0";
     }
-
-    // onMenuClick = (pagePath) => {
-    //     this.closeNav();
-    //     this.props.history.push(pagePath);
-    // }
 
     render() {
         return (
             <div>
-                <div id="mySidebar" className="sidebar">
+                <div ref={this.navRef} id="mySidebar" className="sidebar">
                     {/* <a href="javascript:void(0)" className="closebtn" onClick={this.closeNav}>×</a> */}
-                    <img src={x} href="javascript:void(0)" className="closebtn" onClick={this.closeNav}/>
-                   <div className="a-container">
-                    <a href={'/camera'} onClick={this.closeNav}>הוספת שלט</a>
-                    {/* <a href={''} onClick={() => { this.onMeuClick('/sign') }}>Sign</a> */}
-                    <a href={'/upload'} onClick={this.closeNav}>upload</a>
-                    <a>אודות</a>
-                    <a href={'/gps'} onClick={this.closeNav}>מפה</a>
-                    <a href={'/'} onClick={this.closeNav}>התנתק</a>
+                    <a href="javascript:void(0)" onClick={this.closeNav}>
+                        <img src={menuExitBtn} className="closebtn" alt="close-btn"/>
+                    </a>
+                    <div className="a-container">
+                        <Link to={'/camera'} onClick={this.closeNav}>הוספת שלט</Link>
+                        <Link to={'/upload'} onClick={this.closeNav}>upload</Link>
+                        <a>אודות</a>
+                        <Link to={'/gps'} onClick={this.closeNav}>מפה</Link>
+                        <Link to={'/'} onClick={this.closeNav}>התנתק</Link>
                     </div>
                 </div>
                 <div id="main">
                     <button className="openbtn" onClick={this.openNav}>☰ זכרון חי</button>
                 </div>
-              
             </div>
         );
 
