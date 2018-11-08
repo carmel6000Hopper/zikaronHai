@@ -4,8 +4,8 @@ import { auth, firebase } from './firebase';
 
 // import components 
 import { UploadHandler } from './components/UploadHandler'
-import { Camera } from './components/Camera.js';
-// import { TryCordovaCamera } from './components/TryCordovaCamera.js';
+// import { Camera } from './components/Camera.js';
+import { TryCordovaCamera } from './components/TryCordovaCamera.js';
 import { Switch, Route, BrowserRouter, HashRouter } from 'react-router-dom';
 // import { DisplayMapOnScreen } from './components/Location.js';
 import { LocationGPS } from './components/LocationGPS.js';
@@ -82,7 +82,7 @@ export class Main extends Component {
                   <Navigation authUser={this.state.authUser} />
                 </div>)} />
 
-              <ProtectedRoute exact path="/camera"
+              {/* <ProtectedRoute exact path="/camera"
                 component ={(props) =>
                   (<div>
                     <Menu {...props} />
@@ -91,15 +91,15 @@ export class Main extends Component {
                       finishTakingPicturesFunc={this.finishTakingPicturesFunc}
                       marginRight={this.state.marginRight}
                     />
-                  </div>)} />
-                  {/* <ProtectedRoute exact path="/camera"
+                  </div>)} /> */}
+              <ProtectedRoute exact path="/camera"
                 component ={(props) =>
                   (<div>
                     <Menu {...props} />
                     <TryCordovaCamera {...props}
-                      authUser={this.state.authUser}
+                      // authUser={this.state.authUser}
                     />
-                  </div>)} /> */}
+                  </div>)} />
               <ProtectedRoute exact path="/upload" component ={(props) => (<div>
                     <Menu {...props} />
                     <UploadHandler {...props} 
