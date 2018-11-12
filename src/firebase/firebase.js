@@ -18,9 +18,10 @@ firebase.initializeApp(config);
 const storage = firebase.storage();
 const fbData = firebase.database();
 const dBRefImages = fbData.ref().child('images');
+const dBRefUsers = fbData.ref().child('users');
 const auth = firebase.auth();
 
 
 export {
-    storage, dBRefImages, fbData, auth, firebase
+    storage, dBRefImages, fbData, auth, firebase, dBRefUsers
 }

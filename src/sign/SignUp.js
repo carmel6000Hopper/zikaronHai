@@ -4,7 +4,8 @@ import React, { Component } from 'react';
 // // import '../styles/App.css';
 // import { BrowserRouter as Route, Redirect, Link } from "react-router-dom";
 //import { Auth } from '../auth/auth.js';
-import { auth, fbData } from '../firebase';
+// import doCreateUser from '../firebase/accountDb'
+import { auth, dBRefUsers } from '../firebase';
 import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router'
 import './Signin-Signup.css';
@@ -107,16 +108,25 @@ export class SignUp extends Component {
                 .then(authUser => {
                     console.log("doCreateUserWithEmailAndPassword");
                     // Create a user in your own accessible Firebase Database too
-                    fbData.doCreateUser(authUser.user.uid, this.state.nickname, this.state.email)
-                        .then(() => {
-                            //this.setState({ ...INITIAL_STATE });
-                            this.setState({})
-                            console.log("doCreateUser work ")
-                            this.props.history.push('./camera');
-                        })
-                        .catch(error => {
-                            this.setState(byPropKey('error', error));
-                        });
+                    var userInfos = {};
+                    // TODO : ADD AUTH
+                    //imageInfos['userId'] = isUserSignedIn() ? firebase.auth().currentUser.uid : "no-uid";
+                    userInfos['uid'] = authUser.user.uid;
+                    userInfos['email'] = this.state.email;
+                    userInfos['firstName'] = this.state.firstName;
+                    userInfos['lastName'] = this.state.lastName;
+                    userInfos['nickname'] = this.state.nickname;
+                    userInfos['numSignsPictureFirstAdded'] = 0;
+                    userInfos['numSignsPictureTaken'] = 0;
+                    dBRefUsers.push( userInfos,
+                        function onComplete(err) {
+                        if (err) {
+                          alert("uploadImageInfosToDB: push failed with " + err);
+                        } else {
+                          console.log("uploadUserInfosToDB: done");
+                        }
+                      });
+                    this.props.history.push('./camera');
                 })
                 .catch(error => {
                     this.setState(byPropKey('error', error));

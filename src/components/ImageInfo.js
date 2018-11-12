@@ -2,7 +2,7 @@ import React from 'react';
 
 import arrowIcon from '../icons/icon-arrow-left.png'
 import {OCR} from './OCR'
-
+import { Link } from 'react-router-dom';
 const ocr = new OCR;
 
 export const ImageInfo = () =>
@@ -12,7 +12,7 @@ export const ImageInfo = () =>
         <p>האם כותרת השלט היא</p>
         <p>{ocr.getTitleName()}</p>
         <p>טעינו ? ספר לנו איזו כותרת רשומה</p>
-        <button><img src={arrowIcon} alt="arrow image" style={{width: '10px', height: '10px'}}/></button>
+        <Link  to="/fixtitle"><img src={arrowIcon} alt="arrow image" style={{width: '10px', height: '10px'}}/></Link>
     {/* // TODO add onclick */}
     </div>
 
