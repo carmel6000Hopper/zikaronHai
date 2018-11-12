@@ -3,14 +3,10 @@ import { Link, BrowserRouter as Route } from 'react-router-dom';
 
 import { AuthConsumer } from '../sign/withAuthorization'
 import './Menu.css';
-<<<<<<< HEAD
-import x from '../images/menu-exit.png'
 // import {menuSign} from '../images/list-menu (1).png'
 
 
-=======
 import menuExitBtn from '../images/menu-exit.png'
->>>>>>> 89818621dce4072f827536453b4955d07b75c523
 
 export class Menu extends Component {
 
@@ -63,27 +59,24 @@ export class Menu extends Component {
 
     render() {
         return (
+            <div>
                 <AuthConsumer>
                    {({isAuth}) =>( isAuth === true ?
                         // <p>IS AUTh</p> : <p>IS not AUTH</p>
-                        (<div id="main"> <this.MenuSignedIn />
-                            <button className="openbtn" onClick={() => this.openNav(this.navSignedInRef)}>☰ זכרון חי</button>
+                        (<div > <this.MenuSignedIn />
+                            <div id="main" className="openbtn" onClick={() => this.openNav(this.navSignedInRef)}>☰</div>
                         </div>)
-                        : (<div id="main"> <this.MenuVisitor />
-                            <button className="openbtn" onClick={() => this.openNav(this.navVisitorRef)}>☰ זכרון חי</button>
+                        : (<div > <this.MenuVisitor />
+                            <div id="main" className="openbtn" onClick={() => this.openNav(this.navVisitorRef)}>☰</div>
                         </div>)
                     ) }
                 </AuthConsumer>
-<<<<<<< HEAD
-                <div id="main" className="openbtn" onClick={this.openNav}>☰ </div>
-                {/* <div id="main" className="openbtn" onClick={this.openNav}>{menuSign}</div> */}
+                {/* <div id="main" className="openbtn" onClick={this.openNav}>☰</div> */}
+              {/* // <div id="main" className="openbtn" onClick={this.openNav}>{menuSign}</div>  */}
+            {/* // <div className="openbtn" onClick={this.openNav}>☰</div>  */}
+               </div>
 
-                    {/* <div className="openbtn" onClick={this.openNav}>☰</div> */}
-               
-
-            </div>
-=======
->>>>>>> 89818621dce4072f827536453b4955d07b75c523
+            
         );
 
     }
