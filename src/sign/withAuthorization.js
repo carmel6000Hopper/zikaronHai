@@ -62,20 +62,26 @@ export class AuthProvider extends React.Component {
   login(email, pass) {
     //event.preventDefault();
     //this.setState({ waitingForSignIn: true })
+  
     auth.doSignInWithEmailAndPassword(email, pass)
-        .then(authUser => {
-            // history.push(routes.HOME);
-            console.log("do sign in")
-            console.log(authUser)
-            this.setState({ isAuth: true }, () =>
-            console.log("isAuth" + this.state.isAuth)
-            )      
-        })
-        .catch(error => {
-          alert(error); 
+        .then(function(user) {
+          console.log("do sign in")
+          console.log(user)
+          this.setState({ isAuth: true }, () =>
+          console.log("isAuth" + this.state.isAuth)
+          ) 
+        }).catch(function(error) {
+          var errorCode = error.code;
+          var errorMessage = error.message;
+
+          if (errorCode === 'auth/wrong-password') {
+              alert('Wrong password.');
+          } else {
+              alert(errorMessage);         
+          }
           console.log(error);
-           // this.setState({ errorMessage: error });
-        });
+      });
+     
     //Auth.AuthSignIn(this.state.email, this.state.pass, this.onSignIn.bind(this));
 
     console.log ("in login")
