@@ -69,6 +69,7 @@ export class TryCordovaCamera extends Component {
     //
     capturePhoto = () => {
         console.log("capturePhoto");
+        console.log("navigator: ", navigator);
         console.log("navigator.camera: ", navigator.camera);
         // Take picture using device camera and retrieve image as base64-encoded string
         navigator.camera.getPicture(this.onPhotoDataSuccess, this.onFail, {
@@ -77,6 +78,7 @@ export class TryCordovaCamera extends Component {
         });
     }
 
+    /*
     // A button will call this function
     //
     capturePhotoEdit = () => {
@@ -86,8 +88,9 @@ export class TryCordovaCamera extends Component {
             quality: 20, allowEdit: true,
             destinationType: TryCordovaCamera.destinationType.DATA_URL
         });
-    }
+        */
 
+    /*
     // A button will call this function
     //
     getPhoto = (source) => {
@@ -97,7 +100,7 @@ export class TryCordovaCamera extends Component {
             destinationType: TryCordovaCamera.destinationType.FILE_URI,
             sourceType: source
         });
-    }
+    }*/
 
     // Called if something bad happens.
     // 
@@ -109,9 +112,9 @@ export class TryCordovaCamera extends Component {
         return (
             <div>
                 <button onClick={this.capturePhoto}>Capture Photo</button> <br />
-                <button onClick={this.capturePhotoEdit}>Capture Editable Photo</button> <br />
-                <button onClick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button><br />
-                <button onClick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br />
+                {/* <button onClick={this.capturePhotoEdit}>Capture Editable Photo</button> <br /> */}
+                {/* <button onClick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button><br /> */}
+                {/* <button onClick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br /> */}
 
                 <img style={{ display: "none", width: "60px", height: "60px;" }}
                     id="smallImage"
