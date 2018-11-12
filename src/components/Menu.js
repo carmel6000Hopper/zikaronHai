@@ -5,6 +5,7 @@ import { Link, BrowserRouter as Route } from 'react-router-dom';
 import { AuthConsumer } from '../sign/withAuthorization'
 import './Menu.css';
 import x from '../images/menu-exit.png'
+// import {menuSign} from '../images/list-menu (1).png'
 
 
 
@@ -54,9 +55,11 @@ export class Menu extends Component {
                         : <this.MenuVisitor />
                     }
                 </AuthConsumer>
-                <div id="main">
-                    <button className="openbtn" onClick={this.openNav}>☰ זכרון חי</button>
-                </div>
+                <div id="main" className="openbtn" onClick={this.openNav}>☰ </div>
+                {/* <div id="main" className="openbtn" onClick={this.openNav}>{menuSign}</div> */}
+
+                    {/* <div className="openbtn" onClick={this.openNav}>☰</div> */}
+               
 
             </div>
         );
