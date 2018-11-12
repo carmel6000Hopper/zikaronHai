@@ -48,6 +48,7 @@ export class Menu extends Component {
                 <img src={menuExitBtn} className="closebtn" alt="close-btn" />
             </a>
             <div className="a-container">
+            <Link to={'/camera'} onClick={() => this.closeNav(this.navVisitorRef)}>הוספת שלט</Link>
                 <a>אודות</a>
                 <Link to={'/signin'} onClick={() => this.closeNav(this.navVisitorRef)}>כניסה כמשתמש</Link>
                 <Link to={'/gps'} onClick={() => this.closeNav(this.navVisitorRef)}>מפה</Link>
