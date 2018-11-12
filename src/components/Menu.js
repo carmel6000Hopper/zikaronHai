@@ -58,7 +58,6 @@ export class Menu extends Component {
         return (
                 <AuthConsumer>
                    {({isAuth}) =>( isAuth === true ?
-                        // <p>IS AUTh</p> : <p>IS not AUTH</p>
                         (<div id="main"> <this.MenuSignedIn />
                             <button className="openbtn" onClick={() => this.openNav(this.navSignedInRef)}>☰ זכרון חי</button>
                         </div>)

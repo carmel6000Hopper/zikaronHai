@@ -22,6 +22,7 @@ import { AuthProvider } from './sign/withAuthorization'
 import carmelLogo from './images/carmel6000logo.jfif'
 import { PasswordForgetForm } from './sign/PasswordForget';
 import ProtectedRoute from './sign/ProtectedRoute';
+import ImageInfoPage from './components/ImageInfo';
 
 export class Main extends Component {
   constructor(props) {
@@ -118,7 +119,14 @@ export class Main extends Component {
                     longitude={this.state.longitude}
                     latitude={this.state.latitude} />
                 </div>)} />
-
+              <ProtectedRoute exact path="/imageinfo" render={(props) =>
+              (<div>
+                <Menu {...props} />
+                <ImageInfoPage {...props}
+                  longitude={this.state.longitude}
+                  latitude={this.state.latitude} />
+              </div>)} />
+     
               <Route exact path="/forgetpass" render={(props) =>
                 (<div>
                   <Menu {...props} />

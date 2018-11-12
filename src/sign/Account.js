@@ -7,10 +7,7 @@ import { AuthConsumer } from './withAuthorization';
 const AccountPage = () =>
   <AuthConsumer>
         {({ isAuth, login, logout }) => (
-          <div >{isAuth ? ( <div>
-            <PasswordChangeForm />
-            <PasswordForgetForm />
-          </div>) : null} </div>
+          <h1>in ACCOUNT PAGE</h1>
         )}
   </AuthConsumer>
 

@@ -1,16 +1,16 @@
 import React from 'react';
 
 import arrowIcon from '../icons/icon-arrow-left.png'
-
+import {OCR} from './OCR'
 export const ImageInfo = () =>
     <div className="image-info-container ib">
         <h1>!מעולה</h1>
         <h1>הוספת שלט מורשת</h1>
         <h3>האם כותרת השלט היא</h3>
-        // TODO add name of location
+        <h3>{OCR.getTitleName()}</h3>
         <h3>טעינו ? ספר לנו איזו כותרת רשומה</h3>
         <button><img src={arrowIcon} alt="arrow image" /></button>
-    // TODO add onclick
+    {/* // TODO add onclick */}
     </div>
 
 const ChooseBetterImage = () =>
@@ -23,8 +23,8 @@ const ChooseBetterImage = () =>
 const Finish = () =>
     <div className="finish">
         <button>סיימתי</button>
-    // TODO add onclick
-    // add disabled if not chose one image
+    {/* // TODO add onclick
+    // add disabled if not chose one image */}
     </div>
 const ImageInfoPage = () =>
     <div>
