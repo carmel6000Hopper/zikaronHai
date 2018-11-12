@@ -64,7 +64,7 @@ export class AuthProvider extends React.Component {
     //this.setState({ waitingForSignIn: true })
   
     auth.doSignInWithEmailAndPassword(email, pass)
-        .then(function(user) {
+        .then(user => {
           console.log("do sign in")
           console.log(user)
           this.setState({ isAuth: true }, () =>
