@@ -116,7 +116,7 @@ export class TryCordovaCamera extends Component {
                 {/* <button onClick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button><br /> */}
                 {/* <button onClick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br /> */}
 
-                <img style={{ display: "none", width: "60px", height: "60px;" }}
+                <img style={{ display: "none", width: "60px", height: "60px" }}
                     id="smallImage"
                     src="" />
                 <img style={{ display: "none" }} id="largeImage" src="" />

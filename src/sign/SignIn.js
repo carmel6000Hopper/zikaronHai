@@ -56,7 +56,7 @@ export class SignIn extends Component {
                         </div>
                         <div className="row">
                             {!this.state.waitingForSignIn ?
-                                <button className="submit-btn" disabled={isInvalid} onClick={ () => login(this.state.email, this.state.pass)}>כניסה</button> :
+                                <button className="submit-btn" disabled={isInvalid} onClick={() => login(this.state.email, this.state.pass)}>כניסה</button> :
                                 <div>cmcmds</div>}
                         </div>
                         <div>{isAuth === true ? <Redirect to='/camera'/> : null}</div>

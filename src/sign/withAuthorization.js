@@ -113,7 +113,7 @@ export class AuthProvider extends React.Component {
   }
 }
 
-const authCondition = (authUser) => !!authUser;
+const authCondition = (isAuth) => !!isAuth;
 export const AuthConsumer = AuthUserContext.Consumer
 
 export default { AuthProvider, AuthConsumer }

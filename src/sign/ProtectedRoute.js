@@ -26,7 +26,7 @@ const ProtectedRoute = ({ component: Component, props, ...rest }) => (
         }
         {...rest}
       /> */}
-      
+  
                     
       </div>
     )}

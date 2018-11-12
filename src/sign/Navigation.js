@@ -26,9 +26,10 @@ const NavigationNonAuth = () =>
 
 const Navigation = () =>
     <AuthConsumer>
-        {authUser => authUser
-            ? <NavigationAuth />
-            : <NavigationNonAuth />
+        {({isAuth}) =>(
+             (isAuth === true )? 
+             <NavigationAuth />
+             : <NavigationNonAuth />) 
         }
     </AuthConsumer>
 

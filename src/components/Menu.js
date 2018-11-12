@@ -22,7 +22,6 @@ export class Menu extends Component {
         console.log("close Nav");
         navRef.current.style.width = "0";
     }
-
     MenuSignedIn = () =>
         <div ref={this.navSignedInRef} id="mySidebar" className="sidebar">
             {/* <a href="javascript:void(0)" className="closebtn" onClick={this.closeNav}>×</a> */}
@@ -48,7 +47,6 @@ export class Menu extends Component {
                 <img src={menuExitBtn} className="closebtn" alt="close-btn" />
             </a>
             <div className="a-container">
-            <Link to={'/camera'} onClick={() => this.closeNav(this.navVisitorRef)}>הוספת שלט</Link>
                 <a>אודות</a>
                 <Link to={'/signin'} onClick={() => this.closeNav(this.navVisitorRef)}>כניסה כמשתמש</Link>
                 <Link to={'/gps'} onClick={() => this.closeNav(this.navVisitorRef)}>מפה</Link>
@@ -59,7 +57,7 @@ export class Menu extends Component {
     render() {
         return (
                 <AuthConsumer>
-                    {isAuth => isAuth === true ? 
+                   {({isAuth}) =>( isAuth === true ?
                         // <p>IS AUTh</p> : <p>IS not AUTH</p>
                         (<div id="main"> <this.MenuSignedIn />
                             <button className="openbtn" onClick={() => this.openNav(this.navSignedInRef)}>☰ זכרון חי</button>
@@ -67,7 +65,7 @@ export class Menu extends Component {
                         : (<div id="main"> <this.MenuVisitor />
                             <button className="openbtn" onClick={() => this.openNav(this.navVisitorRef)}>☰ זכרון חי</button>
                         </div>)
-                    }
+                    ) }
                 </AuthConsumer>
         );
 

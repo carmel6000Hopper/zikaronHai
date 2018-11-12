@@ -93,13 +93,14 @@ export class Main extends Component {
                       marginRight={this.state.marginRight}
                     />
                   </div>)} /> */}
-              <Route exact path="/camera"
+              <ProtectedRoute exact path="/camera"
                 component ={(props) =>
                   (<div>
                     <Menu {...props} />
-                    <TryCordovaCamera {...props}
-                      // authUser={this.state.authUser}
-                    />
+                    <TryCordovaCamera {...props}/>
+                     {/* <Camera {...props} */}
+                      {/* // authUser={this.state.authUser}
+                    /> */}
                   </div>)} />
               <ProtectedRoute exact path="/upload" component ={(props) => (<div>
                     <Menu {...props} />
@@ -152,6 +153,7 @@ export class Main extends Component {
                   <SignOut  {...props} />
                 </div>)} />
             </Switch>
+            
           
           </HashRouter>
           {/* </BrowserRouter> */}
