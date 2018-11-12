@@ -2,21 +2,24 @@ import React from 'react';
 
 import arrowIcon from '../icons/icon-arrow-left.png'
 import {OCR} from './OCR'
+
+const ocr = new OCR;
+
 export const ImageInfo = () =>
-    <div className="image-info-container ib">
-        <h1>!מעולה</h1>
-        <h1>הוספת שלט מורשת</h1>
-        <h3>האם כותרת השלט היא</h3>
-        <h3>{OCR.getTitleName()}</h3>
-        <h3>טעינו ? ספר לנו איזו כותרת רשומה</h3>
-        <button><img src={arrowIcon} alt="arrow image" /></button>
+    <div >
+        <h3>!מעולה</h3>
+        <h3>הוספת שלט מורשת</h3>
+        <p>האם כותרת השלט היא</p>
+        <p>{ocr.getTitleName()}</p>
+        <p>טעינו ? ספר לנו איזו כותרת רשומה</p>
+        <button><img src={arrowIcon} alt="arrow image" style={{width: '10px', height: '10px'}}/></button>
     {/* // TODO add onclick */}
     </div>
 
 const ChooseBetterImage = () =>
     <div className="choose-better-image ib ">
         <h3>בחר את התמונה הטובה ביותר</h3>
-    // TODO add here images from firebase same sign and current image
+    {/* // TODO add here images from firebase same sign and current image */}
     </div>
 
 

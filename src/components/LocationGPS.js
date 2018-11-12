@@ -6,97 +6,75 @@ export class LocationGPS extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            placeName: "",
+            outputPlace: "",
             imagePlaceSrc: "",
-            clickMarker: false,
-            markers : [
+            currPlaceName: "",
+            markersPlace: [
                 {
-                    lng:32.6,
-                    lat:35,
+                    lng: 35.2067,
+                    lat: 31.801,
                     placeName: "1"
                 },
                 {
-                    lng:32.1,
-                    lat:32.1,
+                    lng: 35.205,
+                    lat: 31.802,
                     placeName: "2"
-
                 },
                 {
-                    lng: 34,
-                    lat: 32,
+                    lng: 35.207,
+                    lat: 31.8023,
                     placeName: "3"
-
+                },
+                {
+                    lng: 35.2063,
+                    lat: 31.8014,
+                    placeName: "4"
                 }
             ]
         }
     }
-    // componentWillMount() {
-    //     this.setState({ markers: [] })
-    // }
-    // componentDidMount() {
-    //     const url = [
-    //         // Length issue
-    //         `https://gist.githubusercontent.com`,
-    //         `/farrrr/dfda7dd7fccfec5474d3`,
-    //         `/raw/758852bbc1979f6c4522ab4e92d1c92cba8fb0dc/data.json`
-    //     ].join("")
-
-        // fetch(url)
-        //     .then(res => res.json())
-        //     .then(data => {
-        //         this.setState({ markers: data.photos });
-        //     });
-    
-
     onMarkerClicked = (place) => {
-        let placeName = this.state.placeName;
+        let outputPlace = this.state.outputPlace;
         let imagePlaceSrc = this.imagePlaceSrc;
-        let clickMarker = this.state.clickMarker;
-        clickMarker = !clickMarker;
-        if (clickMarker === true) {
-
-            console.log("clickMarker is: ", this.state.clickMarker);
-            placeName = "Place name " + place + " that need to change ";
+        let currPlaceName = this.state.currPlaceName;
+        if (currPlaceName !== place) {
+            outputPlace = "Place name " + place + " that need to change ";
             imagePlaceSrc = "src that need to be in the img src"
-            this.setState({ placeName: placeName });
+            currPlaceName = place;
+            console.log("cuurent place is: ", currPlaceName);
+            this.setState({ outputPlace: outputPlace });
             this.setState({ imagePlaceSrc: imagePlaceSrc });
-            this.setState({ clickMarker: clickMarker });
+            this.setState({ currPlaceName: currPlaceName });
         }
         else {
-            console.log("clickMarker is: ", this.state.clickMarker)
-            placeName = "";
+            outputPlace = "";
             imagePlaceSrc = "";
-            this.setState({ placeName: placeName });
+            currPlaceName = "";
+            console.log("cuurent place is: ", currPlaceName);
+            this.setState({ outputPlace: outputPlace });
             this.setState({ imagePlaceSrc: imagePlaceSrc });
-            this.setState({ clickMarker: clickMarker });
+            this.setState({ currPlaceName: currPlaceName });
         }
 
         console.log("img src: ", this.state.imagePlaceSrc);
     }
-    render(){
-        // console.log("markers is: ", this.state.markers);
-        // console.log("markers.lat is: ", this.state.markers.lat)
-        // console.log("markers.lng is: ", this.state.markers.lng)
-
+    render() {
         return (
             <div>
-                {/* <MapWithAMarkerClusterer markers={this.state.markers} /> */}
                 <DisplayMapOnScreen
                     longitude={this.props.longitude}
                     latitude={this.props.latitude}
                     onMarkerClicked={this.onMarkerClicked}
-                    markers={this.state.markers}
-                    // markersLat = {this.state.markers.lat}
-                    // markersLng = {this.state.markers.lng}
-                     />
-
+                    markersPlace={this.state.markersPlace}
+                />
                 {this.state.imagePlaceSrc === "" ?
                     <div></div>
                     :
                     <div>
-                        <h3>{this.state.placeName}</h3>
+                        <h3>{this.state.outputPlace}</h3>
                         <h3>{this.state.imagePlaceSrc}</h3>
                         <img src={this.state.imagePlaceSrc}></img>
+                        {console.log("lat:::::", this.state.markersPlace)}
                     </div>}
             </div>
         );
@@ -104,28 +82,3 @@ export class LocationGPS extends Component {
 }
 
 export default LocationGPS;
-
-// componentWillMount() {
-//         this.setState({ markers: [] })
-//       }
-
-//       componentDidMount() {
-//         const url = [
-//           // Length issue
-//           `https://gist.githubusercontent.com`,
-//           `/farrrr/dfda7dd7fccfec5474d3`,
-//           `/raw/758852bbc1979f6c4522ab4e92d1c92cba8fb0dc/data.json`
-//         ].join("")
-
-//         fetch(url)
-//           .then(res => res.json())
-//           .then(data => {
-//             this.setState({ markers: data.photos });
-//           });
-//       }
-
-//       render() {
-//         return (
-//           <MapWithAMarkerClusterer markers={this.state.markers} />
-//         )
-//       }

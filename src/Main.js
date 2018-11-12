@@ -119,12 +119,10 @@ export class Main extends Component {
                     longitude={this.state.longitude}
                     latitude={this.state.latitude} />
                 </div>)} />
-              <ProtectedRoute exact path="/imageinfo" render={(props) =>
+              <ProtectedRoute exact path="/imageinfo" component={(props) =>
               (<div>
                 <Menu {...props} />
-                <ImageInfoPage {...props}
-                  longitude={this.state.longitude}
-                  latitude={this.state.latitude} />
+                <ImageInfoPage {...props}/>
               </div>)} />
      
               <Route exact path="/forgetpass" render={(props) =>

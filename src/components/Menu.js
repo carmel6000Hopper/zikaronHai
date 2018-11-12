@@ -3,6 +3,9 @@ import { Link, BrowserRouter as Route } from 'react-router-dom';
 
 import { AuthConsumer } from '../sign/withAuthorization'
 import './Menu.css';
+// import {menuSign} from '../images/list-menu (1).png'
+
+
 import menuExitBtn from '../images/menu-exit.png'
 
 export class Menu extends Component {
@@ -48,6 +51,7 @@ export class Menu extends Component {
             </a>
             <div className="a-container">
                 <a>אודות</a>
+                <Link to={'/imageinfo'} onClick={() => this.closeNav(this.navVisitorRef)}>מידע על התמונה </Link>
                 <Link to={'/signin'} onClick={() => this.closeNav(this.navVisitorRef)}>כניסה כמשתמש</Link>
                 <Link to={'/gps'} onClick={() => this.closeNav(this.navVisitorRef)}>מפה</Link>
             </div>
@@ -56,16 +60,24 @@ export class Menu extends Component {
 
     render() {
         return (
+            <div>
                 <AuthConsumer>
                    {({isAuth}) =>( isAuth === true ?
-                        (<div id="main"> <this.MenuSignedIn />
-                            <button className="openbtn" onClick={() => this.openNav(this.navSignedInRef)}>☰ זכרון חי</button>
+                        // <p>IS AUTh</p> : <p>IS not AUTH</p>
+                        (<div id="main" > <this.MenuSignedIn />
+                            <div id="main" className="openbtn" onClick={() => this.openNav(this.navSignedInRef)}>☰</div>
                         </div>)
-                        : (<div id="main"> <this.MenuVisitor />
-                            <button className="openbtn" onClick={() => this.openNav(this.navVisitorRef)}>☰ זכרון חי</button>
+                        : (<div > <this.MenuVisitor />
+                            <div id="main" className="openbtn" onClick={() => this.openNav(this.navVisitorRef)}>☰</div>
                         </div>)
                     ) }
                 </AuthConsumer>
+                {/* <div id="main" className="openbtn" onClick={this.openNav}>☰</div> */}
+              {/* // <div id="main" className="openbtn" onClick={this.openNav}>{menuSign}</div>  */}
+            {/* // <div className="openbtn" onClick={this.openNav}>☰</div>  */}
+               </div>
+
+            
         );
 
     }
