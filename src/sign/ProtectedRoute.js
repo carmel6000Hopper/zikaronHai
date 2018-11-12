@@ -18,14 +18,15 @@ const ProtectedRoute = ({ component: Component, props, ...rest }) => (
     {({ isAuth }) => (
         <div>
          {/* {(isAuth == true) ? <h1>TRUE</h1>:<h1>False</h1>} */}
-        {(isAuth === true) ? <Component {...props} /> : <Redirect to="../signin" />}
+        {/* {(isAuth === true) ? <Component {...props} /> : <Redirect to="../signin" />} */}
+        {(isAuth === true) ? <Component {...props} /> : <Component {...props} />}
       {/* <Route
         render={ 
         // (isAuth == true) ? <Component {...props} /> :  <Redirect to="../signin" />
         }
         {...rest}
       /> */}
-      
+  
                     
       </div>
     )}

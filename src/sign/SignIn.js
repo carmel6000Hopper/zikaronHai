@@ -44,7 +44,8 @@ export class SignIn extends Component {
         return (
             <AuthConsumer>
                 {({ isAuth, login }) => (
-                    <form className="" onSubmit={ () => login(this.state.email, this.state.pass)}>
+                    // <form className="" onSubmit={ () => login(this.state.email, this.state.pass)}>
+                    <div className="">
                         <div className="row"><input className="input" id="email" type="text" dir="rtl" placeholder="כתובת אימייל" value={this.state.email} onChange={this.handleEmailChange} required="required" /></div>
                         <br />
                         <div className="row"><input className="input" id="pass" type="password" dir="rtl" placeholder="סיסמה" value={this.state.pass} onChange={this.handlePassChange} required="required" /></div>
@@ -55,13 +56,14 @@ export class SignIn extends Component {
                         </div>
                         <div className="row">
                             {!this.state.waitingForSignIn ?
-                                <button className="submit-btn" type="submit" disabled={isInvalid}>כניסה</button> :
+                                <button className="submit-btn" disabled={isInvalid} onClick={() => login(this.state.email, this.state.pass)}>כניסה</button> :
                                 <div>cmcmds</div>}
                         </div>
-                        <div>{isAuth ? <Redirect to='/camera'/> : null}</div>
-                    </form>
+                        <div>{isAuth === true ? <Redirect to='/camera'/> : null}</div>
+                    {/* </form> */}
+                    </div>
                 )}
-            </AuthConsumer>
+            </ AuthConsumer>
         );
 
     }
@@ -76,7 +78,7 @@ export class SignIn extends Component {
 
     handleSubmit(event, login) {
         login();
-        this.props.history.push('./camera');
+        //this.props.history.push('./camera');
         // event.preventDefault();
         // this.setState({ waitingForSignIn: true })
         // auth.doSignInWithEmailAndPassword(this.state.email, this.state.pass)

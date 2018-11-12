@@ -4,10 +4,12 @@ import { auth, firebase } from './firebase';
 
 // import components 
 import { UploadHandler } from './components/UploadHandler'
-import { Camera } from './components/Camera.js';
-import { Switch, Route, BrowserRouter } from 'react-router-dom';
+// import { Camera } from './components/Camera.js';
+import { TryCordovaCamera } from './components/TryCordovaCamera.js';
+import { Switch, Route, BrowserRouter, HashRouter } from 'react-router-dom';
 // import { DisplayMapOnScreen } from './components/Location.js';
 import { LocationGPS } from './components/LocationGPS.js';
+import {ReinitializePassMsg} from './components/ReinitializePassMsg.js'
 import { Menu } from './components/Menu.js';
 import { GPS } from './components/GPS.js';
 import Navigation from './sign/Navigation.js';
@@ -72,7 +74,8 @@ export class Main extends Component {
     return (
       <div className="App">
         <AuthProvider >
-          <BrowserRouter>
+          <HashRouter>
+          {/* <BrowserRouter> */}
             <Switch>
               <Route exact path="/" render={(props) =>
                 (<div>
@@ -80,7 +83,7 @@ export class Main extends Component {
                   <Navigation authUser={this.state.authUser} />
                 </div>)} />
 
-              <ProtectedRoute exact path="/camera"
+              {/* <ProtectedRoute exact path="/camera"
                 component ={(props) =>
                   (<div>
                     <Menu {...props} />
@@ -88,7 +91,16 @@ export class Main extends Component {
                       authUser={this.state.authUser}
                       finishTakingPicturesFunc={this.finishTakingPicturesFunc}
                       marginRight={this.state.marginRight}
-                       />
+                    />
+                  </div>)} /> */}
+              <ProtectedRoute exact path="/camera"
+                component ={(props) =>
+                  (<div>
+                    <Menu {...props} />
+                    <TryCordovaCamera {...props}/>
+                     {/* <Camera {...props} */}
+                      {/* // authUser={this.state.authUser}
+                    /> */}
                   </div>)} />
               <ProtectedRoute exact path="/upload" component ={(props) => (<div>
                     <Menu {...props} />
@@ -129,14 +141,22 @@ export class Main extends Component {
                   <SignIn {...props} />
                   {/* updateAuthUser = {this.updateAuthUser}/> */}
                 </div>)} />
+                <Route exact path="/reinitializepassmsg" render={(props) =>
+                (<div>
+                  <Menu {...props} />
+                  <ReinitializePassMsg {...props} />
+                  {/* updateAuthUser = {this.updateAuthUser}/> */}
+                </div>)} />
               <ProtectedRoute exact path="/signout" component={(props) =>
                 (<div>
                   <Menu {...props} />
                   <SignOut  {...props} />
                 </div>)} />
             </Switch>
-
-          </BrowserRouter>
+            
+          
+          </HashRouter>
+          {/* </BrowserRouter> */}
 
           <br /> <br />
           <img id="carmelLogo" src={carmelLogo} height="60" alt="carmel 6000 logo" />

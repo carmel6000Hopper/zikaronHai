@@ -1,6 +1,5 @@
 import React from 'react';
 
-import withAuthorization from './withAuthorization';
 
 const WelcomeMessage = () =>
     <div className="welcome-container ib">
@@ -11,7 +10,5 @@ const WelcomeMessage = () =>
     
 const HomePage = () =>
     <WelcomeMessage />
-
-const authCondition = (authUser) => !!authUser;
-
-export default withAuthorization(authCondition)(HomePage);
+ 
+export default HomePage;

@@ -157,7 +157,7 @@ export class SignUp extends Component {
                     <h1 className="tac ib">הרשמה</h1>
                     <div className="row" dir="rtl" >
                         <p className="Subtitle-1 inline" dir="rtl" >משתמש רשום? </p>
-                        <Link className="Subtitle-1 underline" to="/signin">כניסה לחשבון שלי</Link></div><br />
+                        <Link className="Subtitle-1 underline" to="/signin">פרופיל אישי</Link></div><br />
                     <form onSubmit={this.handleSubmit}>
                         {/* first name input */}
                         <div className="row" dir="rtl" >

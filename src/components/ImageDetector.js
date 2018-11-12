@@ -21,18 +21,18 @@ export class ImageDetector {
 
     checkForImageInDb() {
         this.checkClosestImageInDb();
-        // .then(function () {
-        // if (this.findCloseLocationImage === true) {
-        //     console.log("checkClosestImageInDb");
-        //     // TODO check if it is the same picture
-        //     return true;
-        // }
-        // else {
-        //     return false;
-        // }
-        return true;
-        // }).catch( err => { console.log(err); })
+        if (this.findCloseLocationImage === true) {
+            console.log("checkClosestImageInDb");
+            // TODO check if it is the same picture
+            return true;
+        }
+        else {
+            return false;
+        }
     }
+        //return true;
+        // }).catch( err => { console.log(err); })
+    
     checkClosestImageInDb() {
         console.log("checkClosestImageInDb");
         let geoQuery = this.geoFire.query({

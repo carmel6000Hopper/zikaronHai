@@ -1,60 +1,80 @@
 import React, { Component } from 'react';
-
 import { Link, BrowserRouter as Route } from 'react-router-dom';
 
 import { AuthConsumer } from '../sign/withAuthorization'
 import './Menu.css';
+<<<<<<< HEAD
 import x from '../images/menu-exit.png'
 // import {menuSign} from '../images/list-menu (1).png'
 
 
-
-
+=======
+import menuExitBtn from '../images/menu-exit.png'
+>>>>>>> 89818621dce4072f827536453b4955d07b75c523
 
 export class Menu extends Component {
-    openNav = () => {
-        console.log("Open Nav");
-        document.getElementById("mySidebar").style.width = "100%";
+
+    constructor(props) {
+        super(props);
+        this.navSignedInRef = React.createRef();
+        this.navVisitorRef = React.createRef();
     }
 
-    closeNav = () => {
-        console.log("close Nav");
-        document.getElementById("mySidebar").style.width = "0";
+    openNav = (navRef) => {
+        console.log("open Nav");
+        navRef.current.style.width = "100%";
     }
-    
+
+    closeNav = (navRef) => {
+        console.log("close Nav");
+        navRef.current.style.width = "0";
+    }
     MenuSignedIn = () =>
-        <div id="mySidebar" className="sidebar">
-            <img src={x} href="javascript:void(0)" className="closebtn" onClick={this.closeNav} />
+        <div ref={this.navSignedInRef} id="mySidebar" className="sidebar">
+            {/* <a href="javascript:void(0)" className="closebtn" onClick={this.closeNav}>×</a> */}
+            {/* <img src={x} href="javascript:void(0)" className="closebtn" onClick={this.closeNav} /> */}
+            <a href="javascript:void(0)" onClick={() => this.closeNav(this.navSignedInRef)}>
+                <img src={menuExitBtn} className="closebtn" alt="close-btn" />
+            </a>
             <div className="a-container">
-                <Link to ={'/camera'} onClick={this.closeNav}>הוספת שלט</Link>
-                <Link to ={'/upload'} onClick={this.closeNav}>upload</Link>
+                <Link to={'/camera'} onClick={() => this.closeNav(this.navSignedInRef)}>הוספת שלט</Link>
+                <Link to={'/upload'} onClick={() => this.closeNav(this.navSignedInRef)}>upload</Link>
                 <a>אודות</a>
-                <Link to ={'/gps'} onClick={this.closeNav}>מפה</Link>
-                <Link to ={'/account'} onClick={this.closeNav}>החשבון שלי</Link>
-                <Link to ={'/signout'} onClick={this.closeNav}>התנתק</Link>
+                <Link to={'/gps'} onClick={() => this.closeNav(this.navSignedInRef)}>מפה</Link>
+                <Link to={'/account'} onClick={() => this.closeNav(this.navSignedInRef)}>פרופיל אישי</Link>
+                <Link to={'/signout'} onClick={() => this.closeNav(this.navSignedInRef)}>התנתק</Link>
             </div>
         </div>
 
     MenuVisitor = () =>
-        <div id="mySidebar" className="sidebar">
-            <img src={x} href="javascript:void(0)" className="closebtn" onClick={this.closeNav} />
+        <div ref={this.navVisitorRef} id="mySidebar" className="sidebar">
+            {/* <a href="javascript:void(0)" className="closebtn" onClick={this.closeNav}>×</a> */}
+            {/* <img src={x} href="javascript:void(0)" className="closebtn" onClick={this.closeNav} /> */}
+            <a href="javascript:void(0)" onClick={() => this.closeNav(this.navVisitorRef)}>
+                <img src={menuExitBtn} className="closebtn" alt="close-btn" />
+            </a>
             <div className="a-container">
                 <a>אודות</a>
-                <Link to={'/signin'} onClick={this.closeNav}>כניסה כמשתמש</Link>
-                <Link to={'/gps'} onClick={this.closeNav}>מפה</Link>
+                <Link to={'/signin'} onClick={() => this.closeNav(this.navVisitorRef)}>כניסה כמשתמש</Link>
+                <Link to={'/gps'} onClick={() => this.closeNav(this.navVisitorRef)}>מפה</Link>
             </div>
         </div>
 
 
     render() {
         return (
-            <div>
                 <AuthConsumer>
-                    {isAuth => isAuth
-                        ? <this.MenuSignedIn />
-                        : <this.MenuVisitor />
-                    }
+                   {({isAuth}) =>( isAuth === true ?
+                        // <p>IS AUTh</p> : <p>IS not AUTH</p>
+                        (<div id="main"> <this.MenuSignedIn />
+                            <button className="openbtn" onClick={() => this.openNav(this.navSignedInRef)}>☰ זכרון חי</button>
+                        </div>)
+                        : (<div id="main"> <this.MenuVisitor />
+                            <button className="openbtn" onClick={() => this.openNav(this.navVisitorRef)}>☰ זכרון חי</button>
+                        </div>)
+                    ) }
                 </AuthConsumer>
+<<<<<<< HEAD
                 <div id="main" className="openbtn" onClick={this.openNav}>☰ </div>
                 {/* <div id="main" className="openbtn" onClick={this.openNav}>{menuSign}</div> */}
 
@@ -62,6 +82,8 @@ export class Menu extends Component {
                
 
             </div>
+=======
+>>>>>>> 89818621dce4072f827536453b4955d07b75c523
         );
 
     }

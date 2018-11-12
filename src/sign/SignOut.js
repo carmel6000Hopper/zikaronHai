@@ -21,7 +21,7 @@ export class SignOut extends Component {
                             type="button"
                             onClick={logout} >
                             Sign Out </button>
-                        <div> {isAuth == true ? null: (<Redirect to='/signin'/>) }</div>
+                        <div> {isAuth === true ? null: (<Redirect to='/signin'/>) }</div>
                     </div>
                 )}
 
