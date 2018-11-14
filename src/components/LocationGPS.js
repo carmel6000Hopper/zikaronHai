@@ -1,6 +1,7 @@
-import { DisplayMapOnScreen } from "./Location"
+import { DisplayMapOnScreen } from "./DisplayMap"
 import React, { Component } from 'react';
 import { stat } from "fs";
+import { dBRefImages, firebase } from '../firebase'
 
 export class LocationGPS extends Component {
     constructor(props) {
@@ -9,30 +10,41 @@ export class LocationGPS extends Component {
             outputPlace: "",
             imagePlaceSrc: "",
             currPlaceName: "",
-            markersPlace: [
-                {
-                    lng: 35.2067,
-                    lat: 31.801,
-                    placeName: "1"
-                },
-                {
-                    lng: 35.205,
-                    lat: 31.802,
-                    placeName: "2"
-                },
-                {
-                    lng: 35.207,
-                    lat: 31.8023,
-                    placeName: "3"
-                },
-                {
-                    lng: 35.2063,
-                    lat: 31.8014,
-                    placeName: "4"
-                }
-            ]
+            markersPlace: []
         }
     }
+
+    componentDidMount() {
+        this.getPlacesCoordinates();
+    }
+    getPlacesCoordinates = () => {
+        const fbD = firebase.database();
+        const dBRefI = fbD.ref();
+
+        //const dBRefI = fbD.ref();
+        console.log("fireBase images: ", dBRefI);
+        console.log("dbRefImages",dBRefImages);
+        var Places = this.state.markersPlace.slice();
+        dBRefI.once('value',  (snapshot) => {
+            console.log(snapshot);
+            console.log(snapshot.val());
+            // TODO find how to do once only for images
+            var images = snapshot.val().images;
+            let imagesValues = Object.values(images);
+            var keys = Object.keys(images)
+            var i = 0
+            imagesValues.map((image) =>
+                Places.push({ lng: image.gps_longitude, lat: image.gps_latitude, placeName: keys[i] }))
+                i = i+1
+            console.log("in get Places Coordinates");
+            console.log(Places);
+
+            this.setState({ markersPlace: Places })
+        }) ;
+        dBRefImages.off("value");
+      
+        }
+    
     onMarkerClicked = (place) => {
         let outputPlace = this.state.outputPlace;
         let imagePlaceSrc = this.imagePlaceSrc;
@@ -74,7 +86,6 @@ export class LocationGPS extends Component {
                         <h3>{this.state.outputPlace}</h3>
                         <h3>{this.state.imagePlaceSrc}</h3>
                         <img src={this.state.imagePlaceSrc}></img>
-                        {console.log("lat:::::", this.state.markersPlace)}
                     </div>}
             </div>
         );
