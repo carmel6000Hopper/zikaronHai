@@ -6,6 +6,7 @@
     "firebase": "^5.5.5",
     "geofire": "^4.1.2",
     "google-maps-react": "^2.0.2",
+    "node-gyp": "^3.6.1",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-google-maps": "^9.4.5",

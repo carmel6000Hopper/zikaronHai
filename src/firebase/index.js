@@ -3,7 +3,8 @@ import {
     firebase,
     storage,
     dBRefImages,
-    fbData
+    fbData,
+    dBRefUsers
 } from './firebase';
 
 export {
@@ -11,5 +12,6 @@ export {
     firebase,
     storage,
     dBRefImages,
-    fbData
+    fbData,
+    dBRefUsers
 };

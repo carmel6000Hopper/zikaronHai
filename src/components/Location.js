@@ -1,8 +1,11 @@
 import React from 'react'
 import { compose, withProps, componentFromProp } from "recompose"
 import { MapWithAMarker, withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
-import mapSign from '../images/locationSign.png';
-import yourLocation from '../images/map-placeholder.png';
+// import mapSign from '../images/locationSign.png';
+// import yourLocation from '../images/map-placeholder.png';
+import yourLocation from '../images/map-marker.png';
+import mapSign  from '../images/map-marker-signs.png';
+
 // --------------OLD CODE -------------------------------------------
 
 export const DisplayMapOnScreen = compose(

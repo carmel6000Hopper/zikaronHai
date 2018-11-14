@@ -22,6 +22,8 @@ import { AuthProvider } from './sign/withAuthorization'
 import carmelLogo from './images/carmel6000logo.jfif'
 import { PasswordForgetForm } from './sign/PasswordForget';
 import ProtectedRoute from './sign/ProtectedRoute';
+import ImageInfoPage from './components/ImageInfo';
+import FixSignTitlePage from './components/FixSignTitlePage';
 
 export class Main extends Component {
   constructor(props) {
@@ -118,7 +120,12 @@ export class Main extends Component {
                     longitude={this.state.longitude}
                     latitude={this.state.latitude} />
                 </div>)} />
-
+              <ProtectedRoute exact path="/imageinfo" component={(props) =>
+              (<div>
+                <Menu {...props} />
+                <ImageInfoPage {...props}/>
+              </div>)} />
+     
               <Route exact path="/forgetpass" render={(props) =>
                 (<div>
                   <Menu {...props} />
@@ -134,6 +141,11 @@ export class Main extends Component {
                 (<div>
                   <Menu {...props} />
                   <AccountPage  {...props} />
+                </div>)} />
+                <ProtectedRoute exact path="/fixtitle" component={(props) =>
+                (<div>
+                  <Menu {...props} />
+                  <FixSignTitlePage  {...props} />
                 </div>)} />
               <Route exact path="/signin" render={(props) =>
                 (<div>

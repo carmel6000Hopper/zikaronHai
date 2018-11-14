@@ -24,30 +24,28 @@ export class UploadHandler extends Component {
     // }
     componentWillMount() {
         const imageDetector = new ImageDetector(this.props.longitude, this.props.latitude, geoFire);
-        this.setState({ hasToUpload: imageDetector.checkForImageInDb()})
+        this.setState({ hasToUpload: imageDetector.checkForImageInDb() })
         // .then(function () {
-                console.log("Upload - Handler - componentWillMount")
-                console.log("hasToUpload is equal to ");
-                console.log(this.state.hasToUpload);
+        console.log("Upload - Handler - componentWillMount")
+        console.log("hasToUpload is equal to ");
+        console.log(this.state.hasToUpload);
 
-        }
-     
-        render() {
+    }
 
-                    console.log("in render hasToUpload is equal to ");
-                    console.log(this.state.hasToUpload);
-                    return(
-            <div>
-                {
-                    this.state.hasToUpload ? (
-                        < ImageUpload imageUrlArray={this.props.imageUrlArray}
-                            longitude={this.props.longitude}
-                            latitude={this.props.latitude}
-                            geoFire={geoFire} />
-                    ) : (
-                            <p>כבר קיים שלט במקום הצויין</p>
-                        )
-                }
+    render() {
+
+        console.log("in render hasToUpload is equal to ");
+        console.log(this.state.hasToUpload);
+        return (
+            <div>{
+                this.state.hasToUpload ? (
+                    < ImageUpload imageUrlArray={this.props.imageUrlArray}
+                        longitude={this.props.longitude}
+                        latitude={this.props.latitude}
+                        geoFire={geoFire} />)
+                    : ( <p>כבר קיים שלט במקום הצויין</p>
+)
+            }
             </div >
         );
     }

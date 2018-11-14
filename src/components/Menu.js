@@ -40,6 +40,7 @@ export class Menu extends Component {
                 <Link to={'/upload'} onClick={() => this.closeNav(this.navSignedInRef)}>upload</Link>
                 <a>אודות</a>
                 <Link to={'/gps'} onClick={() => this.closeNav(this.navSignedInRef)}>מפה</Link>
+                <Link to={'/imageinfo'} onClick={() => this.closeNav(this.navVisitorRef)}>מידע על התמונה </Link>
                 <Link to={'/account'} onClick={() => this.closeNav(this.navSignedInRef)}>פרופיל אישי</Link>
                 <Link to={'/signout'} onClick={() => this.closeNav(this.navSignedInRef)}>התנתק</Link>
             </div>
@@ -54,6 +55,7 @@ export class Menu extends Component {
             </a>
             <div className="a-container">
                 <a>אודות</a>
+                
                 <Link to={'/signin'} onClick={() => this.closeNav(this.navVisitorRef)}>כניסה כמשתמש</Link>
                 <Link to={'/gps'} onClick={() => this.closeNav(this.navVisitorRef)}>מפה</Link>
             </div>
@@ -67,10 +69,10 @@ export class Menu extends Component {
                    {({isAuth}) =>( isAuth === true ?
                         // <p>IS AUTh</p> : <p>IS not AUTH</p>
                         (<div > <this.MenuSignedIn />
-                            <div id="main" className="openbtn" onClick={() => this.openNav(this.navSignedInRef)}>זיכרון חי ☰</div>
+                            <div id="main" className="openbtn" onClick={() => this.openNav(this.navSignedInRef)}>זכרון חי ☰</div>
                         </div>)
                         : (<div > <this.MenuVisitor />
-                            <div id="main" className="openbtn" onClick={() => this.openNav(this.navVisitorRef)}>זיכרון חי ☰</div>
+                            <div id="main" className="openbtn" onClick={() => this.openNav(this.navVisitorRef)}>זכרון חי ☰</div>
                         </div>)
                     ) }
                 </AuthConsumer>
