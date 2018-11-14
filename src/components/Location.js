@@ -4,7 +4,7 @@ import { MapWithAMarker, withScriptjs, withGoogleMap, GoogleMap, Marker } from "
 // import mapSign from '../images/locationSign.png';
 // import yourLocation from '../images/map-placeholder.png';
 import yourLocation from '../images/map-marker.png';
-import mapSign  from '../images/map-marker-signs.png';
+import mapSign  from '../images/map-markers-signs.png';
 
 // --------------OLD CODE -------------------------------------------
 
