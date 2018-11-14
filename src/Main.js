@@ -79,7 +79,7 @@ export class Main extends Component {
             <Switch>
               <Route exact path="/" render={(props) =>
                 (<div>
-                  <Menu {...props} />
+                  <Menu {...props} path="/"/>
                   <Navigation authUser={this.state.authUser} />
                 </div>)} />
 

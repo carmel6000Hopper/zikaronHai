@@ -16,7 +16,7 @@ body {
 }
 
 .sidebar a {
-    padding: 8px 8px 8px 32px;
+    padding: 8px 8px 8px 8px;
     text-decoration: none;
     font-size: 150%;
     color: white;
@@ -39,22 +39,21 @@ a{
 }
 
 .sidebar .closebtn {
-    position: absolute;
+    /* position: absolute; */
     top: 0;
-    right: 25px;
+    /* right: 25px; */
     font-size: 36px;
-    margin-left: 50px;
+    /* margin-left: 50px; */
 }
 
-/* .openbtn {
+/* /* .openbtn {
     font-size: 20px;
     cursor: pointer;
     background-color: rgba(85, 83, 83, 0.842);
     color: white;
     /* padding: 10px 15px; */
-    /* border: none;
+    /* border: none;} */
     
-} */
 /* 
 .openbtn:hover {
 
@@ -75,34 +74,58 @@ a{
     transition: margin-left .5s;
     padding: 16px;
     /* background-color: rgba(85, 83, 83, 0.842); */
+}
 
+.container-closebtn{
+ 
+    display: flex;
+    justify-content: center;
+    
 }
 
 .closebtn{
-    margin-right: 570px; ;
-    margin-top: 40px; 
-    width: 38px;
+    flex-direction: center;
     
+    /* margin-right: 570px; ; */
+    /* margin-top: 40px;  */
+    width: 38px;
+
+
 }
+
 .closebtn:hover{
-    margin-right: 569px; ;
-    margin-top: 40px; 
+    /* margin-right: 569px; ; */
+    /* margin-top: 40px;  */
     width: 40px;
     /* text-align: center; */
 }
 
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 470px) {
     
     .sidebar {padding-top: 15px;
     background-color: #ff9966;}
     .sidebar a {font-size: 18px;}
-    .closebtn { margin-right: 38%;
-        margin-top: 25px; 
-        width: 35px;
-    }
+    /* .closebtn { margin-right: 38%; */
+        /* margin-top: 25px;  */
+        /* width: 35px; */
+    /* } */
+}
+/* 
+@media screen and (max-width: 400px) {
+    
+    .sidebar {padding-top: 10px;
+    background-color: #614b68;}
+    .sidebar a {font-size: 10px;}
 }
 
+@media screen and (max-width: 300px) {
+    
+    .sidebar {padding-top: 8px;
+    background-color: #2fcfad;}
+    .sidebar a {font-size: 8px;}
+}
+ */
 
 
 
