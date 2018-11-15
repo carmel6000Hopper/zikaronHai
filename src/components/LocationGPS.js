@@ -31,18 +31,22 @@ export class LocationGPS extends Component {
             // TODO find how to do once only for images
             var images = snapshot.val().images;
             let imagesValues = Object.values(images);
-            var keys = Object.keys(images)
+            let keys = Object.keys(images)
             var i = 0
             imagesValues.map((image) =>
-                Places.push({ lng: image.gps_longitude, lat: image.gps_latitude, placeName: keys[i] }))
-                i = i+1
+                Places.push({ lng: image.gps_longitude, lat: image.gps_latitude, placeName: keys[i] },
+                    i = i+1 )
+                )
+                
             console.log("in get Places Coordinates");
             console.log(Places);
 
             this.setState({ markersPlace: Places })
         }) ;
         dBRefImages.off("value");
-      
+        console.log("in get Places Coordinates - markersPlace2");
+        console.log(this.state.markersPlace2);
+
         }
     
     onMarkerClicked = (place) => {

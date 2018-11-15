@@ -48,9 +48,10 @@ export const DisplayMapOnScreen = compose(
           />
 
           {/* ------------------- diferent location Marker--------------------------------------- */}
-          { props.pos ? 
+          { props.markersPlace != [] ? 
             props.markersPlace.map((pos) => <Marker
-            position={{ lat: pos.latitude.toString(), lng: pos.longitude.toString()}}
+            // position={{ lat: pos.lat.toString(), lng: pos.lng.toString()}}
+            position={{ lat: pos.lat, lng: pos.lng}}
             onClick={() => props.onMarkerClicked(pos.placeName)}
             icon={mapSign}
             // icon="http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
