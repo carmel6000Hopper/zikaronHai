@@ -10,57 +10,57 @@ export class LocationGPS extends Component {
             outputPlace: "",
             imagePlaceSrc: "",
             currPlaceName: "",
-            markersPlace: []
+            markersPlace: [],
+
         }
     }
 
     componentDidMount() {
         this.getPlacesCoordinates();
     }
+
+    getPlaceImage = (key) => {
+        const stor = firebase.storage();
+        const storRef = stor.ref('images/' + key);
+        storRef.getDownloadURL().then( (url) => {
+            this.setState({ imagePlaceSrc: url })
+          }).catch(function(error) {
+            console.log(error)
+          })
+    }
+
     getPlacesCoordinates = () => {
         const fbD = firebase.database();
         const dBRefI = fbD.ref();
-
-        //const dBRefI = fbD.ref();
-        console.log("fireBase images: ", dBRefI);
-        console.log("dbRefImages",dBRefImages);
         var Places = this.state.markersPlace.slice();
-        dBRefI.once('value',  (snapshot) => {
-            console.log(snapshot);
-            console.log(snapshot.val());
-            // TODO find how to do once only for images
+        dBRefI.once('value', (snapshot) => {
             var images = snapshot.val().images;
             let imagesValues = Object.values(images);
             let keys = Object.keys(images)
             var i = 0
             imagesValues.map((image) =>
-                Places.push({ lng: image.gps_longitude, lat: image.gps_latitude, placeName: keys[i] },
-                    i = i+1 )
-                )
-                
-            console.log("in get Places Coordinates");
-            console.log(Places);
+                Places.push({ lng: image.gps_longitude, lat: image.gps_latitude, placeKey: keys[i], placeName: image.name },
+                    i = i + 1)
+            )
 
             this.setState({ markersPlace: Places })
-        }) ;
+        });
         dBRefImages.off("value");
-        console.log("in get Places Coordinates - markersPlace2");
-        console.log(this.state.markersPlace2);
+    }
 
-        }
-    
-    onMarkerClicked = (place) => {
+    onMarkerClicked = (placeKey, placeName) => {
         let outputPlace = this.state.outputPlace;
-        let imagePlaceSrc = this.imagePlaceSrc;
+        let imagePlaceSrc = this.state.imagePlaceSrc;
         let currPlaceName = this.state.currPlaceName;
-        if (currPlaceName !== place) {
-            outputPlace = "Place name " + place + " that need to change ";
-            imagePlaceSrc = "src that need to be in the img src"
-            currPlaceName = place;
+        let currPlaceKey = this.state.currPlaceKey;
+        if (currPlaceKey !== placeKey) {
+            outputPlace = "Place name " + placeName + " that need to change ";
+            this.getPlaceImage(placeKey);
+            currPlaceKey = placeKey;
+            currPlaceName = placeName;
             console.log("cuurent place is: ", currPlaceName);
             this.setState({ outputPlace: outputPlace });
-            this.setState({ imagePlaceSrc: imagePlaceSrc });
-            this.setState({ currPlaceName: currPlaceName });
+            this.setState({ currPlaceKey: currPlaceKey });
         }
         else {
             outputPlace = "";
@@ -74,6 +74,8 @@ export class LocationGPS extends Component {
 
         console.log("img src: ", this.state.imagePlaceSrc);
     }
+
+
     render() {
         return (
             <div>
@@ -88,7 +90,7 @@ export class LocationGPS extends Component {
                     :
                     <div>
                         <h3>{this.state.outputPlace}</h3>
-                        <h3>{this.state.imagePlaceSrc}</h3>
+                        {/* <h3>{this.state.imagePlaceSrc}</h3> */}
                         <img src={this.state.imagePlaceSrc}></img>
                     </div>}
             </div>
