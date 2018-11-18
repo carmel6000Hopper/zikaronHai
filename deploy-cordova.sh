@@ -9,7 +9,7 @@ rm $buildWWWDir/* -vrf
 
 cp build/* $buildWWWDir -rv
 
-sed -i 's/\/static\//static\//g' $buildWWWDir/index.html 
+#sed -i 's/\/static\//static\//g' $buildWWWDir/index.html 
 
 cd $buildRootDir
 

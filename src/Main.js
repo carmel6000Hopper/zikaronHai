@@ -5,7 +5,7 @@ import { auth, firebase } from './firebase';
 // import components 
 import { UploadHandler } from './components/UploadHandler'
 // import { Camera } from './components/Camera.js';
-import { TryCordovaCamera } from './components/TryCordovaCamera.js';
+import { Camera } from './components/TryCordovaCamera.js';
 import { Switch, Route, BrowserRouter, HashRouter } from 'react-router-dom';
 // import { DisplayMapOnScreen } from './components/Location.js';
 import { LocationGPS } from './components/LocationGPS.js';
@@ -99,7 +99,7 @@ export class Main extends Component {
                 component ={(props) =>
                   (<div>
                     <Menu {...props} />
-                    <TryCordovaCamera {...props}/>
+                    <Camera {...props}/>
                      {/* <Camera {...props} */}
                       {/* // authUser={this.state.authUser}
                     /> */}
