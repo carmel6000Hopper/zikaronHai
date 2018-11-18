@@ -52,7 +52,7 @@ export const DisplayMapOnScreen = compose(
             props.markersPlace.map((pos) => <Marker
             // position={{ lat: pos.lat.toString(), lng: pos.lng.toString()}}
             position={{ lat: pos.lat, lng: pos.lng}}
-            onClick={() => props.onMarkerClicked(pos.placeKey, pos.placeName)}
+            onClick={() => props.onMarkerClicked(pos.placeKey, pos.placeName, pos.userId)}
             icon={mapSign}
             // icon="http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
             className="map-sign"
