@@ -95,6 +95,7 @@ export class Main extends Component {
                       marginRight={this.state.marginRight}
                     />
                   </div>)} /> */}
+                  
               <ProtectedRoute exact path="/camera"
                 component ={(props) =>
                   (<div>
