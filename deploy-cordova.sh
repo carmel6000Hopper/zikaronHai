@@ -1,6 +1,6 @@
 #!/bin/bash
 
-buildRootDir=$HOME/projects/$1
+buildRootDir=$HOME/projects/zikaronHaiProject/$1
 buildWWWDir=$buildRootDir/www
 
 npm run build
